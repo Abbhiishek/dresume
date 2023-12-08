@@ -10,12 +10,8 @@ export default authMiddleware({
         }
 
         // handle users who are authenticated
-        if (auth.userId && auth.isPublicRoute) {
-            return { redirect: { destination: "/dashboard", permanent: false } };
-        }
     },
-    ignoredRoutes: ["/((?!api|trpc))(_next|.+\\..+)(.*)"],
-    publicRoutes: ["/", '/sign-in', '/sign-up', "/api/webhook/user"]
+    publicRoutes: ["/", "/api/webhook/user"]
 });
 
 
