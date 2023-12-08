@@ -15,7 +15,8 @@
     "lint": "next lint",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "dev": "cross-env NODE_OPTIONS='--inspect' next dev"
+    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.27.4",
