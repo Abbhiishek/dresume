@@ -1,6 +1,7 @@
 "use client"
 
 import { APP_DASHBOARD_LINK, APP_NAME } from '@/lib/contants'
+import { UserButton } from '@clerk/nextjs'
 import { Dialog } from '@headlessui/react'
 import { X as CrossIcon, MenuIcon } from 'lucide-react'
 import Link from 'next/link'
@@ -16,19 +17,12 @@ function NavBar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     return (
         <div className="sticky inset-x-0 top-0 z-50 border-b-2 shadow-2xl bg-background ">
-            <nav className="container flex items-center justify-between p-3 lg:px-8" aria-label="Global"
-            >
+            <nav className="container flex items-center justify-between p-3 lg:px-8" aria-label="Global">
                 <div className="flex lg:flex-1">
                     <Link href='/' passHref legacyBehavior>
                         <a className="-m-1.5 p-1.5">
                             <span className="sr-only">{APP_NAME}</span>
                             <div className='flex justify-center items-center gap-2'>
-                                {/* <Image
-                                    src="/bashschool.png"
-                                    alt="bash school logo"
-                                    width={50}
-                                    height={50}
-                                /> */}
                                 <TypographyLarge>{APP_NAME}</TypographyLarge>
                             </div>
                         </a>
@@ -56,6 +50,7 @@ function NavBar() {
                         <Button variant="default">Dashboard</Button>
                     </Link>
                     <ThemeModeToggle />
+                    <UserButton />
                 </div>
 
 
@@ -63,7 +58,7 @@ function NavBar() {
             </nav >
             <Dialog as="div" className=" lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
                 <div className="fixed inset-0 z-50 " />
-                <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full px-6 py-6 overflow-y-auto bg-white dark:bg-background sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+                <Dialog.Panel className="fixed  inset-y-0 right-0 z-50 w-full px-6 py-6 overflow-y-auto bg-white dark:bg-background sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                     <div className="flex items-center justify-end ">
                         <button
                             type="button"
@@ -95,8 +90,12 @@ function NavBar() {
                             </div>
                         </div>
                     </div>
-                    <ThemeModeToggle />
+                    <div className='flex flex-col gap-4'>
+                        <ThemeModeToggle />
+                        <UserButton />
+                    </div>
                 </Dialog.Panel>
+
             </Dialog>
         </div >
     )

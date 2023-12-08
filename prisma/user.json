@@ -1,0 +1,82 @@
+{
+    id: 'user_2ZDbenOGMjL80hkRiBms0TVeC7m',
+    passwordEnabled: false,
+    totpEnabled: false,
+    backupCodeEnabled: false,
+    twoFactorEnabled: false,
+    banned: false,
+    createdAt: 1701959694935,
+    updatedAt: 1702010023411,
+    imageUrl: 'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ2l0aHViL2ltZ18yWkRiZW1ieUVoSzF6cmhPeXlpZEdXUmFCNmIifQ',
+    hasImage: true,
+    gender: '',
+    birthday: '',
+    primaryEmailAddressId: 'idn_2ZDbelakW52zzSnq42BnjWkhoCH',
+    primaryPhoneNumberId: null,
+    primaryWeb3WalletId: null,
+    lastSignInAt: 1702010023388,
+    externalId: null,
+    username: 'abbhiishek',
+    firstName: 'Abhishek',
+    lastName: 'kushwaha',
+    publicMetadata: {},
+    privateMetadata: {},
+    unsafeMetadata: {},
+    emailAddresses: [
+      _EmailAddress {
+        id: 'idn_2ZDbelakW52zzSnq42BnjWkhoCH',
+        emailAddress: 'abhishekkushwaha1479@gmail.com',
+        verification: [_Verification],
+        linkedTo: [Array]
+      }
+    ],
+    phoneNumbers: [],
+    web3Wallets: [],
+    externalAccounts: [
+      _ExternalAccount {
+        id: 'eac_2ZDbek0vpwj9rqrdfmOojnx256s',
+        provider: 'oauth_github',
+        identificationId: 'idn_2ZDbekrqmU45nG2wV7CoymyrV4y',
+        externalId: '86338762',
+        approvedScopes: 'read:user user:email',
+        emailAddress: 'abhishekkushwaha1479@gmail.com',
+        firstName: 'Abhishek',
+        lastName: 'kushwaha',
+        imageUrl: 'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2F2YXRhcnMuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3UvODYzMzg3NjI/dj00IiwicyI6IjBWczUweER1SFh4Nlp3bDVkSTZ0UVU5UGtnQ3NEbkliYS9LcG1NZWhtcG8ifQ',
+        username: 'abbhiishek',
+        publicMetadata: {},
+        label: null,
+        verification: [_Verification]
+      },
+      _ExternalAccount {
+        id: 'idn_2ZDvDHQDnsqvuhqz49Bt8Ll8EbX',
+        provider: undefined,
+        identificationId: undefined,
+        externalId: undefined,
+        approvedScopes: 'email https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid profile',
+        emailAddress: 'abhishekkushwaha1479@gmail.com',
+        firstName: undefined,
+        lastName: undefined,
+        imageUrl: undefined,
+        username: null,
+        publicMetadata: {},
+        label: null,
+        verification: [_Verification]
+      },
+      _ExternalAccount {
+        id: 'eac_2ZDqMaBAINRcgjZU0RsudRbyEws',
+        provider: 'oauth_linkedin_oidc',
+        identificationId: 'idn_2ZDqMgtRRn9xRJikVGB3zzQn0nU',
+        externalId: 'qPWWeDAs-K',
+        approvedScopes: 'email openid profile',
+        emailAddress: 'abhishekkushwaha1479@gmail.com',
+        firstName: 'Abhishek',
+        lastName: 'Kushwaha',
+        imageUrl: 'https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL21lZGlhLmxpY2RuLmNvbS9kbXMvaW1hZ2UvRDU2MDNBUUdmbVg1RURTWWtGdy9wcm9maWxlLWRpc3BsYXlwaG90by1zaHJpbmtfMTAwXzEwMC8wLzE2Njk0NDIxMjA2MTk/ZT0xNzA3MzUwNDAwXHUwMDI2dj1iZXRhXHUwMDI2dD1PZmpPV3VpZTRvZi1NaHg0SlY4SVpoZURhbTFjWU42Q1hja0s3MWUydDRBIiwicyI6Im1WZm1rSy8vN0hDcjJ6Zk5hZ1FaVHpIemFwbnRMWVhEbXVzTi9yYm9zQVkifQ',  
+        username: null,
+        publicMetadata: {},
+        label: null,
+        verification: [_Verification]
+      }
+    ]
+  }
