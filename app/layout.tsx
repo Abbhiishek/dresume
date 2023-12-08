@@ -1,12 +1,12 @@
 
 import NavBar from '@/components/common/NavBar';
+import { Toaster } from "@/components/ui/toaster";
 import { APP_DESC, APP_NAME } from '@/lib/contants';
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Providers } from './NextUIProvider';
-import { ThemeProvider } from './ThemeProvider';
 import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
@@ -28,20 +28,14 @@ export default function RootLayout({
       }}
     >
       <html lang="en" >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Providers>
-            <body className={inter.className}>
-              <NavBar />
-              {children}
-            </body>
-          </Providers>
-        </ThemeProvider>
+        <Providers>
+          <body className={inter.className}>
+            <NavBar />
+            {children}
+            <Toaster />
+          </body>
+        </Providers>
       </html>
-    </ClerkProvider >
+    </ClerkProvider>
   );
 }

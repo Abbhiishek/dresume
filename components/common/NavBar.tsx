@@ -45,9 +45,9 @@ function NavBar() {
                 <div className="items-center hidden gap-5 mr-3 lg:flex lg:flex-1 lg:justify-end">
 
                     <Link href={APP_DASHBOARD_LINK} legacyBehavior
-                        className='w-6 h-6'
+                        className='w-6 h-6 rounded-3xl'
                     >
-                        <Button variant="default">Dashboard</Button>
+                        <Button variant="outline" className='rounded-3xl'>Dashboard</Button>
                     </Link>
                     <ThemeModeToggle />
                     <UserButton />
@@ -77,14 +77,9 @@ function NavBar() {
                                         key={item.name}
                                         href={item.href}
                                         legacyBehavior
+                                        className="block px-3 py-2 -mx-3 text-base font-semibold leading-7  rounded-lg "
                                     >
-                                        <a
-                                            key={item.name}
-                                            href={item.href}
-                                            className="block px-3 py-2 -mx-3 text-base font-semibold leading-7  rounded-lg "
-                                        >
-                                            {item.name}
-                                        </a>
+                                        {item.name}
                                     </Link>
                                 ))}
                             </div>

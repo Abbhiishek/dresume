@@ -9,10 +9,8 @@ import {
     SheetTitle,
     SheetTrigger
 } from "@/components/ui/sheet";
-import { SignOutButton } from "@clerk/nextjs";
-import { AwardIcon, BookIcon, DollarSignIcon, LucideLogOut, MenuIcon, PlusCircleIcon, Rss, TrafficCone } from "lucide-react";
+import { AwardIcon, BookIcon, DollarSignIcon, MenuIcon, PlusCircleIcon, Rss, TrafficCone } from "lucide-react";
 import Link from "next/link";
-import { Separator } from "../ui/separator";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { APP_NAME } from "@/lib/contants";
@@ -20,20 +18,14 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { TypographyLarge } from "../common/Typography";
 
-
 const DashboardNav = [
     { name: "Portfolio", icon: <PlusCircleIcon className="w-5 h-5" />, Link: "/dashboard/create", urlname: "create" },
-    { name: "My Portfoilo", icon: <AwardIcon className="w-5 h-5" />, Link: "/dashboard/portfolio", urlname: "portfolio" },
+    { name: "My Resume", icon: <AwardIcon className="w-5 h-5" />, Link: "/dashboard/portfolio", urlname: "resume" },
     { name: "Plans", icon: <DollarSignIcon className="w-5 h-5" />, Link: "/dashboard/plans", urlname: "plans" },
-    { name: "Usage", icon: <BookIcon className="w-5 h-5" />, Link: "/dashboard/usage", urlname: "usage" }
+    { name: "Usage", icon: <BookIcon className="w-5 h-5" />, Link: "/dashboard/usage", urlname: "usage" },
+    { name: "Explore", icon: <TrafficCone className="w-5 h-5" />, Link: "/community", urlname: "community" },
+    { name: "Give Feebback", icon: <Rss className="w-5 h-5" />, Link: "/dashboard/feedback", urlname: "feedback" },
 ]
-
-const DashboardSecondaryNav = [
-    { name: "Explore", icon: <TrafficCone className="w-5 h-5" />, link: "/community" },
-    { name: "Give Feebback", icon: <Rss className="w-5 h-5" />, link: "/dashboard/feedback" },
-]
-
-
 
 function SideNavBar() {
 
@@ -67,10 +59,6 @@ function SideNavBar() {
     )
 }
 
-export default SideNavBar
-
-
-
 
 
 const NavBarOptions = () => {
@@ -90,7 +78,7 @@ const NavBarOptions = () => {
                     <Link key={index} href={nav.Link} className="w-full">
                         <Button key={index}
                             onClick={() => setActive(nav.urlname)}
-                            variant={active === nav.urlname ? "default" : "outline"}
+                            variant={active === nav.urlname ? "default" : "bordered"}
                             className={`flex items-center justify-start w-full gap-2  rounded-3xl`}>
                             {nav.icon}
                             <span>{nav.name}</span>
@@ -98,26 +86,9 @@ const NavBarOptions = () => {
                     </Link>
                 ))
             }
-            {
-                DashboardSecondaryNav.map((nav, index) => (
-                    <Link key={index} href={nav.link} className="w-full">
-                        <Button
-                            variant="outline"
-                            className={`flex items-center justify-start w-full gap-2 rounded-3xl
-                                    `}>
-                            {nav.icon}
-                            <span>{nav.name}</span>
-                        </Button>
-                    </Link>
-                ))
-            }
-            <Separator />
-            <Button
-                variant="destructive"
-                className="flex items-center justify-start w-full gap-2 rounded-3xl"
-            >
-                <LucideLogOut className="w-5 h-5" /> <SignOutButton />
-            </Button>
         </div>
     )
 }
+
+export default SideNavBar;
+// export default dynamic(() => Promise.resolve(SideNavBar), { ssr: false })

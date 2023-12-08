@@ -1,21 +1,21 @@
 "use client"
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-
-import { TypographyLarge, TypographyMuted } from "@/components/common/Typography"
-import { Button } from "@/components/ui/button"
+import { TypographyMuted } from "@/components/common/Typography";
+import { Button } from "@/components/ui/button";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+    FormMessage
+} from "@/components/ui/form";
+import { useToast } from "@/components/ui/use-toast";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Textarea } from "@nextui-org/react";
+import axios from 'axios';
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+
 
 const formSchema = z.object({
     feedback: z.string().min(20, {
@@ -25,7 +25,7 @@ const formSchema = z.object({
 
 export default function FeedbackForm() {
 
-
+    const { toast } = useToast()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -34,15 +34,35 @@ export default function FeedbackForm() {
     })
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: z.infer<typeof formSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
+        await axios.post('/api/feedback', values)
+            .then(response => {
+                console.log(response);
+                // Handle success
+                if (response.status === 200) {
+                    form.reset()
+                    toast({
+                        title: "Feedback Noted",
+                        description: "Thanks for the Feedback 🙂",
+                    })
+                }
+
+            })
+            .catch(error => {
+                console.log(error);
+                // Handle error
+                toast({
+                    title: "Something Went Wrong",
+                    description: "Try Again Later :(",
+                })
+            });
         console.log(values)
     }
 
     return (
         <Form {...form}>
-            <TypographyLarge>FeedBack Form.</TypographyLarge>
             <TypographyMuted>Your Feedback makes us meet your expectations 🧑‍💻⭐</TypographyMuted>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
                 <FormField
@@ -50,13 +70,17 @@ export default function FeedbackForm() {
                     name="feedback"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>{field.name}</FormLabel>
                             <FormControl>
-                                <Input placeholder="shadcn" {...field} />
+                                <Textarea
+                                    variant="bordered"
+                                    disableAnimation
+                                    disableAutosize
+                                    classNames={{
+                                        base: "max-w-full",
+                                        input: "resize-y min-h-[40px]",
+                                    }}
+                                    placeholder="write your feedback here ....." {...field} />
                             </FormControl>
-                            <FormDescription>
-                                This is your public display name.
-                            </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
