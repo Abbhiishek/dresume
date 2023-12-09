@@ -2,16 +2,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { APP_DESC, APP_NAME } from '@/lib/contants';
 import { GeistSans } from 'geist/font/sans';
 import { Metadata } from "next";
-import { Acme } from 'next/font/google';
 import { Providers } from './NextUIProvider';
 import './globals.css';
 
-export const acme = Acme({
-    weight: '400',
-    style: ['normal'],
-    subsets: ['latin'],
-    display: 'swap',
-})
 const image = "https://vercel.pub/thumbnail.png";
 export const metadata: Metadata = {
     title: APP_NAME,
