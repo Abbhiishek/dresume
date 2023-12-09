@@ -15,7 +15,9 @@ model User {
   email          String               @unique
   firstname      String
   lastname       String
-  avatar         String               @default("")
+  bio            String               @default("")
+  tagline        String               @default("Hey 🙌! using DResume.in")
+  avatar         String?              @default("")
   created_at     DateTime             @default(now()) @db.Timestamptz(6)
   updated_at     DateTime             @default(now()) @db.Timestamptz(6)
   attributes     Json                 @default("{}")
@@ -27,6 +29,10 @@ model User {
   resume         Resume[]
   Blog           Blog[]
   site           Site[]
+  twitterid      String?              @default("")
+  githubid       String?              @default("")
+  linkedinid     String?              @default("")
+  websiteurl     String?              @default("")
 
   @@index([username])
   @@map("user")

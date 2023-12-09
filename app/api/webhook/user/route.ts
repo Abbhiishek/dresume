@@ -29,12 +29,15 @@ async function handler(request: Request) {
 
     const eventType: EventType = evt.type;
     if (eventType === "user.created" || eventType === "user.updated") {
+
         const { id,
             username,
             email_addresses,
             first_name,
             last_name,
-            ...attributes } = evt.data;
+            image_url,
+            ...attributes
+        } = evt.data;
 
         await prisma.user.upsert({
             where: { id: id as string },
@@ -44,6 +47,7 @@ async function handler(request: Request) {
                 email: email_addresses[0].email_address as string,
                 firstname: first_name as string || "",
                 lastname: last_name as string || "",
+                avatar: image_url,
                 attributes: attributes
             },
             update: {
