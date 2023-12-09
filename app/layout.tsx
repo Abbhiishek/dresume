@@ -28,13 +28,13 @@ export default function RootLayout({
       }}
     >
       <html lang="en" >
-        <Providers>
-          <body className={inter.className}>
+        <body className={inter.className}>
+          <Providers>
             <NavBar />
             {children}
             <Toaster />
-          </body>
-        </Providers>
+          </Providers>
+        </body>
       </html>
     </ClerkProvider>
   );
