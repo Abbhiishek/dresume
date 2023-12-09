@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/db";
+import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 
 export const dynamic = 'force-dynamic'

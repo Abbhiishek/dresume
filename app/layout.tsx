@@ -1,41 +1,50 @@
-
-import NavBar from '@/components/common/NavBar';
 import { Toaster } from "@/components/ui/toaster";
 import { APP_DESC, APP_NAME } from '@/lib/contants';
-import { ClerkProvider } from '@clerk/nextjs';
-import { dark } from '@clerk/themes';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { GeistSans } from 'geist/font/sans';
+import { Metadata } from "next";
+import { Acme } from 'next/font/google';
 import { Providers } from './NextUIProvider';
 import './globals.css';
-const inter = Inter({ subsets: ['latin'] });
 
+export const acme = Acme({
+    weight: '400',
+    style: ['normal'],
+    subsets: ['latin'],
+    display: 'swap',
+})
+const image = "https://vercel.pub/thumbnail.png";
 export const metadata: Metadata = {
-  title: APP_NAME,
-  description: APP_DESC,
+    title: APP_NAME,
+    description: APP_DESC,
+    icons: ["https://vercel.pub/favicon.ico"],
+    openGraph: {
+        title: APP_NAME,
+        description: APP_DESC,
+        images: [image],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: APP_NAME,
+        description: APP_DESC,
+        images: [image],
+        creator: "@abhishekkushwaha",
+    },
+    metadataBase: new URL("https://vercel.pub"),
 };
 
 export default function RootLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: dark,
-        variables: { colorPrimary: 'green' }
-      }}
-    >
-      <html lang="en" >
-        <body className={inter.className}>
-          <Providers>
-            <NavBar />
-            {children}
-            <Toaster />
-          </Providers>
-        </body>
-      </html>
-    </ClerkProvider>
-  );
+    return (
+        <html lang="en" suppressHydrationWarning>
+            <body className={GeistSans.className} >
+                <Providers>
+                    {children}
+                    <Toaster />
+                </Providers>
+            </body>
+        </html>
+    );
 }

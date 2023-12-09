@@ -10,17 +10,26 @@ datasource db {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model User {
-  id         String   @id
-  username   String   @unique
-  email      String   @unique
-  firstname  String
-  lastname   String
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  updated_at DateTime @default(now()) @db.Timestamptz(6)
-  attributes Json   @default("{}")
-  feedback   Feedback[] 
-  @@map("user")
+  id             String               @id
+  username       String               @unique
+  email          String               @unique
+  firstname      String
+  lastname       String
+  avatar         String               @default("")
+  created_at     DateTime             @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime             @default(now()) @db.Timestamptz(6)
+  attributes     Json                 @default("{}")
+  feedback       Feedback[]
+  education      UserEducation[]
+  workexperience UserWorkExperience[]
+  certificates   UserCertificate[]
+  projects       projects[]
+  resume         Resume[]
+  Blog           Blog[]
+  site           Site[]
+
   @@index([username])
+  @@map("user")
 }
 
 // model that store feedbacks for the user.
@@ -31,13 +40,150 @@ enum FeedbackType {
 }
 
 model Feedback {
-  id         BigInt   @id @default(autoincrement())
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  user_id    String
-  user       User     @relation(fields: [user_id], references: [id])
-  feedback   String
-  feedback_type  String
-  feedback_date  DateTime @default(now())
-  feedback_note  String?
+  id              BigInt   @id @default(autoincrement())
+  created_at      DateTime @default(now()) @db.Timestamptz(6)
+  user_id         String
+  user            User     @relation(fields: [user_id], references: [id])
+  feedback        String
+  feedback_type   String
+  feedback_date   DateTime @default(now())
+  feedback_note   String?
   feedback_action String?
+}
+
+model UserEducation {
+  id                BigInt    @id @default(autoincrement())
+  created_at        DateTime  @default(now()) @db.Timestamptz(6)
+  user_id           String
+  user              User      @relation(fields: [user_id], references: [id])
+  school_name       String
+  school_location   String?
+  school_degree     String?
+  school_major      String?
+  school_start_date DateTime?
+  school_end_date   DateTime?
+  education_note    String?
+  site              Site?     @relation(fields: [siteId], references: [id])
+  siteId            String?
+}
+
+model UserWorkExperience {
+  id                 BigInt    @id @default(autoincrement())
+  created_at         DateTime  @default(now()) @db.Timestamptz(6)
+  user_id            String
+  user               User      @relation(fields: [user_id], references: [id])
+  company_name       String
+  company_location   String?
+  company_position   String
+  company_start_date DateTime
+  still_working      Boolean
+  company_end_date   DateTime?
+  company_note       String?
+  site               Site?     @relation(fields: [siteId], references: [id])
+  siteId             String?
+}
+
+model UserCertificate {
+  id                      BigInt   @id @default(autoincrement())
+  created_at              DateTime @default(now()) @db.Timestamptz(6)
+  user_id                 String
+  user                    User     @relation(fields: [user_id], references: [id])
+  certificate_name        String
+  certificate_issued_date DateTime
+  certificate_issued_by   String
+  certificate_url         String
+  certificate_verify_link String?
+  certificate_note        String?
+  site                    Site?    @relation(fields: [siteId], references: [id])
+  siteId                  String?
+}
+
+model projects {
+  id          BigInt   @id @default(autoincrement())
+  name        String
+  description String?
+  url         String?
+  skils       String[]
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @default(now()) @db.Timestamptz(6)
+  user_id     String
+  user        User     @relation(fields: [user_id], references: [id])
+  site        Site?    @relation(fields: [siteId], references: [id])
+  siteId      String?
+
+  @@map("projects")
+}
+
+model Resume {
+  id          BigInt   @id @default(autoincrement())
+  name        String
+  description String?
+  url         String?
+  file_path   String // Path to the resume file
+  file_name   String // Original name of the resume file
+  file_type   String // Type of the resume file (e.g., PDF, DOCX)
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @default(now()) @db.Timestamptz(6)
+  user_id     String
+  user        User     @relation(fields: [user_id], references: [id])
+  site        Site?    @relation(fields: [siteId], references: [id])
+  siteId      String?
+
+  @@map("resume")
+}
+
+model Blog {
+  id            String   @id @default(cuid())
+  title         String?  @db.Text
+  description   String?  @db.Text
+  content       String?  @db.Text
+  slug          String   @default(cuid())
+  image         String?  @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png") @db.Text
+  imageBlurhash String?  @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC") @db.Text
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  published     Boolean  @default(false)
+  siteId        String?
+  user          User?    @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId        String?
+  site          Site?    @relation(fields: [siteId], references: [id])
+
+  @@unique([slug])
+  @@index([userId])
+  @@map("blog")
+}
+
+model Site {
+  id             String               @id @default(cuid())
+  name           String?
+  description    String?              @db.Text
+  logo           String?              @db.Text
+  font           String               @default("font-cal")
+  image          String?              @default("https://public.blob.vercel-storage.com/eEZHAoPTOBSYGBE3/hxfcV5V-eInX3jbVUhjAt1suB7zB88uGd1j20b.png") @db.Text
+  imageBlurhash  String?              @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC") @db.Text
+  subdomain      String?              @unique
+  customDomain   String?              @unique
+  message404     String?              @default("Blimey! You've found a page that doesn't exist.") @db.Text
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  user           User?                @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId         String?
+  education      UserEducation[]
+  workexperience UserWorkExperience[]
+  certificates   UserCertificate[]
+  projects       projects[]
+  resume         Resume[]
+  Blog           Blog[]
+
+  @@index([userId])
+}
+
+model Example {
+  id            Int     @id @default(autoincrement())
+  name          String?
+  description   String? @db.Text
+  domainCount   Int?
+  url           String?
+  image         String? @db.Text
+  imageBlurhash String? @db.Text
 }
