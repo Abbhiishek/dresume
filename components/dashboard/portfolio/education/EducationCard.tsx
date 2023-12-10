@@ -48,11 +48,11 @@ function EducationCard({ data }: { data: UserEducation }) {
                                     if (res.error) {
                                         console.log(res.error)
                                     } else {
-                                        va.track("Deleted Post");
+                                        va.track("Deleted educations");
                                         router.refresh();
                                         toast({
                                             title: "Success",
-                                            description: "Successfully deleted post!",
+                                            description: "Successfully deleted education!",
                                         });
                                     }
                                 })

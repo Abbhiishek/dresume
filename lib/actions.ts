@@ -461,7 +461,7 @@ export const editUser = async (
 
 
 
-export const addEducation = async (formData: FormData) => {
+export const addEducation = async (formData: FormData, key: string, slug: string) => {
     const session = auth();
     if (!session.userId) {
         return {
@@ -477,8 +477,10 @@ export const addEducation = async (formData: FormData) => {
     const education_note = formData.get("education_note") as string;
 
     try {
-        const response = await prisma.userEducation.create({
+        let response;
+        response = await prisma.userEducation.create({
             data: {
+                user_id: session.userId,
                 school_name,
                 school_location,
                 school_degree,
@@ -486,11 +488,11 @@ export const addEducation = async (formData: FormData) => {
                 school_start_date: new Date(school_start_date),
                 school_end_date: new Date(school_end_date),
                 education_note,
-                user: {
+                site: {
                     connect: {
-                        id: session.userId,
-                    },
-                },
+                        id: slug
+                    }
+                }
             },
         });
         return response;

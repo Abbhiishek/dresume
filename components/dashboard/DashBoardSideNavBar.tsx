@@ -9,7 +9,7 @@ import {
     SheetTitle,
     SheetTrigger
 } from "@/components/ui/sheet";
-import { ArrowLeft, AwardIcon, BarChart3, BookCheck, Boxes, CircleUser, LayoutDashboard, MenuIcon, Newspaper, Projector, Rss, Settings2, UserCircle, WorkflowIcon } from "lucide-react";
+import { ArrowLeft, BarChart3, Boxes, CircleUser, LayoutDashboard, MenuIcon, Newspaper, Rss, Settings2, UserCircle } from "lucide-react";
 import Link from "next/link";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -114,34 +114,6 @@ const NavBarOptions = () => {
                     Link: `/dashboard/settings`,
                     urlname: "settings",
                     isActive: segments.length === 1,
-                },
-                {
-                    name: "Education",
-                    icon: <BookCheck width={18} />,
-                    Link: `/dashboard/settings/education`,
-                    urlname: "education",
-                    isActive: segments.includes("education"),
-                },
-                {
-                    name: "Work Exp",
-                    icon: <WorkflowIcon className="w-5 h-5" />,
-                    Link: `/dashboard/settings/workexperience`,
-                    urlname: "workexperience",
-                    isActive: segments.includes("workexperience"),
-                },
-                {
-                    name: "Certificates",
-                    icon: <AwardIcon className="w-5 h-5" />,
-                    Link: `/dashboard/settings/certificates`,
-                    urlname: "certificates",
-                    isActive: segments.includes("certificates"),
-                },
-                {
-                    name: "Projects",
-                    icon: <Projector className="w-5 h-5" />,
-                    Link: `/dashboard/settings/projects`,
-                    urlname: "projects",
-                    isActive: segments.includes("projects"),
                 },
             ];
         }
