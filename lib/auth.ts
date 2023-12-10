@@ -59,3 +59,33 @@ export function withBlogAuth(action: any) {
         return action(formData, post, key);
     };
 }
+
+
+export function withEducationAuth(action: any) {
+    return async (
+        postId: bigint,
+        key: string | null,
+    ) => {
+        const session = auth();
+        if (!session.userId) {
+            return {
+                error: "Not authenticated",
+            };
+        }
+        const post = await prisma.userEducation.findUnique({
+            where: {
+                id: postId,
+            },
+            include: {
+                site: true,
+            },
+        });
+        if (!post || post.user_id !== session.userId) {
+            return {
+                error: "Post not found",
+            };
+        }
+
+        return action(post, key);
+    };
+}
