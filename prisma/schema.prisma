@@ -39,11 +39,6 @@ model User {
 }
 
 // model that store feedbacks for the user.
-enum FeedbackType {
-  FEATUREREQUEST
-  BUGREPORT
-  OTHER
-}
 
 model Feedback {
   id              BigInt   @id @default(autoincrement())

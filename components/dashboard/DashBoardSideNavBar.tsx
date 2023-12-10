@@ -9,27 +9,17 @@ import {
     SheetTitle,
     SheetTrigger
 } from "@/components/ui/sheet";
-import { Boxes, CircleUser, LayoutDashboard, MenuIcon, Rss, Settings2 } from "lucide-react";
+import { ArrowLeft, AwardIcon, BarChart3, BookCheck, Boxes, CircleUser, LayoutDashboard, MenuIcon, Newspaper, Projector, Rss, Settings2, UserCircle, WorkflowIcon } from "lucide-react";
 import Link from "next/link";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { getSiteFromPostId } from "@/lib/actions";
 import { APP_NAME } from "@/lib/contants";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useParams, useSelectedLayoutSegments } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import { TypographyLarge } from "../common/Typography";
 
-const DashboardNav = [
-    { name: "OverView", icon: <LayoutDashboard className="w-5 h-5" />, Link: "/dashboard", urlname: "dashboard" },
-    { name: "Portfolio", icon: <CircleUser className="w-5 h-5" />, Link: "/dashboard/portfolio", urlname: "portfolio" },
-    { name: "Settings", icon: <Settings2 className="w-5 h-5" />, Link: "/dashboard/settings", urlname: "settings" },
-    // { name: "Plans", icon: <DollarSignIcon className="w-5 h-5" />, Link: "/dashboard/plans", urlname: "plans" },
-    // { name: "Usage", icon: <BookIcon className="w-5 h-5" />, Link: "/dashboard/usage", urlname: "usage" },
-    { name: "Explore", icon: <Boxes className="w-5 h-5" />, Link: "/community", urlname: "community" },
-    { name: "Give Feebback", icon: <Rss className="w-5 h-5" />, Link: "/dashboard/feedback", urlname: "feedback" },
-]
-
 function SideNavBar() {
-
     return (
         <>
             <div className="flex-col hidden h-screen gap-5 mb-10 lg:flex basis-1/5">
@@ -63,23 +53,147 @@ function SideNavBar() {
 
 
 const NavBarOptions = () => {
-
-    const pathname = usePathname();
-    const [active, setActive] = useState(usePathname().split('/').pop());
-
+    const segments = useSelectedLayoutSegments();
+    const { slug } = useParams() as { slug?: string };
+    const [siteId, setSiteId] = useState<string | null>();
     useEffect(() => {
-        setActive(pathname.split('/').pop());
-    }, [pathname])
+        if (segments[0] === "blog" && slug) {
+            getSiteFromPostId(slug).then((slug) => {
+                setSiteId(slug);
+            });
+        }
+    }, [segments, slug]);
+
+
+
+    console.log(segments)
+
+
+    const tabs = useMemo(() => {
+        if (segments[0] === "portfolio" && slug) {
+            return [
+                {
+                    name: "Back to All Portfolio",
+                    icon: <ArrowLeft width={18} />,
+                    Link: "/dashboard/portfolio",
+                    urlname: "portfolio"
+                },
+                {
+                    name: "Overview",
+                    icon: <Newspaper width={18} />,
+                    Link: `/dashboard/portfolio/${slug}`,
+                    isActive: segments.length === 2,
+                },
+                {
+                    name: "Analytics",
+                    icon: <BarChart3 width={18} />,
+                    Link: `/dashboard/portfolio/${slug}/analytics`,
+                    urlname: "analytics",
+                    isActive: segments.includes("analytics"),
+                },
+                {
+                    name: "Settings",
+                    icon: <Settings2 className="w-5 h-5" />,
+                    Link: `/dashboard/portfolio/${slug}/settings`,
+                    urlname: "settings",
+                    isActive: segments.includes("settings"),
+                },
+            ];
+        } else if (segments[0] === "settings") {
+            // for only settings navs .......
+            return [
+                {
+                    name: "Back to DashBoard",
+                    icon: <ArrowLeft width={18} />,
+                    Link: "/dashboard",
+                    urlname: "dashboard"
+                },
+                {
+                    name: "User Settings",
+                    icon: <UserCircle width={18} />,
+                    Link: `/dashboard/settings`,
+                    urlname: "settings",
+                    isActive: segments.length === 1,
+                },
+                {
+                    name: "Education",
+                    icon: <BookCheck width={18} />,
+                    Link: `/dashboard/settings/education`,
+                    urlname: "education",
+                    isActive: segments.includes("education"),
+                },
+                {
+                    name: "Work Exp",
+                    icon: <WorkflowIcon className="w-5 h-5" />,
+                    Link: `/dashboard/settings/workexperience`,
+                    urlname: "workexperience",
+                    isActive: segments.includes("workexperience"),
+                },
+                {
+                    name: "Certificates",
+                    icon: <AwardIcon className="w-5 h-5" />,
+                    Link: `/dashboard/settings/certificates`,
+                    urlname: "certificates",
+                    isActive: segments.includes("certificates"),
+                },
+                {
+                    name: "Projects",
+                    icon: <Projector className="w-5 h-5" />,
+                    Link: `/dashboard/settings/projects`,
+                    urlname: "projects",
+                    isActive: segments.includes("projects"),
+                },
+            ];
+        }
+        // default one at root .........
+        return [
+            {
+                name: "Overview",
+                Link: "/dashboard",
+                urlname: "dashboard",
+                isActive: segments.length === 0,
+                icon: <LayoutDashboard className="w-5 h-5" />,
+            },
+            {
+                name: "Portfolio",
+                Link: "/dashboard/portfolio",
+                urlname: "portfolio",
+                isActive: segments[0] === "portfolio",
+                icon: <CircleUser className="w-5 h-5" />,
+            },
+            {
+                name: "Settings",
+                Link: "/dashboard/settings",
+                urlname: "settings",
+                isActive: segments[0] === "settings",
+                icon: <Settings2 className="w-5 h-5" />,
+            },
+            {
+                name: "Explore",
+                Link: "/community",
+                urlname: "community",
+                isActive: segments[0] === "community",
+                icon: <Boxes className="w-5 h-5" />,
+            },
+            {
+                name: "Give Feebback",
+                Link: "/dashboard/feedback",
+                urlname: "feedback",
+                isActive: segments[0] === "feedback",
+                icon: <Rss className="w-5 h-5" />,
+            }
+        ];
+    }, [segments, slug])
+
 
 
     return (
         <div className="flex flex-col items-start justify-center gap-5">
             {
-                DashboardNav.map((nav, index) => (
+                tabs.map((nav, index) => (
                     <Link key={index} href={nav.Link} className="w-full">
                         <Button key={index}
-                            onClick={() => setActive(nav.urlname)}
-                            variant={active === nav.urlname ? "default" : "bordered"}
+                            variant={nav.isActive ? "default" : "bordered"}
                             className={`flex items-center justify-start w-full gap-2  rounded-3xl`}>
                             {nav.icon}
                             <span>{nav.name}</span>
@@ -92,4 +206,3 @@ const NavBarOptions = () => {
 }
 
 export default SideNavBar;
-// export default dynamic(() => Promise.resolve(SideNavBar), { ssr: false })
