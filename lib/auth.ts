@@ -63,7 +63,7 @@ export function withBlogAuth(action: any) {
 
 export function withEducationAuth(action: any) {
     return async (
-        postId: bigint,
+        postId: number,
         key: string | null,
     ) => {
         const session = auth();
