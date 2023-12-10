@@ -14,7 +14,14 @@ export async function getSiteData(domain: string) {
         async () => {
             return prisma.site.findUnique({
                 where: subdomain ? { subdomain } : { customDomain: domain },
-                include: { user: true },
+                include: {
+                    user: true,
+                    education: true,
+                    workexperience: true,
+                    projects: true,
+                    certificates: true,
+                    Blog: true
+                },
             });
         },
         [`${domain}-metadata`],
@@ -26,7 +33,7 @@ export async function getSiteData(domain: string) {
 }
 
 
-export async function getPostsForSite(domain: string) {
+export async function getBlogsForSite(domain: string) {
     const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
         ? domain.replace(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
         : null;

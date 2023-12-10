@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/lib/db";
-import { Blog, Site } from "@prisma/client";
+import { Blog, Site, UserEducation } from "@prisma/client";
 import { nanoid } from "nanoid";
 import { revalidateTag } from "next/cache";
 
@@ -15,7 +15,7 @@ import {
 import { getBlurDataURL } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { put } from '@vercel/blob';
-import { withBlogAuth, withSiteAuth } from "./auth";
+import { withBlogAuth, withEducationAuth, withSiteAuth } from "./auth";
 
 
 
@@ -460,3 +460,72 @@ export const editUser = async (
 };
 
 
+
+export const addEducation = async (formData: FormData, key: string, slug: string) => {
+    const session = auth();
+    if (!session.userId) {
+        return {
+            error: "Not authenticated",
+        };
+    }
+    const school_name = formData.get("school_name") as string;
+    const school_location = formData.get("school_location") as string;
+    const school_degree = formData.get("school_degree") as string;
+    const school_major = formData.get("school_major") as string;
+    const school_start_date = formData.get("school_start_date") as string;
+    const school_end_date = formData.get("school_end_date") as string;
+    const education_note = formData.get("education_note") as string;
+
+    try {
+        let response;
+        response = await prisma.userEducation.create({
+            data: {
+                user_id: session.userId,
+                school_name,
+                school_location,
+                school_degree,
+                school_major,
+                school_start_date: new Date(school_start_date),
+                school_end_date: new Date(school_end_date),
+                education_note,
+                site: {
+                    connect: {
+                        id: slug
+                    }
+                }
+            },
+        });
+        return response;
+    } catch (error: any) {
+        if (error.code === "P2002") {
+            return {
+                error: `something happend unexpected 😢`,
+            };
+        } else {
+            return {
+                error: error.message,
+            };
+        }
+    }
+
+
+
+}
+
+export const deleteEducation = withEducationAuth(async (education: UserEducation) => {
+    try {
+        const response = await prisma.userEducation.delete({
+            where: {
+                id: education.id,
+            },
+            select: {
+                siteId: true,
+            },
+        });
+        return response;
+    } catch (error: any) {
+        return {
+            error: error.message,
+        };
+    }
+});

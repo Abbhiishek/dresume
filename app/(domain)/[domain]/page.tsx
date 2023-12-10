@@ -2,7 +2,7 @@
 // import BlurImage from "@/components/blur-image";
 import { TypographyLarge } from "@/components/common/Typography";
 import prisma from "@/lib/db";
-import { getPostsForSite, getSiteData } from "@/lib/fetchers";
+import { getBlogsForSite, getSiteData } from "@/lib/fetchers";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -40,16 +40,15 @@ export default async function SiteHomePage({
     const domain = decodeURIComponent(params.domain);
     const [data, posts] = await Promise.all([
         getSiteData(domain),
-        getPostsForSite(domain),
+        getBlogsForSite(domain),
     ]);
 
     if (!data) {
         notFound();
     }
-
     return (
         <main className="container text-center flex flex-col justify-center items-center ">
-            <TypographyLarge>Welcome to {data.user?.username} portfolio</TypographyLarge>
+            <TypographyLarge>Welcome to {data.name} portfolio</TypographyLarge>
             <Image
                 src={data.user?.avatar!}
                 width={500}
@@ -57,6 +56,15 @@ export default async function SiteHomePage({
                 className="rounded-full"
                 alt={data.user?.firstname!}
             />
+            <div className="w-full">
+
+                {
+                    JSON.stringify({
+                        data
+                    }, null, 2)
+                }
+
+            </div>
         </main>
     );
 }

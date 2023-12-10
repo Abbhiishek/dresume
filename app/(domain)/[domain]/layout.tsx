@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 // import CTA from "@/components/cta";
 // import ReportAbuse from "@/components/report-abuse";
-import { TypographyH1 } from "@/components/common/Typography";
 import { getSiteData } from "@/lib/fetchers";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
@@ -46,12 +45,12 @@ export async function generateMetadata({
         icons: [logo],
         metadataBase: new URL(`https://${domain}`),
         // Optional: Set canonical URL to custom domain if it exists
-        // ...(params.domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
-        //   data.customDomain && {
-        //     alternates: {
-        //       canonical: `https://${data.customDomain}`,
-        //     },
-        //   }),
+        ...(params.domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
+            data.customDomain && {
+            alternates: {
+                canonical: `https://${data.customDomain}`,
+            },
+        }),
     };
 }
 
@@ -81,8 +80,7 @@ export default async function HostedPortfolioLayout({
     }
 
     return (
-        <main className="text-center lg:container py-10 h-screen">
-            <TypographyH1>Domain page</TypographyH1>
+        <main className="text-center lg:container py-10 min-h-screen">
             {children}
         </main>
     );
