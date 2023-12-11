@@ -6,11 +6,11 @@ import { Providers } from './NextUIProvider';
 import './globals.css';
 
 
-const image = "https://vercel.pub/thumbnail.png";
+const image = "https://dresume.me/placeholder.png";
 export const metadata: Metadata = {
     title: APP_NAME,
     description: APP_DESC,
-    icons: ["https://vercel.pub/favicon.ico"],
+    icons: ["https://dresume.me/favicon.ico"],
     openGraph: {
         title: APP_NAME,
         description: APP_DESC,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         images: [image],
         creator: "@abhishekkushwaha",
     },
-    metadataBase: new URL("https://vercel.pub"),
+    metadataBase: new URL("https://dresume.me"),
 };
 
 export default function RootLayout({
