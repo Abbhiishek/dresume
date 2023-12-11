@@ -11,14 +11,14 @@ import { useToast } from "../ui/use-toast";
 
 
 export default function DeleteSiteForm({ siteName }: { siteName: string }) {
-    const { id } = useParams() as { id: string };
+    const { slug } = useParams() as { slug: string };
     const router = useRouter();
     const { toast } = useToast()
     return (
         <form
             action={async (data: FormData) =>
                 window.confirm("Are you sure you want to delete your site?") &&
-                deleteSite(data, id, "delete")
+                deleteSite(data, slug, "delete")
                     .then(async (res) => {
                         if (res.error) {
                             toast({
@@ -29,10 +29,10 @@ export default function DeleteSiteForm({ siteName }: { siteName: string }) {
                         } else {
                             va.track("Deleted Site");
                             router.refresh();
-                            router.push("/sites");
+                            router.push("/dashboard/portfolio");
                             toast({
                                 title: "🌱",
-                                description: `Successfully deleted site!`,
+                                description: `Successfully deleted Portfolio!`,
                             });
                         }
                     })
