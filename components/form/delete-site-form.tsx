@@ -2,6 +2,7 @@
 
 import { deleteSite } from "@/lib/actions";
 import { cn } from "@/lib/utils";
+import { Input } from "@nextui-org/react";
 import va from "@vercel/analytics";
 import { Loader2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -45,19 +46,19 @@ export default function DeleteSiteForm({ siteName }: { siteName: string }) {
             className="rounded-lg border border-red-600 bg-white dark:bg-black"
         >
             <div className="relative flex flex-col space-y-4 p-5 sm:p-10">
-                <h2 className="font-cal text-xl dark:text-white">Delete Site</h2>
+                <h2 className="font-title text-xl dark:text-white">Delete Site</h2>
                 <p className="text-sm text-stone-500 dark:text-stone-400">
                     Deletes your site and all posts associated with it. Type in the name
                     of your site <b>{siteName}</b> to confirm.
                 </p>
 
-                <input
+                <Input
                     name="confirm"
                     type="text"
                     required
                     pattern={siteName}
                     placeholder={siteName}
-                    className="w-full max-w-md rounded-md border border-stone-300 text-sm text-stone-900 placeholder-stone-300 focus:border-stone-500 focus:outline-none focus:ring-stone-500 dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700"
+                    className="w-full max-w-md rounded-md  border-red-600 text-sm text-stone-900 placeholder-stone-300 focus:border-stone-500 focus:outline-none focus:ring-stone-500 dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700 active:border-red-500"
                 />
             </div>
 

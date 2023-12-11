@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { Providers } from './NextUIProvider';
 import './globals.css';
 
+
 const image = "https://vercel.pub/thumbnail.png";
 export const metadata: Metadata = {
     title: APP_NAME,
@@ -33,6 +34,7 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={GeistSans.className} >
+                {/* <NextTopLoader /> */}
                 <Providers>
                     {children}
                     <Toaster />

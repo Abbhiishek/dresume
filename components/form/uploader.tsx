@@ -9,7 +9,7 @@ export default function Uploader({
     name,
 }: {
     defaultValue: string | null;
-    name: "image" | "avatar";
+    name: "image" | "avatar" | "logo";
 }) {
     const aspectRatio = name === "image" ? "aspect-video" : "aspect-square";
     const { toast } = useToast()

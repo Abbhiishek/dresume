@@ -2,6 +2,7 @@
 
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
+import { fontList } from "@/styles/fonts";
 import { Input, Textarea } from "@nextui-org/react";
 import va from "@vercel/analytics";
 import { Loader2 } from "lucide-react";
@@ -10,6 +11,7 @@ import { useFormStatus } from "react-dom";
 import DomainConfiguration from "./domain-configuration";
 import DomainStatus from "./domain-status";
 import Uploader from "./uploader";
+
 
 export default function Form({
     title,
@@ -31,7 +33,7 @@ export default function Form({
     };
     handleSubmit: any;
 }) {
-    const { id } = useParams() as { id?: string };
+    const { slug } = useParams() as { slug?: string };
     const router = useRouter();
     const { toast } = useToast()
     return (
@@ -45,7 +47,7 @@ export default function Form({
                 ) {
                     return;
                 }
-                handleSubmit(data, id, inputAttrs.name).then(async (res: any) => {
+                handleSubmit(data, slug, inputAttrs.name).then(async (res: any) => {
                     if (res.error) {
                         // toast.error(res.error);
                         console.log(res.error)
@@ -55,8 +57,8 @@ export default function Form({
                             variant: "destructive",
                         });
                     } else {
-                        va.track(`Updated ${inputAttrs.name}`, id ? { id } : {});
-                        if (id) {
+                        va.track(`Updated ${inputAttrs.name}`, slug ? { slug } : {});
+                        if (slug) {
                             router.refresh();
                         } else {
                             router.refresh();
@@ -71,11 +73,11 @@ export default function Form({
             className="rounded-lg border border-stone-200 bg-white dark:border-stone-700 dark:bg-black"
         >
             <div className="relative flex flex-col space-y-4 p-5 sm:p-10">
-                <h2 className="font-cal text-xl dark:text-white">{title}</h2>
+                <h2 className="font-title text-xl dark:text-white">{title}</h2>
                 <p className="text-sm text-stone-500 dark:text-stone-400">
                     {description}
                 </p>
-                {inputAttrs.name === "image" || inputAttrs.name === "avatar" ? (
+                {inputAttrs.name === "image" || inputAttrs.name === "avatar" || inputAttrs.name === "logo" ? (
                     <Uploader
                         defaultValue={inputAttrs.defaultValue}
                         name={inputAttrs.name}
@@ -87,17 +89,17 @@ export default function Form({
                             defaultValue={inputAttrs.defaultValue}
                             className="w-full rounded-none border-none bg-white px-4 py-2 text-sm font-medium text-stone-700 focus:outline-none focus:ring-black dark:bg-black dark:text-stone-200 dark:focus:ring-white"
                         >
-                            <option value="font-cal">Cal Sans</option>
-                            <option value="font-lora">Lora</option>
-                            <option value="font-work">Work Sans</option>
+                            {fontList.map((font, index) => {
+                                return <option key={index} value={font.value}>{font.name}</option>
+                            })}
                         </select>
                     </div>
                 ) : inputAttrs.name === "subdomain" ? (
                     <div className="flex w-full max-w-md">
-                        <input
+                        <Input
                             {...inputAttrs}
                             required
-                            className="z-10 flex-1 rounded-l-md border border-stone-300 text-sm text-stone-900 placeholder-stone-300 focus:border-stone-500 focus:outline-none focus:ring-stone-500 dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700"
+                            className="z-10 flex-1 rounded-l-md  text-sm text-stone-900 placeholder-stone-300 focus:border-stone-500 focus:outline-none focus:ring-stone-500 dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700"
                         />
                         <div className="flex items-center rounded-r-md border border-l-0 border-stone-300 bg-stone-100 px-3 text-sm dark:border-stone-600 dark:bg-stone-800 dark:text-stone-400">
                             {process.env.NEXT_PUBLIC_ROOT_DOMAIN}
@@ -105,7 +107,7 @@ export default function Form({
                     </div>
                 ) : inputAttrs.name === "customDomain" ? (
                     <div className="relative flex w-full max-w-md">
-                        <input
+                        <Input
                             {...inputAttrs}
                             className="z-10 flex-1 rounded-md border border-stone-300 text-sm text-stone-900 placeholder-stone-300 focus:border-stone-500 focus:outline-none focus:ring-stone-500 dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700"
                         />

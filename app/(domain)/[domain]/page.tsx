@@ -1,6 +1,5 @@
 // import BlogCard from "@/components/blog-card";
 // import BlurImage from "@/components/blur-image";
-import { TypographyLarge } from "@/components/common/Typography";
 import prisma from "@/lib/db";
 import { getBlogsForSite, getSiteData } from "@/lib/fetchers";
 import Image from "next/image";
@@ -47,13 +46,13 @@ export default async function SiteHomePage({
         notFound();
     }
     return (
-        <main className="container text-center flex flex-col justify-center items-center ">
-            <TypographyLarge>Welcome to {data.name} portfolio</TypographyLarge>
+        <main className="container text-center flex  flex-col justify-center items-center ">
+            <h1 className="font-title">Welcome to {data.name} portfolio</h1>
             <Image
                 src={data.user?.avatar!}
                 width={500}
                 height={500}
-                className="rounded-full"
+                className="rounded-full w-[500px] h-[500px]"
                 alt={data.user?.firstname!}
             />
             <div className="w-full">

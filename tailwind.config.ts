@@ -2,8 +2,7 @@
 
 
 const { nextui } = require("@nextui-org/react");
-
-
+const { fontFamily } = require("tailwindcss/defaultTheme");
 
 module.exports = {
   darkMode: ["class"],
@@ -88,6 +87,29 @@ module.exports = {
           },
         }
       },
+      fontFamily: {
+        default: ["var(--font-inter)", ...fontFamily.sans],
+        cal: ["var(--font-cal)", ...fontFamily.sans],
+        title: ["var(--font-title)", ...fontFamily.sans],
+        mono: ["Consolas", ...fontFamily.mono],
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            h1: {
+              fontFamily: "Cal Sans",
+            },
+            h2: {
+              fontFamily: "Cal Sans",
+            },
+            h3: {
+              fontFamily: "Cal Sans",
+            },
+            "blockquote p:first-of-type::before": { content: "none" },
+            "blockquote p:first-of-type::after": { content: "none" },
+          },
+        },
+      },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
@@ -95,5 +117,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), nextui()],
+  plugins: [require("tailwindcss-animate"), nextui(), require("@tailwindcss/typography"),],
 }

@@ -4,25 +4,28 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs";
+import AppearanceSection from "./AppearanceSection";
+import DomainDection from "./DomainSection";
 import EducationSection from "./EducationSection";
+import GeneralSection from "./GeneralSection";
 
 
-export default function SiteSettingsNav() {
+export default function SiteSettingsNav({ slug }: { slug: string }) {
     const navItems = [
         {
             name: "General",
             value: "general",
-            component: "General",
+            component: <GeneralSection siteId={slug} />,
         },
         {
             name: "Domain",
             value: "domain",
-            component: "Domain",
+            component: <DomainDection siteId={slug} />,
         },
         {
             name: "Education",
             value: "education",
-            component: <EducationSection />,
+            component: <EducationSection siteId={slug} />,
         },
         {
             name: "Work",
@@ -42,7 +45,7 @@ export default function SiteSettingsNav() {
         {
             name: "Appearance",
             value: "appearance",
-            component: "Appearance",
+            component: <AppearanceSection siteId={slug} />
         },
     ];
 

@@ -26,7 +26,7 @@ export default async function PortfolioSettingsIndex({
 
     return (
         <main className="lg:container ">
-            <SiteSettingsNav />
+            <SiteSettingsNav slug={params.slug} />
         </main>
     )
 }

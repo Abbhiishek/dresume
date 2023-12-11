@@ -25,14 +25,14 @@ export default async function SettingsPage() {
     return (
         <div className="flex max-w-screen-xl flex-col space-y-12 p-8">
             <div className="flex flex-col space-y-6">
-                <h1 className="font-cal text-3xl font-bold dark:text-white">
+                <h1 className=" text-3xl font-bold dark:text-white">
                     User Settings 🌱
                 </h1>
                 {/* <EditProfile user={userdetails!} action={editUser} /> */}
                 <Form
                     title="Avatar"
                     description="This is Visible on your Portfolio"
-                    helpText="use a smaller size image"
+                    helpText="Max file size 50MB. Recommended size 400x400."
                     inputAttrs={{
                         name: "avatar",
                         type: "avatar",
@@ -81,11 +81,24 @@ export default async function SettingsPage() {
                     }}
                     handleSubmit={editUser}
                 />
+                <Form
+                    title="Tagline"
+                    description="Describe Yourself in one line."
+                    helpText="This Tagline is Visible in all o your portfolio"
+                    inputAttrs={{
+                        name: "tagline",
+                        type: "description",
+                        defaultValue: userdetails?.tagline!,
+                        placeholder: userdetails?.tagline!,
+                        maxLength: 2500,
+                    }}
+                    handleSubmit={editUser}
+                />
                 <TypographyH2>Social Media 🤖</TypographyH2>
                 <Form
                     title="Twitter Profile"
-                    description="(this will be visible in your portfolio)"
-                    helpText=""
+                    description=""
+                    helpText="Visible on your profile"
                     inputAttrs={{
                         name: "twitterid",
                         type: "text",
@@ -98,7 +111,7 @@ export default async function SettingsPage() {
                 <Form
                     title="Linkedin Profile"
                     description="(this will be visible in your portfolio)"
-                    helpText=""
+                    helpText="Visible on your profile"
                     inputAttrs={{
                         name: "linkedinid",
                         type: "text",
@@ -111,7 +124,7 @@ export default async function SettingsPage() {
                 <Form
                     title="Github Profile"
                     description="(this will be visible in your portfolio)"
-                    helpText=""
+                    helpText="Visible on your profile"
                     inputAttrs={{
                         name: "githubid",
                         type: "text",
@@ -124,7 +137,7 @@ export default async function SettingsPage() {
                 <Form
                     title="Custom Website Url"
                     description="(this will be visible in your portfolio)"
-                    helpText=""
+                    helpText="Visible on your profile"
                     inputAttrs={{
                         name: "websiteurl",
                         type: "text",

@@ -2,9 +2,9 @@ import { ReactNode } from "react";
 // import CTA from "@/components/cta";
 // import ReportAbuse from "@/components/report-abuse";
 import { getSiteData } from "@/lib/fetchers";
+import { fontMapper } from "@/styles/fonts";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-
 export async function generateMetadata({
     params,
 }: {
@@ -80,8 +80,10 @@ export default async function HostedPortfolioLayout({
     }
 
     return (
-        <main className="text-center lg:container py-10 min-h-screen">
-            {children}
+        <main className={fontMapper[data.font]}>
+            <main className={`text-center lg:container  py-10 min-h-screen font-title`}>
+                {children}
+            </main>
         </main>
     );
 }
