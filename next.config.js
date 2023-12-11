@@ -16,7 +16,8 @@ const nextConfig = {
             "cdn.pixabay.com",
             "pbs.twimg.com",
             "abs.twimg.com",
-            "dresume.vercel.app"
+            "dresume.vercel.app",
+            "dresume.me"
         ],
     },
 };
