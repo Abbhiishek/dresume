@@ -68,11 +68,11 @@ export default authMiddleware({
     },
 
 
-    publicRoutes: ["/", "/app/api/webhook/user"]
+    publicRoutes: ["/", "/api/webhook/user"]
 });
 
 
 export const config = {
-    matcher: ['/((?!.+\\.[\\w]+$|_next).*)',],
+    matcher: ['/((?!api/|_next/|_static/|_vercel|[\\w-]+\\.\\w+).*)',],
 };
 
