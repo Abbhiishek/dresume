@@ -48,7 +48,7 @@ export default authMiddleware({
 
         if (hostname === "dresume.me") {
             return NextResponse.redirect(
-                "https://app.dresume.in",
+                "https://app.dresume.me",
             );
         }
         if (
