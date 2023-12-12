@@ -17,7 +17,7 @@ export default authMiddleware({
             .replace(".localhost:3000", `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`);
 
 
-        console.log("host name", hostname)
+        // console.log("host name", hostname)
 
 
         if (
@@ -26,15 +26,15 @@ export default authMiddleware({
         ) {
             hostname = `${hostname.split("---")[0]}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
-            console.log("host name 12111", hostname)
+            // console.log("host name 12111", hostname)
         }
 
         const searchParams = req.nextUrl.searchParams.toString();
 
-        console.log("search params", searchParams)
+        // console.log("search params", searchParams)
         // Get the pathname of the request (e.g. /, /about, /blog/first-post)
         const path = `${url.pathname}${searchParams.length > 0 ? `?${searchParams}` : ""}`;
-        console.log("path", path)
+        // console.log("path", path)
         // rewrite root application to `/home` folder when user goes to /
         if (hostname === "dresume") {
             return NextResponse.redirect(
@@ -46,7 +46,7 @@ export default authMiddleware({
             hostname === process.env.NEXT_PUBLIC_ROOT_DOMAIN
         ) {
 
-            console.log("rewriting /home")
+            // console.log("rewriting /home")
             return NextResponse.rewrite(
                 new URL(`${path === "/" ? "/" : path}`, req.url),
             );

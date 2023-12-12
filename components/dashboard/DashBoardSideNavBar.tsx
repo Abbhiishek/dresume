@@ -66,7 +66,7 @@ const NavBarOptions = () => {
 
 
 
-    console.log(segments)
+    // console.log(segments)
 
 
     const tabs = useMemo(() => {

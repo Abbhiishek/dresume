@@ -5,7 +5,7 @@ import prisma from "@/lib/db";
 
 export default async function DomainSection({ siteId }: { siteId: string }) {
 
-    console.log(siteId)
+    // console.log(siteId)
     const data = await prisma.site.findUnique({
         where: {
             id: siteId as string,

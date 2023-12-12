@@ -39,7 +39,7 @@ export default function FeedbackForm() {
         // ✅ This will be type-safe and validated.
         await axios.post('/api/feedback', values)
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 // Handle success
                 if (response.status === 200) {
                     form.reset()
