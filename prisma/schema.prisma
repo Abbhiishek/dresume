@@ -95,7 +95,9 @@ model projects {
   name        String
   description String?
   url         String?
-  skils       String[]
+  repourl     String?
+  oneliner    String   @default("")
+  skills      String[]
   created_at  DateTime @default(now()) @db.Timestamptz(6)
   updated_at  DateTime @default(now()) @db.Timestamptz(6)
   user_id     String
@@ -143,11 +145,16 @@ model Blog {
 }
 
 model Site {
-  id             String               @id @default(cuid())
+  id             String  @id @default(cuid())
   name           String?
-  description    String?              @db.Text
-  logo           String?              @db.Text
-  font           String               @default("font-cal")
+  description    String? @db.Text
+  logo           String? @db.Text
+  font           String  @default("font-cal")
+  primaryColor   String  @default("#000000")
+  secondaryColor String  @default("#ffffff")
+  theme          String  @default("theme-default")
+  about          String  @default("")
+
   image          String?              @default("https://dresume.me/placeholder.png") @db.Text
   imageBlurhash  String?              @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC") @db.Text
   subdomain      String?              @unique
@@ -165,6 +172,12 @@ model Site {
   Blog           Blog[]
 
   @@index([userId])
+}
+
+model SiteViews {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  siteId     String
 }
 
 model Example {

@@ -1,8 +1,8 @@
 // import BlogCard from "@/components/blog-card";
 // import BlurImage from "@/components/blur-image";
+import DefaultTheme from "@/components/themes/DefaultTheme";
 import prisma from "@/lib/db";
 import { getBlogsForSite, getSiteData } from "@/lib/fetchers";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -42,28 +42,16 @@ export default async function SiteHomePage({
         getBlogsForSite(domain),
     ]);
 
+
+    console.log(data)
+
     if (!data) {
         notFound();
     }
     return (
-        <main className="container text-center flex  flex-col justify-center items-center ">
-            <h1 className="font-title">Welcome to {data.name} portfolio</h1>
-            <Image
-                src={data.user?.avatar!}
-                width={500}
-                height={500}
-                className="rounded-full w-[500px] h-[500px]"
-                alt={data.user?.firstname!}
-            />
-            <div className="w-full">
-
-                {
-                    JSON.stringify({
-                        data
-                    }, null, 2)
-                }
-
-            </div>
-        </main>
+        <>
+            {/* {data.theme} */}
+            <DefaultTheme sitedata={data} user={data.user!} />
+        </>
     );
 }

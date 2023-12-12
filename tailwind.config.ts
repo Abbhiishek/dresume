@@ -1,10 +1,10 @@
 /** @type {import('tailwindcss').Config} */
+import { withUt } from "uploadthing/tw";
 
+import * as react from "@nextui-org/react";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
-const { nextui } = require("@nextui-org/react");
-const { fontFamily } = require("tailwindcss/defaultTheme");
-
-module.exports = {
+export default withUt({
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -69,12 +69,12 @@ module.exports = {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: 0 },
+          from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
+          to: { height: "0" },
         },
         "color-border": {
           '0%, 100%': {
@@ -117,5 +117,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), nextui(), require("@tailwindcss/typography"),],
-}
+  plugins: [require("tailwindcss-animate"), react.nextui(), require("@tailwindcss/typography"),],
+})

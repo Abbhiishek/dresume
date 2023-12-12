@@ -5,8 +5,8 @@ export function TypographyH1({ children, className }: {
     className?: string
 }) {
     return (
-        <h1 className={`scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl ${className}`}
-
+        <h1
+            className={`scroll-m-20 text-4xl font-semibold tracking-tight first:mt-0 ${className}`}
         >
             {children}
         </h1>
@@ -14,11 +14,12 @@ export function TypographyH1({ children, className }: {
 }
 
 
-export function TypographyH2({ children }: {
-    children: React.ReactNode
+export function TypographyH2({ children, className }: {
+    children: React.ReactNode,
+    className?: string
 }) {
     return (
-        <h2 className="scroll-m-20  pb-2 text-3xl font-semibold tracking-tight first:mt-0">
+        <h2 className={`scroll-m-20  pb-2 text-3xl font-semibold tracking-tight first:mt-0 ${className}`}>
             {children}
         </h2>
     )
@@ -48,11 +49,12 @@ export function TypographyH4({ children }: {
 }
 
 
-export function TypographyP({ children }: {
-    children: React.ReactNode
+export function TypographyP({ children, className }: {
+    children: React.ReactNode,
+    className?: string
 }) {
     return (
-        <p className="leading-0 ">
+        <p className={`leading-0 ${className}`}>
             {children}
         </p>
     )
@@ -92,11 +94,12 @@ export function TypographyLead({ children, className }: {
 }
 
 
-export function TypographyLarge({ children }: {
-    children: React.ReactNode
+export function TypographyLarge({ children, className }: {
+    children: React.ReactNode,
+    className?: string
 }) {
     return (
-        <div className="text-lg font-semibold">
+        <div className={`text-lg font-semibold ${className}`}>
             {children}
         </div>
     )
