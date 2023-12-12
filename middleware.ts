@@ -4,8 +4,6 @@ import { NextResponse } from "next/server";
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 export default authMiddleware({
-
-
     async afterAuth(auth, req, evt) {
 
 
@@ -36,9 +34,21 @@ export default authMiddleware({
         const path = `${url.pathname}${searchParams.length > 0 ? `?${searchParams}` : ""}`;
         // console.log("path", path)
         // rewrite root application to `/home` folder when user goes to /
-        if (hostname === "dresume") {
+
+        if (hostname == `app.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
+
+            if (!auth.userId && !auth.isPublicRoute) {
+                return redirectToSignIn({ returnBackUrl: req.url });
+            }
+
+            return NextResponse.rewrite(
+                new URL(`/app${path === "/" ? "" : path}`, req.url),
+            );
+        }
+
+        if (hostname === "dresume.me") {
             return NextResponse.redirect(
-                "https://dresume.in",
+                "https://app.dresume.in",
             );
         }
         if (
@@ -48,19 +58,17 @@ export default authMiddleware({
 
             // console.log("rewriting /home")
             return NextResponse.rewrite(
-                new URL(`${path === "/" ? "/" : path}`, req.url),
+                new URL(`/home${path === "/" ? "" : path}`, req.url),
             );
         }
 
-        if (!auth.userId && !auth.isPublicRoute) {
-            return redirectToSignIn({ returnBackUrl: req.url });
-        }
+
 
         return NextResponse.rewrite(new URL(`/${hostname}${path}`, req.url));
     },
 
 
-    publicRoutes: ["/", "/api/webhook/user"]
+    publicRoutes: ["/", "/app/api/webhook/user"]
 });
 
 

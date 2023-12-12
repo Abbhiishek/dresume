@@ -12,9 +12,9 @@ export async function generateStaticParams() {
             customDomain: true,
         },
         // feel free to remove this filter if you want to generate paths for all sites
-        where: {
-            subdomain: "demo",
-        },
+        // where: {
+        //     subdomain: "demo",
+        // },
     });
 
     const allPaths = allSites
@@ -43,7 +43,7 @@ export default async function SiteHomePage({
     ]);
 
 
-    console.log(data)
+    // console.log(data)
 
     if (!data) {
         notFound();

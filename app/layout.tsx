@@ -2,15 +2,15 @@ import { Toaster } from "@/components/ui/toaster";
 import { APP_DESC, APP_NAME } from '@/lib/contants';
 import { GeistSans } from 'geist/font/sans';
 import { Metadata } from "next";
+import '.././styles/globals.css';
 import { Providers } from './NextUIProvider';
-import './globals.css';
 
 
-const image = "https://dresume.me/placeholder.png";
+const image = "https://app.dresume.me/placeholder.png";
 export const metadata: Metadata = {
     title: APP_NAME,
     description: APP_DESC,
-    icons: ["https://dresume.me/favicon.ico"],
+    icons: ["https://app.dresume.me/favicon.ico"],
     openGraph: {
         title: APP_NAME,
         description: APP_DESC,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         images: [image],
         creator: "@abhishekkushwaha",
     },
-    metadataBase: new URL("https://dresume.me"),
+    metadataBase: new URL("https://app.dresume.me"),
 };
 
 export default function RootLayout({

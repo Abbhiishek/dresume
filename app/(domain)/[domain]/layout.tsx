@@ -26,7 +26,7 @@ export async function generateMetadata({
         image: string;
         logo: string;
     };
-
+    // Todo: To make sure that when user create thier site the user profile logo is used ....
     return {
         title,
         description,
@@ -80,10 +80,8 @@ export default async function HostedPortfolioLayout({
     }
 
     return (
-        <main className={fontMapper[data.font]}>
-            <main className={`text-center lg:container  py-10 min-h-screen font-title`}>
-                {children}
-            </main>
+        <main className={`min-h-screen font-cal ${fontMapper[data.font]}`} suppressHydrationWarning>
+            {children}
         </main>
     );
 }
