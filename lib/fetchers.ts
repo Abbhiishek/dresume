@@ -68,7 +68,7 @@ export async function getSiteAbout(siteId: string) {
         },
         [`${siteId}-about`],
         {
-            revalidate: false,
+            revalidate: 900,
             tags: [`${siteId}-about`],
         },
     )();
