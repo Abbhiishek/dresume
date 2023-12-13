@@ -20,7 +20,8 @@ export async function getSiteData(domain: string) {
                     workexperience: true,
                     projects: true,
                     certificates: true,
-                    Blog: true
+                    Blog: true,
+                    techstack: true
                 },
             });
         },

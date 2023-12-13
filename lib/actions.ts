@@ -16,6 +16,7 @@ import { getBlurDataURL } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { put } from '@vercel/blob';
 import { withBlogAuth, withEducationAuth, withSiteAuth } from "./auth";
+import { utapi } from "./uploadthing";
 
 
 
@@ -105,63 +106,39 @@ export const updateSite = withSiteAuth(
                 // if the site had a different customDomain before, we need to remove it from Vercel
                 if (site.customDomain && site.customDomain !== value) {
                     response = await removeDomainFromVercelProject(site.customDomain);
-
-                    /* Optional: remove domain from Vercel team 
-          
-                    // first, we need to check if the apex domain is being used by other sites
-                    const apexDomain = getApexDomain(`https://${site.customDomain}`);
-                    const domainCount = await prisma.site.count({
-                      where: {
-                        OR: [
-                          {
-                            customDomain: apexDomain,
-                          },
-                          {
-                            customDomain: {
-                              endsWith: `.${apexDomain}`,
-                            },
-                          },
-                        ],
-                      },
-                    });
-          
-                    // if the apex domain is being used by other sites
-                    // we should only remove it from our Vercel project
-                    if (domainCount >= 1) {
-                      await removeDomainFromVercelProject(site.customDomain);
-                    } else {
-                      // this is the only site using this apex domain
-                      // so we can remove it entirely from our Vercel team
-                      await removeDomainFromVercelTeam(
-                        site.customDomain
-                      );
-                    }
-                    
-                    */
                 }
             } else if (key === "image" || key === "logo") {
-                if (!process.env.BLOB_READ_WRITE_TOKEN) {
+                if (!process.env.UPLOADTHING_SECRET) {
                     return {
                         error:
-                            "Missing BLOB_READ_WRITE_TOKEN token. Note: Vercel Blob is currently in beta – please fill out this form for access: https://tally.so/r/nPDMNd",
+                            "Missing UPLOADTHING_SECRET token. Note: Vercel Blob is currently in beta – please fill out this form for access: https://tally.so/r/nPDMNd",
                     };
                 }
-
                 const file = formData.get(key) as File;
                 const filename = `${nanoid()}.${file.type.split("/")[1]}`;
 
-                const { url } = await put(filename, file, {
-                    access: "public",
-                });
+                // const { url } = await Uploader(filename, file, {
+                //     access: "public",
+                // });
 
-                const blurhash = key === "image" ? await getBlurDataURL(url) : null;
+                const res = await utapi.uploadFiles(file)
+
+                if (res.error) {
+                    return {
+                        error: res.error
+                    }
+                }
+
+                console.log("after image upload", res)
+
+                const blurhash = key === "image" ? await getBlurDataURL(res.data?.url) : null;
 
                 response = await prisma.site.update({
                     where: {
                         id: site.id,
                     },
                     data: {
-                        [key]: url,
+                        [key]: res.data?.url,
                         ...(blurhash && { imageBlurhash: blurhash }),
                     },
                 });
