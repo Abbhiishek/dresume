@@ -14,7 +14,7 @@ function AboutSection({
                 <div className="lg:basis-1/2  text-left">
                     <div className="relative ">
                         <h1
-                            className="absolute -top-20 left-3 opacity-10 uppercase font-bold  lg:text-8xl text-6xl font-title"
+                            className="absolute -top-20 left-3 text-primary opacity-10 uppercase font-bold  lg:text-8xl text-6xl font-title"
                         >About</h1>
                         <div className="pt-5">
                             <p className="text-justify mb-4"
@@ -28,9 +28,13 @@ function AboutSection({
                         <div className="md:basis-8/12">
                             <TypographyH2 className="mb-4 pb-2">Skill Stacks</TypographyH2>
                         </div>
-                        <div className="md:basis-6/12 mt-3">
-                            <h4 className="font-semibold text-2xl">Mentoring</h4>
-                        </div>
+                        {
+                            skills.slice(0, 5).map((skill, index) => (
+                                <div className="md:basis-6/12 mt-3" key={index}>
+                                    <h4 className="font-semibold text-2xl">{skill}</h4>
+                                </div>
+                            ))
+                        }
                     </div>
                 </div>
             </div>

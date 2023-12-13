@@ -15,8 +15,10 @@ import {
 import { getBlurDataURL } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { put } from '@vercel/blob';
+import { UTApi } from "uploadthing/server";
 import { withBlogAuth, withEducationAuth, withSiteAuth } from "./auth";
-import { utapi } from "./uploadthing";
+const utapi = new UTApi();
+
 
 
 

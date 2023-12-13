@@ -16,12 +16,12 @@ function ContactSection({
     websiteurl: string,
 }) {
     return (
-        <section className="min-h-[500px]  my-4 pt-5" id="Contact">
+        <section className="lg:mt-36  py-5" id="Contact">
             <h4 className="text-6xl font-light mt-5">Contact</h4>
             <div className="text-left relative">
                 <h1
                     className="absolute -top-16 left-3 opacity-10 uppercase 
-                font-bold lg:text-8xl text-5xl font-title "
+                font-bold lg:text-8xl text-5xl font-title text-primary"
                 >
                     Let&apos;s Talk
                 </h1>

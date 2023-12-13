@@ -1,12 +1,13 @@
-import { User, UserCertificate, UserEducation, UserWorkExperience, projects } from "@prisma/client";
+import { TechStack, User, UserCertificate, UserEducation, UserWorkExperience, projects } from "@prisma/client";
 import AboutSection from "./default/AboutSection";
 import ContactSection from "./default/ContactSection";
 import EducationSection from "./default/EducationSection";
 import ExperienceSection from "./default/ExperienceSection";
+import FooterSection from "./default/FooterSection";
 import HomeSection from "./default/HomeSection";
 import UserPortfolioNavbar from "./default/Navbar";
 import ProjectSection from "./default/ProjectSection";
-import TechStack from "./default/TechStack";
+import TechStackSection from "./default/TechStack";
 
 function DefaultTheme({
     sitedata,
@@ -16,10 +17,13 @@ function DefaultTheme({
     sitedata: {
         name: string | null,
         logo: string | null,
+        skills: string[],
+        about: string,
         education: UserEducation[],
         certificates: UserCertificate[],
         workexperience: UserWorkExperience[]
         projects: projects[]
+        techstack: TechStack[]
     }
     user: User
 }) {
@@ -43,12 +47,12 @@ function DefaultTheme({
                 />
                 <AboutSection
 
-                    about={user.bio}
-                    skills={["nsv", "sdfsdf"]}
+                    about={sitedata.about}
+                    skills={sitedata.skills}
                 />
 
-                <TechStack
-
+                <TechStackSection
+                    techstack={sitedata.techstack}
                 />
 
                 <EducationSection
@@ -71,6 +75,9 @@ function DefaultTheme({
                     websiteurl={user.websiteurl!}
                     emailid={user.email}
                 />
+
+
+                <FooterSection />
             </div>
         </>
     )

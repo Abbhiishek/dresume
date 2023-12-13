@@ -16,7 +16,7 @@ function HomeSection({ name, image, tagline, twitterid, githubid, linkedinid, we
 }) {
     return (
 
-        <div className="flex flex-row items-center justify-around min-h-[700px]" id="Home">
+        <div className="flex flex-row items-center justify-around lg:min-h-[700px] min-h-[500px]" id="Home">
             <div className="flex flex-col items-start justify-start">
                 <TypographyH1 className="font-default lg:text-7xl text-6xl">{name}</TypographyH1>
                 <p className="font-default text-2xl mt-2">{tagline}</p>
@@ -72,6 +72,12 @@ function HomeSection({ name, image, tagline, twitterid, githubid, linkedinid, we
                     className="w-96 h-96 rounded-full aspect-square"
                 />
             </div>
+            <a className="fixed bottom-14 right-8 z-[99] bg-primary cursor-pointer w-[100px] text-center h-12 rounded-full text-lg pt-3" href="#Contact" rel="noopener" aria-label="Contact" id="contactbtn">
+                <strong>
+                    Le&apos;s
+                    Talk!
+                </strong>
+            </a>
         </div>
 
     )

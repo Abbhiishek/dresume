@@ -12,7 +12,7 @@ function ProjectSection({ projects }: { projects: projects[] }) {
                 <h4 className="text-6xl font-light mt-5">Projects</h4>
                 <div className="text-left relative">
                     <h1
-                        className="absolute -top-16 left-3 opacity-10 uppercase font-bold lg:text-8xl text-5xl font-title "
+                        className="absolute -top-16 left-3 opacity-10 text-primary uppercase font-bold lg:text-8xl text-5xl font-title "
                     >
                         OPEN SOURCE
                     </h1>

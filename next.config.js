@@ -17,7 +17,8 @@ const nextConfig = {
             "pbs.twimg.com",
             "abs.twimg.com",
             "dresume.vercel.app",
-            "dresume.me"
+            "dresume.me",
+            "utfs.io"
         ],
     },
 };

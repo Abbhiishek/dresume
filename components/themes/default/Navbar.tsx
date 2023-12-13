@@ -52,7 +52,7 @@ function UserPortfolioNavbar({ name, logo, }: {
                                 onClick={() => setMobileMenuOpen(true)}
                             >
                                 <span className="sr-only">Open main menu</span>
-                                <Menu className="w-10 h-10 text-white " aria-hidden="true" />
+                                <Menu className="w-10 h-10 text-primary " aria-hidden="true" />
                             </button>
                         </SheetTrigger>
                         <SheetContent side={"right"}>

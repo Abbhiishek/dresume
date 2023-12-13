@@ -6,12 +6,12 @@ import { UserWorkExperience } from "@prisma/client"
 
 function ExperienceSection({ workexperience }: { workexperience: UserWorkExperience[] }) {
     return (
-        <section className="min-h-[500px]  my-4 pt-5" id="Education">
+        <section className="min-h-[500px]  my-4 pt-5" id="Experience">
             <h4 className="text-6xl font-light mt-5">Experience</h4>
             <div className="text-left relative">
                 <h1
                     className="absolute -top-16 left-3 opacity-10 uppercase 
-                    font-bold lg:text-8xl text-5xl font-title "
+                    font-bold lg:text-8xl text-5xl font-title text-primary"
                 >
                     profile
                 </h1>
@@ -25,7 +25,11 @@ function ExperienceSection({ workexperience }: { workexperience: UserWorkExperie
                                 <TypographyP>
                                     <span className="text-primary">{work.company_location}</span>
                                 </TypographyP>
-                                <TypographyMuted>{toDateString(work.company_start_date!)} - {toDateString(work.company_end_date!)}</TypographyMuted>
+                                <TypographyMuted>{
+                                    toDateString(work.company_start_date!)} -
+                                    {
+                                        work.still_working ? <span className="pl-1">Present</span> : toDateString(work.company_end_date!)
+                                    }</TypographyMuted>
                                 <TypographyP className="mt-4 pl-2">
                                     {work.company_note}
                                 </TypographyP>

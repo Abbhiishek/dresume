@@ -9,7 +9,7 @@ function EducationSection({ education }: { education: UserEducation[] }) {
             <div className="text-left relative">
                 <h1
                     className="absolute -top-16 left-3 opacity-10 
-                    uppercase font-bold lg:text-8xl text-5xl font-title -rotate-1"
+                    uppercase font-bold lg:text-8xl text-5xl font-title -rotate-1 text-primary"
                 >
                     Academics
                 </h1>
