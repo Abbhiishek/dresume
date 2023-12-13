@@ -11,21 +11,22 @@ import TechStackSection from "./default/TechStack";
 
 function DefaultTheme({
     sitedata,
-    user
+    user,
 }: {
     // sitedata conatins mixed tyypes
     sitedata: {
+        id: string
         name: string | null,
         logo: string | null,
         skills: string[],
-        about: string,
+        subdomain: string,
         education: UserEducation[],
         certificates: UserCertificate[],
         workexperience: UserWorkExperience[]
         projects: projects[]
         techstack: TechStack[]
     }
-    user: User
+    user: User,
 }) {
 
 
@@ -46,9 +47,8 @@ function DefaultTheme({
                     websiteurl={user.websiteurl!}
                 />
                 <AboutSection
-
-                    about={sitedata.about}
                     skills={sitedata.skills}
+                    siteid={sitedata.id}
                 />
 
                 <TechStackSection

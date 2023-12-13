@@ -3,7 +3,13 @@ import { replaceExamples, replaceTweets } from "@/lib/remark-plugins";
 import { serialize } from "next-mdx-remote/serialize";
 import { unstable_cache } from "next/cache";
 
+// make a typoe which extend Site and adds external data
+
 export async function getSiteData(domain: string) {
+    /**
+ * Fetches site data from the database.
+ * @returns A promise that resolves to the site data, including user, education, work experience, projects, certificates, blog, and tech stack.
+ */
     const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
         ? domain.replace(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
         : null;
@@ -12,7 +18,8 @@ export async function getSiteData(domain: string) {
 
     return await unstable_cache(
         async () => {
-            return prisma.site.findUnique({
+
+            const data = prisma.site.findUnique({
                 where: subdomain ? { subdomain } : { customDomain: domain },
                 include: {
                     user: true,
@@ -21,9 +28,16 @@ export async function getSiteData(domain: string) {
                     projects: true,
                     certificates: true,
                     Blog: true,
-                    techstack: true
-                },
-            });
+                    techstack: true,
+                }
+            })
+            if (!data) return null;
+            // const [aboutmdxSource] = await Promise.all([
+            //     getMdxSource(data.about!),
+            // ]);
+            return {
+                ...data,
+            }
         },
         [`${domain}-metadata`],
         {
@@ -33,6 +47,32 @@ export async function getSiteData(domain: string) {
     )();
 }
 
+
+export async function getSiteAbout(siteId: string) {
+    return await unstable_cache(
+        async () => {
+            const data = await prisma.site.findFirst({
+                where: {
+                    id: siteId
+                }
+            })
+
+            if (!data) return null;
+            const [mdxSource] = await Promise.all([
+                getMdxSource(data.about!),
+            ])
+            return {
+                ...data,
+                mdxSource,
+            };
+        },
+        [`${siteId}-about`],
+        {
+            revalidate: false,
+            tags: [`${siteId}-about`],
+        },
+    )();
+}
 
 export async function getBlogsForSite(domain: string) {
     const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)

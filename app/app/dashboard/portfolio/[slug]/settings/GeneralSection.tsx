@@ -1,5 +1,6 @@
 import Form from "@/components/form";
 import DeleteSiteForm from "@/components/form/delete-site-form";
+import AboutEditor from "@/components/form/site-about-form";
 import { updateSite } from "@/lib/actions";
 import prisma from "@/lib/db";
 
@@ -39,7 +40,7 @@ export default async function GeneralSection({ siteId }: { siteId: string }) {
                 }}
                 handleSubmit={updateSite}
             />
-            <Form
+            {/* <Form
                 title="About"
                 description="Write about yourself. This will be displayed in About Section"
                 helpText="Try to use as much cool words for you 😎"
@@ -50,6 +51,14 @@ export default async function GeneralSection({ siteId }: { siteId: string }) {
                     placeholder: "A blog about really interesting things.",
                 }}
                 handleSubmit={updateSite}
+            /> */}
+            <AboutEditor
+                siteid={data?.id!}
+                defaultValue={data?.about!}
+                name="About"
+                Title="About"
+                description="Write about yourself. This will be displayed in About Section"
+                helpText="Try to use as much cool words for you 😎"
             />
             <DeleteSiteForm siteName={data?.name!} />
         </div>

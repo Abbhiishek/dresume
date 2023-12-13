@@ -14,7 +14,6 @@ import {
 } from "@/lib/domains";
 import { getBlurDataURL } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
-import { put } from '@vercel/blob';
 import { UTApi } from "uploadthing/server";
 import { withBlogAuth, withEducationAuth, withSiteAuth } from "./auth";
 const utapi = new UTApi();
@@ -74,7 +73,7 @@ export const updateSite = withSiteAuth(
             if (key === "customDomain") {
                 if (value.includes("dresume.me")) {
                     return {
-                        error: "Cannot use vercel.pub subdomain as your custom domain",
+                        error: "Cannot use dresume.me subdomain as your custom domain",
                     };
 
                     // if the custom domain is valid, we need to add it to Vercel
@@ -131,7 +130,7 @@ export const updateSite = withSiteAuth(
                     }
                 }
 
-                console.log("after image upload", res)
+                // console.log("after image upload", res)
 
                 const blurhash = key === "image" ? await getBlurDataURL(res.data?.url) : null;
 
@@ -307,18 +306,30 @@ export const updatePostMetadata = withBlogAuth(
                 const file = formData.get("image") as File;
                 const filename = `${nanoid(7)}.${file.type.split("/")[1]}`;
 
-                const { url } = await put(filename, file, {
-                    access: "public",
-                });
+                const res = await utapi.uploadFiles(file, {
+                    metadata: {
+                        title: blog.title,
+                        description: blog.description
+                    }
+                })
+                // const { url, } = await put(filename, file, {
+                //     access: "public",
+                // });
 
-                const blurhash = await getBlurDataURL(url);
+                if (res.error) {
+                    return {
+                        error: res.error
+                    }
+                }
+
+                const blurhash = await getBlurDataURL(res.data.url);
 
                 response = await prisma.blog.update({
                     where: {
                         id: blog.id,
                     },
                     data: {
-                        image: url,
+                        image: res.data.url,
                         imageBlurhash: blurhash,
                     },
                 });
@@ -404,9 +415,18 @@ export const editUser = async (
             const file = formData.get(key) as File;
             const filename = `${nanoid(7)}.${file.type.split("/")[1]}`;
 
-            const { url } = await put(filename, file, {
-                access: "public",
-            });
+
+            const res = await utapi.uploadFiles(file)
+
+            if (res.error) {
+                return {
+                    error: res.error
+                }
+            }
+
+            // const { url } = await put(filename, file, {
+            //     access: "public",
+            // });
 
             // const blurhash = await getBlurDataURL(url);
 
@@ -415,7 +435,7 @@ export const editUser = async (
                     id: UserId.userId,
                 },
                 data: {
-                    avatar: url,
+                    avatar: res.data.url,
                 },
             });
         } else {

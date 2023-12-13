@@ -51,27 +51,11 @@ export default function AboutEditor({
             <p className="text-sm text-stone-500 dark:text-stone-400">
                 {description}
             </p>
-            <ScrollArea className="h-[300px]">
+            <ScrollArea className="min-h-[300px]">
                 <NovelEditor
-                    className="relative block border-t-2 border-x-2 rounded-lg min-h-[300px]"
+                    className="border-t-2 border-x-2 rounded-lg min-h-[300px]"
                     disableLocalStorage
-                    extensions={
-                        [
-                            "bold",
-                            "italic",
-                            "underline",
-                            "strikethrough",
-                            "heading",
-                            "link",
-                            "quote",
-                            "code",
-                            "list",
-                            "ordered-list",
-                            "checklist",
-                            "table",
-                            "html",
-                        ] as any
-                    }
+                    storageKey="about__portfolio_setting"
                     defaultValue={defaultValue || ""}
                     onUpdate={(editor) => {
                         setData(editor?.storage.markdown.getMarkdown());

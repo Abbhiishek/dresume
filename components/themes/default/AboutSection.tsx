@@ -1,12 +1,21 @@
-import { TypographyH2 } from "@/components/common/Typography"
 
-function AboutSection({
-    about,
-    skills,
-}: {
-    about: string,
-    skills: string[],
-}) {
+
+import { TypographyH2 } from "@/components/common/Typography";
+import MDX from "@/components/mdx";
+import { getSiteAbout } from "@/lib/fetchers";
+import { notFound } from "next/navigation";
+
+async function AboutSection({ skills, siteid }: { skills: string[], siteid: string }) {
+
+    const [data] = await Promise.all([
+        getSiteAbout(siteid)
+    ])
+
+    if (!data) {
+        notFound();
+    }
+
+
     return (
         <div id="About" className="min-h-[500px]  my-4 pt-5">
             <h4 className="text-6xl font-light mt-5">About</h4>
@@ -17,9 +26,10 @@ function AboutSection({
                             className="absolute -top-20 left-3 text-primary opacity-10 uppercase font-bold  lg:text-8xl text-6xl font-title"
                         >About</h1>
                         <div className="pt-5">
-                            <p className="text-justify mb-4"
-                                dangerouslySetInnerHTML={{ __html: about }}
-                            />
+                            {/* <p className="text-justify mb-4 lg:text-xl font-medium"
+                                dangerouslySetInnerHTML={{ __html: data }}
+                            /> */}
+                            <MDX source={data.mdxSource!} />
                         </div>
                     </div>
                 </div>

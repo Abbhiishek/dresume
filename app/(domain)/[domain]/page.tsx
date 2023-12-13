@@ -1,8 +1,7 @@
-// import BlogCard from "@/components/blog-card";
-// import BlurImage from "@/components/blur-image";
+
 import DefaultTheme from "@/components/themes/DefaultTheme";
 import prisma from "@/lib/db";
-import { getBlogsForSite, getSiteData } from "@/lib/fetchers";
+import { getSiteData } from "@/lib/fetchers";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
@@ -37,9 +36,8 @@ export default async function SiteHomePage({
     params: { domain: string };
 }) {
     const domain = decodeURIComponent(params.domain);
-    const [data, posts] = await Promise.all([
-        getSiteData(domain),
-        getBlogsForSite(domain),
+    const [data] = await Promise.all([
+        getSiteData(domain)
     ]);
 
 
