@@ -5,6 +5,7 @@ import {
     TabsTrigger,
 } from "@/components/ui/tabs";
 import AppearanceSection from "./AppearanceSection";
+import CertificateSection from "./CertificateSection";
 import DomainDection from "./DomainSection";
 import EducationSection from "./EducationSection";
 import GeneralSection from "./GeneralSection";
@@ -30,17 +31,17 @@ export default function SiteSettingsNav({ slug }: { slug: string }) {
         {
             name: "Work",
             value: "work",
-            component: "Work",
+            component: <CertificateSection />,
         },
         {
             name: "Project",
             value: "project",
-            component: "Project",
+            component: <CertificateSection />,
         },
         {
             name: "Certification",
             value: "certificate",
-            component: "Certification",
+            component: <CertificateSection />,
         },
         {
             name: "Appearance",

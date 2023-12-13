@@ -12,7 +12,6 @@ import DomainConfiguration from "./domain-configuration";
 import DomainStatus from "./domain-status";
 import Uploader from "./uploader";
 
-
 export default function Form({
     title,
     description,
@@ -127,6 +126,18 @@ export default function Form({
                         classNames={{
                             base: "max-w-wull",
                             input: "resize-y min-h-[40px]",
+                        }}
+                    />
+                ) : inputAttrs.type === "about" ? (
+                    <Textarea
+                        {...inputAttrs}
+                        required
+                        disableAnimation
+                        disableAutosize
+                        variant="bordered"
+                        classNames={{
+                            base: "max-w-wull",
+                            input: "resize-y min-h-[400px] lg:text-xl",
                         }}
                     />
                 ) : (

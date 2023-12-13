@@ -72,7 +72,7 @@ export const updateSite = withSiteAuth(
             let response;
 
             if (key === "customDomain") {
-                if (value.includes("vercel.pub")) {
+                if (value.includes("dresume.me")) {
                     return {
                         error: "Cannot use vercel.pub subdomain as your custom domain",
                     };
@@ -179,6 +179,10 @@ export const updateSite = withSiteAuth(
         }
     },
 );
+
+
+
+
 
 export const deleteSite = withSiteAuth(async (_: FormData, site: Site) => {
     try {
@@ -508,3 +512,33 @@ export const deleteEducation = withEducationAuth(async (education: UserEducation
         };
     }
 });
+
+
+
+export const updateAboutSite = async (about: string, id: string) => {
+
+
+    const session = auth()
+    if (!session.userId) {
+        return {
+            error: "Not authenticated",
+        };
+    }
+
+    try {
+        const response = await prisma.site.update({
+            where: {
+                id: id,
+            },
+            data: {
+                about: about,
+            },
+        });
+
+        return response;
+    } catch (error: any) {
+        return {
+            error: error.message,
+        };
+    }
+}

@@ -39,7 +39,18 @@ export default async function GeneralSection({ siteId }: { siteId: string }) {
                 }}
                 handleSubmit={updateSite}
             />
-
+            <Form
+                title="About"
+                description="Write about yourself. This will be displayed in About Section"
+                helpText="Try to use as much cool words for you 😎"
+                inputAttrs={{
+                    name: "about",
+                    type: "about",
+                    defaultValue: data?.about!,
+                    placeholder: "A blog about really interesting things.",
+                }}
+                handleSubmit={updateSite}
+            />
             <DeleteSiteForm siteName={data?.name!} />
         </div>
     )
