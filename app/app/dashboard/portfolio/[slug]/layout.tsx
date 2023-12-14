@@ -38,8 +38,6 @@ export default async function SiteLayout({ children, params }:
                             : `http://${data.subdomain}.localhost:3000`
                     }
                     target="_blank"
-                    passHref
-                    legacyBehavior
                     className="rounded-3xl border-3 border-primary"
                 >
                     <Button
