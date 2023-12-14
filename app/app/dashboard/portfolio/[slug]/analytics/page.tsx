@@ -1,10 +1,10 @@
+import { TypographyH1 } from "@/components/common/Typography"
 
 function page() {
     return (
-        <main className="container text-center">
-            <h1>Analytics</h1>
-            <p>Analytics page in progress.....</p>
-        </main>
+        <div>
+            <TypographyH1>Here will come all the Analytics part still in development 😎🌱</TypographyH1>
+        </div>
     )
 }
 

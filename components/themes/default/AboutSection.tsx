@@ -1,19 +1,9 @@
-
+"use client";
 
 import { TypographyH2 } from "@/components/common/Typography";
 import MDX from "@/components/mdx";
-import { getSiteAbout } from "@/lib/fetchers";
-import { notFound } from "next/navigation";
 
-async function AboutSection({ skills, siteid }: { skills: string[], siteid: string }) {
-
-    const [data] = await Promise.all([
-        getSiteAbout(siteid)
-    ])
-
-    if (!data) {
-        notFound();
-    }
+function AboutSection({ skills, mdxabout }: { skills: string[], mdxabout: any }) {
 
 
     return (
@@ -29,7 +19,7 @@ async function AboutSection({ skills, siteid }: { skills: string[], siteid: stri
                             {/* <p className="text-justify mb-4 lg:text-xl font-medium"
                                 dangerouslySetInnerHTML={{ __html: data }}
                             /> */}
-                            <MDX source={data.mdxSource!} />
+                            <MDX source={mdxabout} />
                         </div>
                     </div>
                 </div>

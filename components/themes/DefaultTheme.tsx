@@ -1,4 +1,5 @@
 import { TechStack, User, UserCertificate, UserEducation, UserWorkExperience, projects } from "@prisma/client";
+import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import AboutSection from "./default/AboutSection";
 import ContactSection from "./default/ContactSection";
 import EducationSection from "./default/EducationSection";
@@ -12,6 +13,7 @@ import TechStackSection from "./default/TechStack";
 function DefaultTheme({
     sitedata,
     user,
+    about
 }: {
     // sitedata conatins mixed tyypes
     sitedata: {
@@ -19,6 +21,7 @@ function DefaultTheme({
         name: string | null,
         logo: string | null,
         skills: string[],
+        tagline: string,
         subdomain: string,
         education: UserEducation[],
         certificates: UserCertificate[],
@@ -27,6 +30,10 @@ function DefaultTheme({
         techstack: TechStack[]
     }
     user: User,
+    about: {
+        about: string
+        mdxSource: MDXRemoteSerializeResult<Record<string, unknown>, Record<string, unknown>>
+    }
 }) {
 
 
@@ -40,7 +47,7 @@ function DefaultTheme({
                 <HomeSection
                     name={sitedata.name ?? ''}
                     image={sitedata.logo ? sitedata.logo : user.avatar!}
-                    tagline={user.tagline ?? ''}
+                    tagline={sitedata.tagline}
                     twitterid={user.twitterid!}
                     githubid={user.githubid!}
                     linkedinid={user.linkedinid!}
@@ -48,7 +55,7 @@ function DefaultTheme({
                 />
                 <AboutSection
                     skills={sitedata.skills}
-                    siteid={sitedata.id}
+                    mdxabout={about.mdxSource}
                 />
 
                 <TechStackSection

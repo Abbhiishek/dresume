@@ -1,7 +1,17 @@
+import { TypographyH1 } from "@/components/common/Typography";
 
-function SinglePortfolioPage() {
+
+async function SinglePortfolioPage({
+    params,
+}: {
+    params: { slug: string };
+}) {
+
+
     return (
-        <div>SinglePortfolioPage</div>
+        <div>
+            <TypographyH1>Here will come all the cool stuff about your portfolio 😎🌱</TypographyH1>
+        </div>
     )
 }
 

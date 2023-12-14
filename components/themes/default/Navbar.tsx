@@ -46,14 +46,13 @@ function UserPortfolioNavbar({ name, logo, }: {
                 <div className="flex lg:hidden">
                     <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen} >
                         <SheetTrigger>
-                            <button
-                                type="button"
+                            <div
                                 className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
                                 onClick={() => setMobileMenuOpen(true)}
                             >
                                 <span className="sr-only">Open main menu</span>
                                 <Menu className="w-10 h-10 text-primary " aria-hidden="true" />
-                            </button>
+                            </div>
                         </SheetTrigger>
                         <SheetContent side={"right"}>
                             <div className="py-6 space-y-2">

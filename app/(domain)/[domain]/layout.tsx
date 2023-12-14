@@ -5,6 +5,8 @@ import { getSiteData } from "@/lib/fetchers";
 import { fontMapper } from "@/styles/fonts";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata({
     params,
 }: {
@@ -62,8 +64,9 @@ export default async function HostedPortfolioLayout({
     children: ReactNode;
 }) {
     const domain = decodeURIComponent(params.domain);
-    const data = await getSiteData(domain);
-
+    const [data] = await Promise.all([
+        getSiteData(domain),
+    ]);
     // console.log("data from layout.tsx", data)
 
     if (!data) {

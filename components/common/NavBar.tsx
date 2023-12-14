@@ -9,6 +9,16 @@ import { useState } from 'react'
 import { Button } from '../ui/button'
 import { ThemeModeToggle } from './ThemeToggler'
 import { TypographyLarge } from './Typography'
+
+import { ScrollArea } from "@/components/ui/scroll-area"
+import {
+    Sheet,
+    SheetContent,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger
+} from "@/components/ui/sheet"
+
 const navigation = [
     { name: 'Dashboard', href: '/dashboard' },
 ]
@@ -29,14 +39,40 @@ function NavBar() {
                     </Link>
                 </div>
                 <div className="flex lg:hidden">
-                    <button
-                        type="button"
-                        className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
-                        onClick={() => setMobileMenuOpen(true)}
-                    >
-                        <span className="sr-only">Open main menu</span>
-                        <MenuIcon className="w-10 h-10 " aria-hidden="true" />
-                    </button>
+                    <Sheet>
+                        <SheetTrigger asChild>
+                            <Button variant="outline">
+                                <MenuIcon className="w-5 h-5" />
+                            </Button>
+                        </SheetTrigger>
+                        <SheetContent
+                            side={"left"}
+                        >
+                            <SheetHeader>
+                                <SheetTitle>
+                                    <TypographyLarge>{APP_NAME}</TypographyLarge>
+                                </SheetTitle>
+                            </SheetHeader>
+                            <ScrollArea className="h-full px-1">
+                                <div className="py-6 space-y-2">
+                                    {navigation.map((item) => (
+                                        <Link
+                                            key={item.name}
+                                            href={item.href}
+                                            legacyBehavior
+                                            className="block px-3 py-2 -mx-3 text-base font-semibold leading-7  rounded-lg "
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    ))}
+                                    <div className='flex flex-col gap-4'>
+                                        <ThemeModeToggle />
+                                        <UserButton />
+                                    </div>
+                                </div>
+                            </ScrollArea>
+                        </SheetContent>
+                    </Sheet>
                 </div>
                 <div className="hidden lg:flex lg:gap-x-12">
                     {/* <NavBarMenu /> */}

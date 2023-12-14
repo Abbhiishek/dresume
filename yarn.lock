@@ -1640,6 +1640,17 @@
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-primitive" "1.0.3"
 
+"@radix-ui/react-avatar@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-avatar/-/react-avatar-1.0.4.tgz#de9a5349d9e3de7bbe990334c4d2011acbbb9623"
+  integrity sha512-kVK2K7ZD3wwj3qhle0ElXhOjbezIgyl2hVvgwfIdexL3rN6zJmy5AqqIf+D31lxVppdzV8CjAfZ6PklkmInZLw==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@radix-ui/react-context" "1.0.1"
+    "@radix-ui/react-primitive" "1.0.3"
+    "@radix-ui/react-use-callback-ref" "1.0.1"
+    "@radix-ui/react-use-layout-effect" "1.0.1"
+
 "@radix-ui/react-collection@1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-collection/-/react-collection-1.0.3.tgz#9595a66e09026187524a36c6e7e9c7d286469159"
@@ -4320,6 +4331,11 @@ compare-func@^2.0.0:
   dependencies:
     array-ify "^1.0.0"
     dot-prop "^5.1.0"
+
+compress-image@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/compress-image/-/compress-image-0.0.1.tgz#9574dab02d9d639ecf94bb0ed4e212c6a7bf13c0"
+  integrity sha512-whNbpgghLB9yUpCorb4q/3p5zWd1CdpDB04OQQHyji9igvCm8A5uF92rnDR/Kxoo5ZAfOV+fJHkG9HSsGr9vcw==
 
 compute-scroll-into-view@^3.0.2:
   version "3.1.0"

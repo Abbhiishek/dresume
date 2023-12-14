@@ -40,18 +40,18 @@ export default async function GeneralSection({ siteId }: { siteId: string }) {
                 }}
                 handleSubmit={updateSite}
             />
-            {/* <Form
-                title="About"
-                description="Write about yourself. This will be displayed in About Section"
+            <Form
+                title="Tagline"
+                description="Write One Line for you"
                 helpText="Try to use as much cool words for you 😎"
                 inputAttrs={{
-                    name: "about",
-                    type: "about",
-                    defaultValue: data?.about!,
-                    placeholder: "A blog about really interesting things.",
+                    name: "tagline",
+                    type: "text",
+                    defaultValue: data?.tagline!,
+                    placeholder: "Software developer @company_name",
                 }}
                 handleSubmit={updateSite}
-            /> */}
+            />
             <AboutEditor
                 siteid={data?.id!}
                 defaultValue={data?.about!}

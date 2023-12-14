@@ -17,11 +17,6 @@ export default async function SettingsPage() {
         },
     });
 
-    console.log(userdetails)
-
-    // 1. Define your form.
-
-
     return (
         <div className="flex max-w-screen-xl flex-col space-y-12 p-8">
             <div className="flex flex-col space-y-6">

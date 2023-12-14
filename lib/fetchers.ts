@@ -48,12 +48,19 @@ export async function getSiteData(domain: string) {
 }
 
 
-export async function getSiteAbout(siteId: string) {
+export async function getSiteAbout(domain: string) {
+
+    const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
+        ? domain.replace(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
+        : null;
+
+
     return await unstable_cache(
         async () => {
-            const data = await prisma.site.findFirst({
-                where: {
-                    id: siteId
+            const data = await prisma.site.findUnique({
+                where: subdomain ? { subdomain } : { customDomain: domain },
+                select: {
+                    about: true
                 }
             })
 
@@ -66,10 +73,10 @@ export async function getSiteAbout(siteId: string) {
                 mdxSource,
             };
         },
-        [`${siteId}-about`],
+        [`${domain}-about`],
         {
-            revalidate: 900,
-            tags: [`${siteId}-about`],
+            revalidate: 1,
+            tags: [`${domain}-about`],
         },
     )();
 }

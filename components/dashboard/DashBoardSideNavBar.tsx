@@ -32,7 +32,9 @@ function SideNavBar() {
                             <MenuIcon className="w-5 h-5" />
                         </Button>
                     </SheetTrigger>
-                    <SheetContent>
+                    <SheetContent
+                        side={"left"}
+                    >
                         <SheetHeader>
                             <SheetTitle>
                                 <TypographyLarge>{APP_NAME}</TypographyLarge>

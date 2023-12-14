@@ -161,6 +161,7 @@ model Site {
   id             String   @id @default(cuid())
   name           String
   description    String   @db.Text
+  tagline        String   @default("") @db.Text
   logo           String?  @db.Text
   font           String   @default("font-cal")
   primaryColor   String   @default("#000000")

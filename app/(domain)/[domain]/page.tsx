@@ -1,8 +1,11 @@
 
 import DefaultTheme from "@/components/themes/DefaultTheme";
 import prisma from "@/lib/db";
-import { getSiteData } from "@/lib/fetchers";
+import { getSiteAbout, getSiteData } from "@/lib/fetchers";
 import { notFound } from "next/navigation";
+export const dynamic = 'force-dynamic'
+
+
 
 export async function generateStaticParams() {
     const allSites = await prisma.site.findMany({
@@ -30,14 +33,22 @@ export async function generateStaticParams() {
     return allPaths;
 }
 
+
+
+
+
+
+
+
 export default async function SiteHomePage({
     params,
 }: {
     params: { domain: string };
 }) {
     const domain = decodeURIComponent(params.domain);
-    const [data] = await Promise.all([
-        getSiteData(domain)
+    const [data, aboutdata] = await Promise.all([
+        getSiteData(domain),
+        getSiteAbout(domain)
     ]);
 
 
@@ -49,7 +60,7 @@ export default async function SiteHomePage({
     return (
         <>
             {/* {data.theme} */}
-            <DefaultTheme sitedata={data} user={data.user!} />
+            <DefaultTheme sitedata={data} user={data.user!} about={aboutdata!} />
         </>
     );
 }

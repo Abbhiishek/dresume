@@ -1,8 +1,7 @@
 import { TypographyH1 } from "@/components/common/Typography";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { GithubIcon, Globe2Icon, LinkedinIcon, Twitter } from 'lucide-react';
-import Image from "next/image";
 import Link from "next/link";
-
 
 function HomeSection({ name, image, tagline, twitterid, githubid, linkedinid, websiteurl }: {
     name: string,
@@ -64,13 +63,10 @@ function HomeSection({ name, image, tagline, twitterid, githubid, linkedinid, we
                 </div>
             </div>
             <div className="hidden lg:flex">
-                <Image
-                    src={image}
-                    alt="Abhishek Kushwaha"
-                    width={50000}
-                    height={50000}
-                    className="w-96 h-96 rounded-full aspect-square"
-                />
+                <Avatar className="w-96 h-96 rounded-full ">
+                    <AvatarImage src={image} className="w-96 h-96 rounded-full" about={name} alt={name} />
+                    <AvatarFallback>{name}</AvatarFallback>
+                </Avatar>
             </div>
             <a className="fixed bottom-14 right-8 z-[99] bg-primary cursor-pointer w-[100px] text-center h-12 rounded-full text-lg pt-3" href="#Contact" rel="noopener" aria-label="Contact" id="contactbtn">
                 <strong>
@@ -78,7 +74,7 @@ function HomeSection({ name, image, tagline, twitterid, githubid, linkedinid, we
                     Talk!
                 </strong>
             </a>
-        </div>
+        </div >
 
     )
 }
