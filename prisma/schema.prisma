@@ -206,3 +206,11 @@ model Example {
   image         String? @db.Text
   imageBlurhash String? @db.Text
 }
+
+model Newsletter {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  email      String   @unique
+
+  @@map("newsletter")
+}
