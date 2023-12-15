@@ -20,18 +20,20 @@ export default async function PostOG({
         : null;
 
     const response = await prisma.$queryRaw`
-        SELECT blog.title, blog.description, blog.image, "user".firstname as "authorName", "user".avatar as "authorImage"
-        FROM "blog" AS blog 
-        INNER JOIN "Site" AS site ON blog."siteId" = site.id 
-        INNER JOIN "User" AS "user" ON site."userId" = "user".id 
+        SELECT blog.title, blog.description, blog.image, 
+        user.firstname as authorName, user.avatar as authorImage
+        FROM blog AS blog 
+        INNER JOIN Site AS site ON blog.siteId = site.id 
+        INNER JOIN user AS user ON site.userId = user.id 
         WHERE 
           (
               site.subdomain = ${subdomain}
-              OR site."customDomain" = ${domain}
+              OR site.customDomain = ${domain}
           )
           AND blog.slug = ${slug}
         LIMIT 1;
-      `;
+      `
+        ;
 
     const data = (response as any).rows[0];
 
@@ -59,7 +61,7 @@ export default async function PostOG({
                             src={data.authorImage}
                             alt={data.authorName}
                         />
-                        <p tw="text-xl font-medium text-gray-900">by {data.authorName}</p>
+                        <p tw="text-xl font-medium text-gray-900">by {data.authorImage} </p>
                     </div>
                     <img
                         tw="mt-4 w-5/6 rounded-2xl border border-gray-200 shadow-md"
