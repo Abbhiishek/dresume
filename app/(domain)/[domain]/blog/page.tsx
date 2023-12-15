@@ -53,7 +53,7 @@ export default async function SiteHomePage({
             <div className="mb-20 w-full">
                 {posts.length > 0 ? (
                     <div className="mx-auto w-full max-w-screen-xl md:mb-28 lg:w-5/6">
-                        <Link href={`/${posts[0].slug}`}>
+                        <Link href={`/blog/${posts[0].slug}`}>
                             <div className="group relative mx-auto h-80 w-full overflow-hidden sm:h-150 lg:rounded-xl">
                                 <BlurImage
                                     alt={posts[0].title ?? ""}
@@ -80,7 +80,7 @@ export default async function SiteHomePage({
                                                 width={100}
                                                 height={100}
                                                 className="h-full w-full object-cover"
-                                                src={data.user?.avatar}
+                                                src={data.logo!}
                                             />
                                         ) : (
                                             <div className="absolute flex h-full w-full select-none items-center justify-center bg-stone-100 text-4xl text-stone-500">
@@ -89,7 +89,7 @@ export default async function SiteHomePage({
                                         )}
                                     </div>
                                     <p className="ml-3 inline-block whitespace-nowrap align-middle text-sm font-semibold dark:text-white md:text-base">
-                                        {data.user?.firstname}
+                                        {data.user?.firstname} {" "} {data.user?.lastname}
                                     </p>
                                     <div className="h-6 border-l border-stone-600 dark:border-stone-400" />
                                     <p className="m-auto my-5 w-10/12 text-sm font-light text-stone-500 dark:text-stone-400 md:text-base">
