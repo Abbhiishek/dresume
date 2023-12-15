@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import prisma from "@/lib/db";
+import prisma from "@/lib/edgedb";
 import { truncate } from "@/lib/utils";
 import { ImageResponse } from "next/og";
 
