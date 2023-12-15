@@ -70,7 +70,7 @@ export default async function PostOG({
                             src={data.authorImage}
                             alt={data.authorName}
                         />
-                        <p tw="text-xl font-medium text-gray-900">by {data.authorImage} </p>
+                        <p tw="text-xl font-medium text-gray-900">by {data.authorName} </p>
                     </div>
                     <img
                         tw="mt-4 w-5/6 rounded-2xl border border-gray-200 shadow-md"
