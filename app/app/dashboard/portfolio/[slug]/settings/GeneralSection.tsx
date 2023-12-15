@@ -1,6 +1,8 @@
+import { TypographyH2 } from "@/components/common/Typography";
 import Form from "@/components/form";
 import DeleteSiteForm from "@/components/form/delete-site-form";
 import AboutEditor from "@/components/form/site-about-form";
+import SocialMediaForm from "@/components/form/social-media-form";
 import { updateSite } from "@/lib/actions";
 import prisma from "@/lib/db";
 
@@ -60,6 +62,18 @@ export default async function GeneralSection({ siteId }: { siteId: string }) {
                 description="Write about yourself. This will be displayed in About Section"
                 helpText="Try to use as much cool words for you 😎"
             />
+            <TypographyH2>Social Media 🤖</TypographyH2>
+            <SocialMediaForm socials={
+                {
+                    twitterid: data?.twitterid!,
+                    linkedinid: data?.linkedinid!,
+                    githubid: data?.githubid!,
+                    websiteurl: data?.websiteurl!,
+                    instagramid: data?.instagramid!,
+                    youtubeurl: data?.youtubeurl!
+                }}
+            />
+            <TypographyH2 className="text-red-600 font-black">Danger Zone</TypographyH2>
             <DeleteSiteForm siteName={data?.name!} />
         </div>
     )

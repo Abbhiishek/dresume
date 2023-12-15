@@ -65,12 +65,13 @@ export const createSite = async (formData: FormData) => {
 
 export const updateSite = withSiteAuth(
     async (formData: FormData, site: Site, key: string) => {
-        const value = formData.get(key) as string;
+        // const value = formData.get(key) as string;
 
         try {
             let response;
 
             if (key === "customDomain") {
+                const value = formData.get(key) as string;
                 if (value.includes("dresume.me")) {
                     return {
                         error: "Cannot use dresume.me subdomain as your custom domain",
@@ -109,6 +110,7 @@ export const updateSite = withSiteAuth(
                     response = await removeDomainFromVercelProject(site.customDomain);
                 }
             } else if (key === "image" || key === "logo") {
+                const value = formData.get(key) as string;
                 if (!process.env.UPLOADTHING_SECRET) {
                     return {
                         error:
@@ -143,7 +145,28 @@ export const updateSite = withSiteAuth(
                         ...(blurhash && { imageBlurhash: blurhash }),
                     },
                 });
+            } else if (key === "socials") {
+                const twitterid = formData.get("twitterid") as string;
+                const githubid = formData.get("githubid") as string;
+                const linkedinid = formData.get("linkedinid") as string;
+                const instagramid = formData.get("instagramid") as string;
+                const youtubeurl = formData.get("youtubeurl") as string;
+                const websiteurl = formData.get("websiteurl") as string;
+                response = await prisma.site.update({
+                    where: {
+                        id: site.id,
+                    },
+                    data: {
+                        twitterid,
+                        githubid,
+                        linkedinid,
+                        instagramid,
+                        youtubeurl,
+                        websiteurl
+                    },
+                });
             } else {
+                const value = formData.get(key) as string;
                 response = await prisma.site.update({
                     where: {
                         id: site.id,

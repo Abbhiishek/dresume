@@ -1,21 +1,23 @@
 import { TypographyH1 } from "@/components/common/Typography";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { GithubIcon, Globe2Icon, LinkedinIcon, Twitter } from 'lucide-react';
+import { InstagramLogoIcon } from "@radix-ui/react-icons";
+import { GithubIcon, Globe2Icon, LinkedinIcon, Twitter, YoutubeIcon } from 'lucide-react';
 import Link from "next/link";
 
-function HomeSection({ name, image, tagline, twitterid, githubid, linkedinid, websiteurl }: {
+function HomeSection({ name, image, tagline, twitterid, githubid, linkedinid, websiteurl, youtubeurl, instagramid }: {
     name: string,
     image: string,
     tagline: string,
     twitterid: string,
     githubid: string,
     linkedinid: string,
+    youtubeurl: string,
+    instagramid: string,
     websiteurl: string,
-
 }) {
     return (
 
-        <div className="flex flex-row items-center justify-around lg:min-h-[700px] min-h-[500px]" id="Home">
+        <div className="flex flex-row items-center justify-start lg:justify-around lg:min-h-[700px] min-h-[500px]" id="Home">
             <div className="flex flex-col items-start justify-start">
                 <TypographyH1 className="font-default lg:text-7xl text-6xl">{name}</TypographyH1>
                 <p className="font-default text-2xl mt-2">{tagline}</p>
@@ -24,9 +26,10 @@ function HomeSection({ name, image, tagline, twitterid, githubid, linkedinid, we
                         twitterid ? (
                             <Link href={twitterid}
                                 passHref
+                                target="_blank"
 
                             >
-                                <Twitter className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 fill-primary" />
+                                <Twitter className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 " />
                             </Link>
                         ) : null
                     }
@@ -34,9 +37,10 @@ function HomeSection({ name, image, tagline, twitterid, githubid, linkedinid, we
                         githubid ? (
                             <Link href={githubid}
                                 passHref
+                                target="_blank"
 
                             >
-                                <GithubIcon className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 fill-primary" />
+                                <GithubIcon className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 " />
                             </Link>
                         ) : null
                     }
@@ -44,9 +48,32 @@ function HomeSection({ name, image, tagline, twitterid, githubid, linkedinid, we
                         linkedinid ? (
                             <Link href={linkedinid}
                                 passHref
+                                target="_blank"
 
                             >
-                                <LinkedinIcon className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 fill-primary" />
+                                <LinkedinIcon className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 " />
+                            </Link>
+                        ) : null
+                    }
+                    {
+                        youtubeurl ? (
+                            <Link href={youtubeurl}
+                                passHref
+                                target="_blank"
+
+                            >
+                                <YoutubeIcon className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 " />
+                            </Link>
+                        ) : null
+                    }
+                    {
+                        instagramid ? (
+                            <Link href={instagramid}
+                                passHref
+                                target="_blank"
+
+                            >
+                                <InstagramLogoIcon className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 " />
                             </Link>
                         ) : null
                     }
@@ -54,6 +81,7 @@ function HomeSection({ name, image, tagline, twitterid, githubid, linkedinid, we
                         websiteurl ? (
                             <Link href={websiteurl}
                                 passHref
+                                target="_blank"
 
                             >
                                 <Globe2Icon className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 " />

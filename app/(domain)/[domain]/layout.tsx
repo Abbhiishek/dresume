@@ -42,7 +42,7 @@ export async function generateMetadata({
             title,
             description,
             images: [image],
-            creator: "@abhishekkushwaha",
+            creator: data.twitterid || "@abhishekkushwaha",
         },
         icons: [logo],
         metadataBase: new URL(`https://${domain}`),
@@ -67,8 +67,6 @@ export default async function HostedPortfolioLayout({
     const [data] = await Promise.all([
         getSiteData(domain),
     ]);
-    // console.log("data from layout.tsx", data)
-
     if (!data) {
         notFound();
     }

@@ -60,7 +60,7 @@ export default async function SiteHomePage({
     return (
         <>
             {/* {data.theme} */}
-            <DefaultTheme sitedata={data} user={data.user!} about={aboutdata!} />
+            <DefaultTheme sitedata={data!} about={aboutdata!} />
         </>
     );
 }

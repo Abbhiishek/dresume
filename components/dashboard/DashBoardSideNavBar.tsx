@@ -136,13 +136,6 @@ const NavBarOptions = () => {
                 icon: <CircleUser className="w-5 h-5" />,
             },
             {
-                name: "Settings",
-                Link: "/dashboard/settings",
-                urlname: "settings",
-                isActive: segments[0] === "settings",
-                icon: <Settings2 className="w-5 h-5" />,
-            },
-            {
                 name: "Explore",
                 Link: "/community",
                 urlname: "community",

@@ -1,4 +1,4 @@
-import { TechStack, User, UserCertificate, UserEducation, UserWorkExperience, projects } from "@prisma/client";
+import { TechStack, UserCertificate, UserEducation, UserWorkExperience, projects } from "@prisma/client";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import AboutSection from "./default/AboutSection";
 import ContactSection from "./default/ContactSection";
@@ -12,46 +12,50 @@ import TechStackSection from "./default/TechStack";
 
 function DefaultTheme({
     sitedata,
-    user,
     about
 }: {
     // sitedata conatins mixed tyypes
     sitedata: {
-        id: string
-        name: string | null,
-        logo: string | null,
-        skills: string[],
-        tagline: string,
-        subdomain: string,
         education: UserEducation[],
         certificates: UserCertificate[],
-        workexperience: UserWorkExperience[]
-        projects: projects[]
-        techstack: TechStack[]
+        workexperience: UserWorkExperience[],
+        projects: projects[],
+        techstack: TechStack[],
+        // site: Site, // Add the Site type here
+        name: string,
+        tagline: string,
+        logo: string | null,
+        twitterid: string | null,
+        githubid: string | null,
+        linkedinid: string | null,
+        websiteurl: string | null,
+        youtubeurl: string | null,
+        instagramid: string | null,
+        skills: string[],
+
     }
-    user: User,
     about: {
         about: string
         mdxSource: MDXRemoteSerializeResult<Record<string, unknown>, Record<string, unknown>>
     }
 }) {
-
-
     return (
         <>
             <UserPortfolioNavbar
-                name={sitedata.name ?? ''}
-                logo={sitedata.logo ? sitedata.logo : user.avatar!}
+                name={sitedata.name!}
+                logo={sitedata.logo!}
             />
-            <div className="lg:container px-2">
+            <div className="container px-2 mx-auto">
                 <HomeSection
-                    name={sitedata.name ?? ''}
-                    image={sitedata.logo ? sitedata.logo : user.avatar!}
-                    tagline={sitedata.tagline}
-                    twitterid={user.twitterid!}
-                    githubid={user.githubid!}
-                    linkedinid={user.linkedinid!}
-                    websiteurl={user.websiteurl!}
+                    name={sitedata.name}
+                    image={sitedata.logo!}
+                    tagline={sitedata.tagline!}
+                    twitterid={sitedata.twitterid!}
+                    githubid={sitedata.githubid!}
+                    linkedinid={sitedata.linkedinid!}
+                    websiteurl={sitedata.websiteurl!}
+                    youtubeurl={sitedata.youtubeurl!}
+                    instagramid={sitedata.instagramid!}
                 />
                 <AboutSection
                     skills={sitedata.skills}
@@ -76,11 +80,12 @@ function DefaultTheme({
                 />
 
                 <ContactSection
-                    twitterid={user.twitterid!}
-                    githubid={user.githubid!}
-                    linkedinid={user.linkedinid!}
-                    websiteurl={user.websiteurl!}
-                    emailid={user.email}
+                    twitterid={sitedata.twitterid!}
+                    githubid={sitedata.githubid!}
+                    linkedinid={sitedata.linkedinid!}
+                    websiteurl={sitedata.websiteurl!}
+                    youtubeurl={sitedata.youtubeurl!}
+                    instagramid={sitedata.instagramid!}
                 />
 
 

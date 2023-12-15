@@ -1,19 +1,15 @@
 import { TypographyH2, TypographyP } from "@/components/common/Typography"
-import { GithubIcon, Globe2Icon, LinkedinIcon, MailIcon, Twitter } from "lucide-react"
+import { InstagramLogoIcon } from "@radix-ui/react-icons"
+import { GithubIcon, Globe2Icon, LinkedinIcon, Twitter, YoutubeIcon } from "lucide-react"
 import Link from "next/link"
 
-function ContactSection({
-    githubid,
-    linkedinid,
-    twitterid,
-    emailid,
-    websiteurl
-}: {
+function ContactSection({ twitterid, githubid, linkedinid, websiteurl, youtubeurl, instagramid }: {
+    twitterid: string,
     githubid: string,
     linkedinid: string,
-    twitterid: string,
-    emailid: string,
     websiteurl: string,
+    youtubeurl: string,
+    instagramid: string
 }) {
     return (
         <section className="lg:mt-36  py-5" id="Contact">
@@ -40,6 +36,7 @@ function ContactSection({
                     twitterid ? (
                         <Link href={twitterid}
                             passHref
+                            target="_blank"
 
                         >
                             <Twitter className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 " />
@@ -50,6 +47,7 @@ function ContactSection({
                     githubid ? (
                         <Link href={githubid}
                             passHref
+                            target="_blank"
 
                         >
                             <GithubIcon className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 " />
@@ -60,6 +58,7 @@ function ContactSection({
                     linkedinid ? (
                         <Link href={linkedinid}
                             passHref
+                            target="_blank"
 
                         >
                             <LinkedinIcon className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 " />
@@ -67,12 +66,24 @@ function ContactSection({
                     ) : null
                 }
                 {
-                    websiteurl ? (
-                        <Link href={websiteurl}
+                    youtubeurl ? (
+                        <Link href={youtubeurl}
                             passHref
+                            target="_blank"
 
                         >
-                            <Globe2Icon className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 " />
+                            <YoutubeIcon className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 " />
+                        </Link>
+                    ) : null
+                }
+                {
+                    instagramid ? (
+                        <Link href={instagramid}
+                            passHref
+                            target="_blank"
+
+                        >
+                            <InstagramLogoIcon className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 " />
                         </Link>
                     ) : null
                 }
@@ -80,9 +91,10 @@ function ContactSection({
                     websiteurl ? (
                         <Link href={websiteurl}
                             passHref
+                            target="_blank"
 
                         >
-                            <MailIcon className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 " />
+                            <Globe2Icon className="w-8 h-8 text-primary hover:text-white transition-all duration-300 hover:-translate-y-4 " />
                         </Link>
                     ) : null
                 }

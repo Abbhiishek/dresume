@@ -2,11 +2,11 @@
 
 import NavBar from "@/components/common/NavBar";
 import SideNavBar from "@/components/dashboard/DashBoardSideNavBar";
-import { APP_DESC } from "@/lib/contants";
+import { APP_DESC, APP_NAME } from "@/lib/contants";
 
 
 export const metadata = {
-    title: 'Dashboard',
+    title: `Dashboard - ${APP_NAME}`,
     description: APP_DESC,
 };
 
