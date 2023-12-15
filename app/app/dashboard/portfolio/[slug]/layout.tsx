@@ -1,9 +1,6 @@
 
-import { TypographyH4 } from "@/components/common/Typography";
 import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
-import { Button } from "@nextui-org/react";
-import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { ReactNode } from "react";
 
@@ -13,7 +10,7 @@ export default async function SiteLayout({ children, params }:
 
     const session = auth();
     if (!session) {
-        redirect("/login");
+        redirect("/sign-in");
     }
     const data = await prisma.site.findUnique({
         where: {
@@ -30,24 +27,7 @@ export default async function SiteLayout({ children, params }:
 
     return (
         <div className="flex max-w-screen-xl flex-col space-y-12">
-            <div className="flex flex-col space-y-6">
-                <Link
-                    href={
-                        process.env.NEXT_PUBLIC_VERCEL_ENV
-                            ? `https://${url}`
-                            : `http://${data.subdomain}.localhost:3000`
-                    }
-                    target="_blank"
-                >
-                    <Button
-                        variant="light"
-                        color="primary"
-                    >
-                        <TypographyH4>🔗{"  "}{url}{" "} 🎉</TypographyH4>
-                    </Button>
-                </Link>
-                {children}
-            </div>
+            {children}
         </div>
     );
 }

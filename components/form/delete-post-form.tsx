@@ -3,36 +3,38 @@
 
 import { deletePost } from "@/lib/actions";
 import { cn } from "@/lib/utils";
+import { Input } from "@nextui-org/react";
 import va from "@vercel/analytics";
 import { Loader2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useFormStatus } from "react-dom";
-import { useToast } from "../ui/use-toast";
+import { toast } from "sonner";
 
 
 export default function DeletePostForm({ postName }: { postName: string }) {
-    const { id } = useParams() as { id: string };
+    const { blogslug, slug } = useParams() as { blogslug: string, slug: string };
     const router = useRouter();
-    const { toast } = useToast()
     return (
         <form
             action={async (data: FormData) =>
                 window.confirm("Are you sure you want to delete your post?") &&
-                deletePost(data, id, "delete").then((res) => {
+                deletePost(data, blogslug, "delete").then((res) => {
                     if (res.error) {
-                        toast({
-                            title: "An error occurred.",
-                            description: res.error,
-                            variant: "destructive",
-                        })
+                        // toast({
+                        //     title: "An error occurred.",
+                        //     description: res.error,
+                        //     variant: "destructive",
+                        // })
+                        toast.error("An error occurred.")
                     } else {
                         va.track("Deleted Post");
                         router.refresh();
-                        router.push(`/site/${res.siteId}`);
-                        toast({
-                            title: "Post deleted.",
-                            description: "Your post has been deleted.",
-                        })
+                        router.push(`/dashboard/portfolio/${slug}/blog`);
+                        // toast({
+                        //     title: "Post deleted.",
+                        //     description: "Your post has been deleted.",
+                        // })
+                        toast.success("Blog Deleted !")
                     }
                 })
             }
@@ -45,13 +47,13 @@ export default function DeletePostForm({ postName }: { postName: string }) {
                     <b>{postName}</b> to confirm.
                 </p>
 
-                <input
+                <Input
                     name="confirm"
                     type="text"
                     required
                     pattern={postName}
                     placeholder={postName}
-                    className="w-full max-w-md rounded-md border border-stone-300 text-sm text-stone-900 placeholder-stone-300 focus:border-stone-500 focus:outline-none focus:ring-stone-500 dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700"
+                    className="w-full max-w-md  text-sm text-stone-900 placeholder-stone-300   dark:bg-black dark:text-white dark:placeholder-stone-700"
                 />
             </div>
 

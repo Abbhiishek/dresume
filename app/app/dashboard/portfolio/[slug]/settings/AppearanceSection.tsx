@@ -16,7 +16,7 @@ export default async function AppearanceSection({ siteId }: { siteId: string }) 
             <Form
                 title="Thumbnail image"
                 description="The thumbnail image for your site. Accepted formats: .png, .jpg, .jpeg"
-                helpText="Max file size 50MB. Recommended size 1200x630."
+                helpText="Max file size 2MB. Recommended size 1200x630."
                 inputAttrs={{
                     name: "image",
                     type: "file",
@@ -27,7 +27,7 @@ export default async function AppearanceSection({ siteId }: { siteId: string }) 
             <Form
                 title="Logo"
                 description="The logo for your site. Accepted formats: .png, .jpg, .jpeg"
-                helpText="Max file size 50MB. Recommended size 400x400."
+                helpText="Max file size 2MB. Recommended size 400x400."
                 inputAttrs={{
                     name: "logo",
                     type: "file",

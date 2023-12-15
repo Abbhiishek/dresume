@@ -27,7 +27,7 @@ export default async function SettingsPage() {
                 <Form
                     title="Avatar"
                     description="This is Visible on your Portfolio"
-                    helpText="Max file size 50MB. Recommended size 400x400."
+                    helpText="Max file size 2MB. Recommended size 400x400."
                     inputAttrs={{
                         name: "avatar",
                         type: "avatar",

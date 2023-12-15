@@ -5,7 +5,6 @@ import { Metadata } from "next";
 import '.././styles/globals.css';
 import { Providers } from './NextUIProvider';
 
-
 const image = "https://app.dresume.me/placeholder.png";
 export const metadata: Metadata = {
     title: APP_NAME,

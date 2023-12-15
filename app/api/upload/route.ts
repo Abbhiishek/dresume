@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { UTApi } from "uploadthing/server";
-
 export const runtime = "edge";
 const utapi = new UTApi();
 
@@ -27,6 +26,8 @@ export async function POST(req: Request) {
         : `${filename}${fileType}`;
 
     const fileData = await new Response(file).arrayBuffer();
+
+
     const upload = await utapi.uploadFiles(new File([new Uint8Array(fileData)], finalName));
     return NextResponse.json({
         url: upload.data?.url

@@ -2,7 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import { useRef, useState } from "react";
-import { useToast } from "../ui/use-toast";
+import { toast } from "sonner";
+
 
 export default function Uploader({
     defaultValue,
@@ -12,33 +13,21 @@ export default function Uploader({
     name: "image" | "avatar" | "logo";
 }) {
     const aspectRatio = name === "image" ? "aspect-video" : "aspect-square";
-    const { toast } = useToast()
     const inputRef = useRef<HTMLInputElement>(null);
     const [data, setData] = useState({
         [name]: defaultValue,
     });
     const [dragActive, setDragActive] = useState(false);
-
     const handleUpload = (file: File | null) => {
         if (file) {
-            if (file.size / 1024 / 1024 > 50) {
-                // toast.error("File size too big (max 50MB)");
-                toast({
-                    title: "File size too big (max 50MB)",
-                    description: "Please upload a smaller file.",
-                    variant: "destructive",
-                })
+            if (file.size / 1024 / 1024 > 2) {
+                toast.error("File size too big (max 2MB)");
             } else if (
                 !file.type.includes("png") &&
                 !file.type.includes("jpg") &&
                 !file.type.includes("jpeg")
             ) {
-                // toast.error("Invalid file type (must be .png, .jpg, or .jpeg)");
-                toast({
-                    title: "Invalid file type (must be .png, .jpg, or .jpeg)",
-                    description: "Please upload a valid file type.",
-                    variant: "destructive",
-                })
+                toast.error("Invalid file type (must be .png, .jpg, or .jpeg)");
             } else {
                 const reader = new FileReader();
                 reader.onload = (e) => {
@@ -57,7 +46,7 @@ export default function Uploader({
                     "group relative mt-2 flex cursor-pointer flex-col items-center justify-center rounded-md border border-gray-300 bg-white shadow-sm transition-all hover:bg-gray-50",
                     aspectRatio,
                     {
-                        "max-w-screen-md": aspectRatio === "aspect-video",
+                        "max-w-screen-lg": aspectRatio === "aspect-video",
                         "max-w-xs": aspectRatio === "aspect-square",
                     },
                 )}
@@ -117,7 +106,7 @@ export default function Uploader({
                         Drag and drop or click to upload.
                     </p>
                     <p className="mt-2 text-center text-sm text-gray-500">
-                        Max file size: 50MB
+                        Max file size: 2MB
                     </p>
                     <span className="sr-only">Photo upload</span>
                 </div>

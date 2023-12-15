@@ -32,7 +32,7 @@ export default function Form({
     };
     handleSubmit: any;
 }) {
-    const { slug } = useParams() as { slug?: string };
+    const { slug, blogslug } = useParams() as { slug?: string, blogslug?: string };
     const router = useRouter();
     const { toast } = useToast()
     return (
@@ -46,7 +46,16 @@ export default function Form({
                 ) {
                     return;
                 }
-                handleSubmit(data, slug, inputAttrs.name).then(async (res: any) => {
+
+                let modifiedslug;
+
+                if (blogslug) {
+                    modifiedslug = blogslug
+                } else {
+                    modifiedslug = slug
+                }
+
+                handleSubmit(data, modifiedslug, inputAttrs.name).then(async (res: any) => {
                     if (res.error) {
                         // toast.error(res.error);
                         console.log(res.error)

@@ -9,7 +9,7 @@ import {
     SheetTitle,
     SheetTrigger
 } from "@/components/ui/sheet";
-import { ArrowLeft, BarChart3, Boxes, CircleUser, LayoutDashboard, MenuIcon, Newspaper, Rss, Settings2, UserCircle } from "lucide-react";
+import { ArrowLeft, BarChart3, Boxes, CircleUser, Edit3, LayoutDashboard, MenuIcon, Newspaper, PartyPopper, Rss, Settings, Settings2, UserCircle } from "lucide-react";
 import Link from "next/link";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -56,51 +56,46 @@ function SideNavBar() {
 
 const NavBarOptions = () => {
     const segments = useSelectedLayoutSegments();
-    const { slug } = useParams() as { slug?: string };
+    const { blogslug, slug } = useParams() as { blogslug?: string, slug?: string };
     const [siteId, setSiteId] = useState<string | null>();
+
+    console.log(blogslug)
     useEffect(() => {
-        if (segments[0] === "blog" && slug) {
-            getSiteFromPostId(slug).then((slug) => {
+        if (segments[2] === "blog" && blogslug) {
+            getSiteFromPostId(blogslug).then((slug) => {
                 setSiteId(slug);
             });
         }
-    }, [segments, slug]);
+    }, [segments, blogslug]);
 
 
 
-    // console.log(segments)
+    console.log(segments)
 
 
     const tabs = useMemo(() => {
-        if (segments[0] === "portfolio" && slug) {
+        if (segments[0] === "portfolio" && slug && segments[2] === "blog" && blogslug) {
             return [
                 {
-                    name: "Back to All Portfolio",
+                    name: "Back to All Post",
                     icon: <ArrowLeft width={18} />,
-                    Link: "/dashboard/portfolio",
-                    urlname: "portfolio"
+                    Link: `/dashboard/portfolio/${slug}/blog`,
+                    urlname: "dashboard"
                 },
                 {
-                    name: "Overview",
-                    icon: <Newspaper width={18} />,
-                    Link: `/dashboard/portfolio/${slug}`,
-                    isActive: segments.length === 2,
-                },
-                {
-                    name: "Analytics",
-                    icon: <BarChart3 width={18} />,
-                    Link: `/dashboard/portfolio/${slug}/analytics`,
-                    urlname: "analytics",
-                    isActive: segments.includes("analytics"),
+                    name: "Editor",
+                    Link: `/dashboard/portfolio/${slug}/blog/${blogslug}`,
+                    isActive: segments.length === 4,
+                    icon: <Edit3 width={18} />,
                 },
                 {
                     name: "Settings",
-                    icon: <Settings2 className="w-5 h-5" />,
-                    Link: `/dashboard/portfolio/${slug}/settings`,
-                    urlname: "settings",
+                    Link: `/dashboard/portfolio/${slug}/blog/${blogslug}/settings`,
                     isActive: segments.includes("settings"),
+                    icon: <Settings width={18} />,
                 },
-            ];
+
+            ]
         } else if (segments[0] === "settings") {
             // for only settings navs .......
             return [
@@ -116,6 +111,42 @@ const NavBarOptions = () => {
                     Link: `/dashboard/settings`,
                     urlname: "settings",
                     isActive: segments.length === 1,
+                },
+            ];
+        } else if (segments[0] === "portfolio" && slug) {
+
+            return [
+                {
+                    name: "Back to All Portfolio",
+                    icon: <ArrowLeft width={18} />,
+                    Link: "/dashboard/portfolio",
+                    urlname: "portfolio"
+                },
+                {
+                    name: "Overview",
+                    icon: <PartyPopper width={18} />,
+                    Link: `/dashboard/portfolio/${slug}`,
+                    isActive: segments.length === 2,
+                },
+                {
+                    name: "Blogs",
+                    icon: <Newspaper width={18} />,
+                    Link: `/dashboard/portfolio/${slug}/blog`,
+                    isActive: segments.includes("blog"),
+                },
+                {
+                    name: "Analytics",
+                    icon: <BarChart3 width={18} />,
+                    Link: `/dashboard/portfolio/${slug}/analytics`,
+                    urlname: "analytics",
+                    isActive: segments.includes("analytics"),
+                },
+                {
+                    name: "Settings",
+                    icon: <Settings2 className="w-5 h-5" />,
+                    Link: `/dashboard/portfolio/${slug}/settings`,
+                    urlname: "settings",
+                    isActive: segments.includes("settings"),
                 },
             ];
         }
@@ -150,7 +181,7 @@ const NavBarOptions = () => {
                 icon: <Rss className="w-5 h-5" />,
             }
         ];
-    }, [segments, slug])
+    }, [segments, slug, blogslug])
 
 
 

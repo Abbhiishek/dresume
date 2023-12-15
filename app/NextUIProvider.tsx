@@ -4,6 +4,7 @@ import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 import { NextUIProvider } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
+import { Toaster } from "sonner";
 import { ThemeProvider } from './ThemeProvider';
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -21,6 +22,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
                 enableSystem
             >
                 <NextUIProvider navigate={router.push}>
+                    <Toaster className="dark:hidden" />
+                    <Toaster theme="dark" className="hidden dark:block" />
                     {children}
                 </NextUIProvider>
             </ThemeProvider>
