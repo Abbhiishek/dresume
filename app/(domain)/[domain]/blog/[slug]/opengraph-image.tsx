@@ -44,7 +44,7 @@ export default async function PostOG({
 
     console.log("response ====>", response)
 
-    const data = (response as PostOGResponse);
+    const data = (response as PostOGResponse[])[0];
 
     if (!data) {
         return new Response("Not found", { status: 404 });
