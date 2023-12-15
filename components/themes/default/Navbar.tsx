@@ -21,6 +21,7 @@ function UserPortfolioNavbar({ name, logo, }: {
         { name: 'Education', href: '#Education' },
         { name: 'Experience', href: '#Experience' },
         { name: 'Project', href: '#Projects' },
+        { name: 'Blog', href: '/blog' },
         { name: 'Contact', href: '#Contact' },
     ]
     return (
