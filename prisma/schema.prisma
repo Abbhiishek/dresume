@@ -140,7 +140,8 @@ model Blog {
   userId        String?
   site          Site?    @relation(fields: [siteId], references: [id])
 
-  @@unique([slug])
+  @@unique([slug, siteId])
+  @@index([siteId])
   @@index([userId])
   @@map("blog")
 }

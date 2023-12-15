@@ -20,7 +20,7 @@ export default async function PostOG({
         : null;
 
     const response = await prisma.$queryRaw`
-        SELECT blog.title, blog.description, blog.image, "user".name as "authorName", "user".image as "authorImage"
+        SELECT blog.title, blog.description, blog.image, "user".firstname as "authorName", "user".avatar as "authorImage"
         FROM "Blog" AS blog 
         INNER JOIN "Site" AS site ON blog."siteId" = site.id 
         INNER JOIN "User" AS "user" ON site."userId" = "user".id 

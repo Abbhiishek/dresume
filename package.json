@@ -10,7 +10,7 @@
     "npm": "please-use-yarn"
   },
   "scripts": {
-    "build": "prisma generate && next build",
+    "build": "prisma generate --no-engine && next build",
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
