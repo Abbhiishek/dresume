@@ -140,7 +140,7 @@ export default async function SitePostPage({
                 </Link>
             </div>
 
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center container">
                 <MDX source={data.mdxSource} />
             </div>
             {data.adjacentPosts.length > 0 && (
@@ -153,7 +153,7 @@ export default async function SitePostPage({
                     </div>
                     <div className="relative flex justify-center">
                         <span className="bg-white px-2 text-sm text-stone-500 dark:bg-black dark:text-stone-400">
-                            Continue Reading
+                            More Articles by {data.site?.name}
                         </span>
                     </div>
                 </div>
