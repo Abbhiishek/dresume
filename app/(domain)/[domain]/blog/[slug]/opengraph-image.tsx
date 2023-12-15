@@ -6,7 +6,13 @@ import { ImageResponse } from "next/og";
 
 
 export const runtime = "edge";
-
+type PostOGResponse = {
+    title: string;
+    description: string;
+    image: string;
+    authorName: string;
+    authorImage: string;
+}
 export default async function PostOG({
     params,
 }: {
@@ -35,7 +41,10 @@ export default async function PostOG({
       `
         ;
 
-    const data = (response as any).rows[0];
+
+    console.log("response ====>", response)
+
+    const data = (response as PostOGResponse);
 
     if (!data) {
         return new Response("Not found", { status: 404 });
