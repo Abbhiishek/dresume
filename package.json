@@ -15,7 +15,7 @@
     "lint": "next lint",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "dev": "prisma generate &&  cross-env NODE_OPTIONS='--inspect' next dev",
+    "dev": "prisma generate --no-engine &&  cross-env NODE_OPTIONS='--inspect' next dev",
     "postinstall": "prisma generate"
   },
   "dependencies": {

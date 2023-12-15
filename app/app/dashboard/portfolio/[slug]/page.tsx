@@ -1,4 +1,4 @@
-import { TypographyH1, TypographyH4 } from "@/components/common/Typography";
+import { TypographyH1 } from "@/components/common/Typography";
 import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { Button } from "@nextui-org/react";
@@ -39,7 +39,7 @@ async function SinglePortfolioPage({
                     variant="bordered"
                     color="primary"
                 >
-                    <TypographyH4>🔗{"  "}{url}{" "} 🎉</TypographyH4>
+                    <h1>🔗{"  "}{url}{" "} 🎉</h1>
                 </Button>
             </Link>
             <TypographyH1>Here will come all the cool stuff about your portfolio 😎🌱</TypographyH1>

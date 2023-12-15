@@ -17,7 +17,7 @@ export default function DashboardLayout({
     children: React.ReactNode
 }) {
     return (
-        <section>
+        <section className="min-h-screen">
             <NavBar />
             <div className="flex flex-col gap-5 p-2 mt-2 lg:container lg:mt-10 lg:flex-row ">
                 <SideNavBar />

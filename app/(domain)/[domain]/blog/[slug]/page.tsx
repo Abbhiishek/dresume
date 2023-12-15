@@ -134,13 +134,13 @@ export default async function SitePostPage({
                 >
                     <div className="">
                         <div className="text-md ml-3 inline-block align-middle dark:text-white md:text-lg">
-                            <span className="font-semibold">{data.site?.user?.firstname} {" "} {data.site?.user?.lastname}</span>
+                            <span className="font-semibold">{data.site?.name}</span>
                         </div>
                     </div>
                 </Link>
             </div>
 
-            <div className="flex justify-center items-center container">
+            <div className="flex justify-center items-center  px-2">
                 <MDX source={data.mdxSource} />
             </div>
             {data.adjacentPosts.length > 0 && (
