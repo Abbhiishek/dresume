@@ -72,10 +72,22 @@ export default function Uploader({
                         e.preventDefault();
                         e.stopPropagation();
                         setDragActive(false);
-
-                        const file = e.dataTransfer.files && e.dataTransfer.files[0];
-                        inputRef.current!.files = e.dataTransfer.files; // set input file to dropped file
-                        handleUpload(file);
+// need to resolve this issue :)-- maye fixed who knows
+                        const file = e.dataTransfer.files&& e.dataTransfer.files[0];
+                        if (file) {
+                            if (file.size / 1024 / 1024 > 2) {
+                                toast.error("File size too big (max 2MB)");
+                            } else if (
+                                !file.type.includes("png") &&
+                                !file.type.includes("jpg") &&
+                                !file.type.includes("jpeg")
+                            ) {
+                                toast.error("Invalid file type (must be .png, .jpg, or .jpeg)");
+                            } else {
+                                inputRef.current!.files = e.dataTransfer.files; // set input file to dropped file
+                                handleUpload(file);
+                            }
+                        }
                     }}
                 />
                 <div
@@ -129,7 +141,20 @@ export default function Uploader({
                     className="sr-only"
                     onChange={(e) => {
                         const file = e.currentTarget.files && e.currentTarget.files[0];
-                        handleUpload(file);
+                        if (file) {
+                            if (file.size / 1024 / 1024 > 2) {
+                                toast.error("File size too big (max 2MB)");
+                            } else if (
+                                !file.type.includes("png") &&
+                                !file.type.includes("jpg") &&
+                                !file.type.includes("jpeg")
+                            ) {
+                                toast.error("Invalid file type (must be .png, .jpg, or .jpeg)");
+                            } else {
+                                handleUpload(file);
+                            }
+                        }
+
                     }}
                 />
             </div>
