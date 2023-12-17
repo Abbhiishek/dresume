@@ -4,8 +4,11 @@ import BlurImage from "@/components/blur-image";
 import { replaceLinks } from "@/lib/remark-plugins";
 import { Blog } from "@prisma/client";
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote";
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+// import 'prismjs/themes//';
 import { Tweet } from "react-tweet";
 import styles from "./mdx.module.css";
+
 
 export default function MDX({ source }: { source: MDXRemoteProps }) {
     const components = {

@@ -120,6 +120,7 @@ export default function BlogEditor({ blog }: { blog: PostWithSite }) {
                     className="relative block "
                     defaultValue={blog?.content || ""}
                     storageKey={`blog-content-${data.id}`}
+                    disableLocalStorage={true}
                     onUpdate={(editor) => {
                         setData((prev) => ({
                             ...prev,

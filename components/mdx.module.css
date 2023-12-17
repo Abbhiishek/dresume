@@ -5,11 +5,14 @@
 .root :global(.react-tweet-theme) a {
     font-weight: 300;
 }
+
+.root :global(h1 , h2 , h3 , h4) {
+  @apply font-title bg-primary
+}
   
-.root :global(code[class*='language-'],
-pre[class*='language-']) {
-  color: #d6e7ff;
-  background: #030314;
+.root :global code[class*='language-'] {
+  /* color: #d6e7ff; */
+  /* background: #030314; */
   text-shadow: none;
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   font-size: 1em;
@@ -36,13 +39,13 @@ code[class*='language-'] ::-moz-selection,
 pre[class*='language-']::selection,
 pre[class*='language-'] ::selection,
 code[class*='language-']::selection,
-code[class*='language-'] ::selection) {
+code[class*='language-'] ::selection)  {
   color: inherit;
   background: #1d3b54;
   text-shadow: none;
 }
 
-.root :global(pre[class*='language-'])
+.root :global pre[class*='language-']
  {
   border: 1px solid #2a4555;
   border-radius: 5px;
@@ -51,7 +54,7 @@ code[class*='language-'] ::selection) {
   overflow: auto;
 }
 
-.root :global(:not(pre)>code[class*='language-']) {
+.root :global :not(pre)>code[class*='language-'] {
   color: #f0f6f6;
   background: #2a4555;
   padding: 0.2em 0.3em;
@@ -66,29 +69,28 @@ code[class*='language-'] ::selection) {
   color: #446e69;
 }
 
-.root :global(.token.punctuation) {
+.root :global .token.punctuation  {
   color: #d6b007;
 }
 
-.root :global(.token.property,
+.root .token.property,
 .token.tag,
 .token.boolean,
 .token.number,
 .token.constant,
 .token.symbol,
-.token.deleted ){
+.token.deleted  {
   color: #d6e7ff;
 }
 
-.root :global(.token.selector,
+.root .token.selector,
 .token.attr-name,
 .token.builtin,
-.token.inserted) {
+.token.inserted {
   color: #e60067;
 }
 
-.root :global(.token.string,
-.token.char ){
+.root .token.string , .token.char {
   color: #49c6ec;
 }
 
@@ -107,18 +109,18 @@ code[class*='language-'] ::selection) {
   color: #0fe468;
 }
 
-.token.function,
-.token.class-name {
+.root :global(.token.function,
+.token.class-name ){
   color: #78f3e9;
 }
 
-.token.regex,
+.root :global(.token.regex,
 .token.important,
-.token.variable {
+.token.variable) {
   color: #d6e7ff;
 }
 
-.root :global(pre) {
+.root :global pre {
   overflow-x: auto;
 }
 
@@ -129,14 +131,14 @@ code[class*='language-'] ::selection) {
  * 2. Always fill the visible space in .code-highlight.
  */
 
-.code-highlight {
+.root :global(.code-highlight) {
   float: left;
   /* 1 */
   /* min-width: 100%; */
   /* 2 */
 }
 
-.code-line {
+.root :global(.code-line ){
   display: block;
   padding-left: 16px;
   padding-right: 16px;
@@ -146,17 +148,17 @@ code[class*='language-'] ::selection) {
   /* Set placeholder for highlight accent border color to transparent */
 }
 
-.code-line.inserted {
+.root :global(.code-line.inserted ){
   background-color: rgba(16, 185, 129, 0.2);
   /* Set inserted line (+) color */
 }
 
-.code-line.deleted {
+.root :global(.code-line.deleted) {
   background-color: rgba(239, 68, 68, 0.2);
   /* Set deleted line (-) color */
 }
 
-.highlight-line {
+.root :global(.highlight-line) {
   margin-left: -16px;
   margin-right: -16px;
   background-color: rgba(55, 65, 81, 0.5);
@@ -165,7 +167,7 @@ code[class*='language-'] ::selection) {
   /* Set highlight accent border color */
 }
 
-.code-line::before {
+.root :global(.code-line::before) {
   display: inline-block;
   width: 1rem;
   text-align: right;

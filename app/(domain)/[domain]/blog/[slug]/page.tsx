@@ -6,8 +6,7 @@ import { getBlogData, getSiteData } from "@/lib/fetchers";
 import { placeholderBlurhash, toDateString } from "@/lib/utils";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-
-
+const readingTime = require('reading-time');
 export const dynamic = 'force-dynamic'
 
 
@@ -94,15 +93,18 @@ export default async function SitePostPage({
     const domain = decodeURIComponent(params.domain);
     const slug = decodeURIComponent(params.slug);
     const data = await getBlogData(domain, slug);
+    const sitedata = await getSiteData(domain)
 
     if (!data) {
         notFound();
     }
 
+    const readingstats = readingTime(data.content);
+
     return (
         <>
             <div className="flex flex-col items-center justify-center mb-10">
-                <div className="relative m-auto mb-10 h-96 w-full max-w-screen-lg overflow-hidden md:mb-20 md:h-150 md:w-5/6 md:rounded-2xl lg:w-2/3">
+                <div className="relative m-auto mb-10 h-full w-full max-w-screen-lg overflow-hidden md:mb-20 md:h-150 md:w-5/6 md:rounded-2xl lg:w-2/3">
                     <BlurImage
                         alt={data.title ?? "Post image"}
                         width={1200}
@@ -118,7 +120,7 @@ export default async function SitePostPage({
                         {data.title}
                     </h1>
                     <p className="m-auto my-5 w-10/12 text-sm font-light text-stone-500 dark:text-stone-400 md:text-base">
-                        {toDateString(data.createdAt)}
+                        {toDateString(data.createdAt)} | {readingstats.text}
                     </p>
                     <p className="text-md m-auto w-10/12 text-stone-600 dark:text-stone-400 md:text-lg ">
                         {data.description}
@@ -132,8 +134,17 @@ export default async function SitePostPage({
                     rel="noreferrer"
                     target="_blank"
                 >
-                    <div className="">
-                        <div className="text-md ml-3 inline-block align-middle dark:text-white md:text-lg">
+                    <div className="flex justify-center items-center pt-4  space-x-4">
+                        <BlurImage
+                            alt={data.title ?? "Post image"}
+                            width={1200}
+                            height={630}
+                            className="h-12 w-12 rounded-full object-cover"
+                            placeholder="blur"
+                            blurDataURL={sitedata?.image ?? placeholderBlurhash}
+                            src={sitedata?.logo || ""}
+                        />
+                        <div className="text-md  inline-block align-middle dark:text-white md:text-lg">
                             <span className="font-semibold">{data.site?.name}</span>
                         </div>
                     </div>

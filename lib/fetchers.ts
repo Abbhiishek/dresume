@@ -2,7 +2,8 @@ import prisma from "@/lib/db";
 import { replaceExamples, replaceTweets } from "@/lib/remark-plugins";
 import { serialize } from "next-mdx-remote/serialize";
 import { unstable_cache } from "next/cache";
-
+import rehypePrism from 'rehype-prism-plus';
+import rehypeSlug from "rehype-slug";
 // make a typoe which extend Site and adds external data
 
 export async function getSiteData(domain: string) {
@@ -186,6 +187,11 @@ async function getMdxSource(postContents: string) {
     const mdxSource = await serialize(content, {
         mdxOptions: {
             remarkPlugins: [replaceTweets, () => replaceExamples(prisma)],
+            rehypePlugins: [
+                [rehypeSlug],
+                rehypePrism,
+
+            ],
         },
     });
 
