@@ -16,10 +16,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
 import { createSite } from "@/lib/actions";
 import va from "@vercel/analytics";
+import confetti from "canvas-confetti";
 import { Loader2, PlusCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { z } from "zod";
+
 
 const CreatePortfolioSchema = z.object({
     name: z.string({
@@ -97,6 +99,16 @@ export default function CreatePortfolio() {
                     })
                     setLoading(false)
                 } else {
+                    confetti({
+                        angle: 60,
+                        spread: 155,
+                        origin: { x: 0 },
+                    });
+                    confetti({
+                        angle: 120,
+                        spread: 155,
+                        origin: { x: 1 },
+                    });
                     va.track("Created Site");
                     router.refresh();
                     toast({
@@ -180,7 +192,7 @@ export default function CreatePortfolio() {
                                 onClick={handlesubmit}
                                 disabled={loading}
                             >
-                                {loading ? <Loader2 className="w-8 h-8 animate-spin" /> : "Create Project"}
+                                {loading ? <Loader2 className="w-8 h-8 animate-spin" /> : "Create Protfolio"}
                             </Button>
                         </div>
                     </DialogDescription>
