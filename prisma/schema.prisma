@@ -147,16 +147,25 @@ model Blog {
 }
 
 model TechStack {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String?
-  icon        String
-  tag         String[]
-  category    String[]
-  site        Site?    @relation(fields: [siteId], references: [id])
-  siteId      String?
+  id            Int             @id @default(autoincrement())
+  name          String
+  description   String?
+  icon          String
+  tag           String[]
+  category      String[]
+  siteTechStack SiteTechStack[]
 
   @@map("techstack")
+}
+
+model SiteTechStack {
+  siteId      String
+  techStackId Int
+  Site        Site      @relation(fields: [siteId], references: [id])
+  TechStack   TechStack @relation(fields: [techStackId], references: [id])
+
+  @@id([siteId, techStackId])
+  @@map("site_techstack")
 }
 
 model Site {
@@ -193,7 +202,7 @@ model Site {
   projects       projects[]
   resume         Resume[]
   Blog           Blog[]
-  techstack      TechStack[]
+  siteTechStack  SiteTechStack[]
 
   @@index([userId])
 }

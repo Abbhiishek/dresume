@@ -28,7 +28,7 @@ export async function getSiteData(domain: string) {
                     projects: true,
                     certificates: true,
                     Blog: true,
-                    techstack: true,
+                    siteTechStack: true,
                 }
             })
             if (!data) return null;
