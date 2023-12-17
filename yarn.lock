@@ -336,11 +336,6 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.55.0.tgz#b721d52060f369aa259cf97392403cb9ce892ec6"
   integrity sha512-qQfo2mxH5yVom1kacMtZZJFVdW+E70mqHMJvVg6WTLo+VBuQJ4TojZlfWBjK0ve5BdEeNAVxOsl/nvNMpJOaJA==
 
-"@fastify/busboy@^2.0.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@fastify/busboy/-/busboy-2.1.0.tgz#0709e9f4cb252351c609c6e6d8d6779a8d25edff"
-  integrity sha512-+KpH+QxZU7O4675t3mnkQKcZZg56u+K/Ct2K+N2AZYNVK8kyeo/bI18tI8aPm3tvNNRyTWfj6s5tnGNlcbQRsA==
-
 "@floating-ui/core@^1.4.2":
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/@floating-ui/core/-/core-1.5.2.tgz#53a0f7a98c550e63134d504f26804f6b83dbc071"
@@ -462,11 +457,6 @@
   resolved "https://registry.yarnpkg.com/@img/sharp-libvips-darwin-x64/-/sharp-libvips-darwin-x64-1.0.0.tgz#509113f649d3ea0e99b76d41437fc0049d8ba2f9"
   integrity sha512-dD9OznTlHD6aovRswaPNEy8dKtSAmNo4++tO7uuR4o5VxbVAOoEQ1uSmN4iFAdQneTHws1lkTZeiXPrcCkh6IA==
 
-"@img/sharp-libvips-dev@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@img/sharp-libvips-dev/-/sharp-libvips-dev-1.0.0.tgz#ad9468c855ba751e9eb7b6f46adfefc10b338fec"
-  integrity sha512-NoG8vsggiAho//tdX1L0OzpDMeZiGCw/RuuCby4b060gtsD5hz1jRkd6uoHgz3DcUXN78LrqsJ/XtbVPn3Lhvw==
-
 "@img/sharp-libvips-linux-arm64@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@img/sharp-libvips-linux-arm64/-/sharp-libvips-linux-arm64-1.0.0.tgz#9e131cc95f9f8aa36da9addee89efead21ad9993"
@@ -585,7 +575,7 @@
   dependencies:
     "@swc/helpers" "^0.5.0"
 
-"@jest/environment@^29.6.1", "@jest/environment@^29.7.0":
+"@jest/environment@^29.6.1":
   version "29.7.0"
   resolved "https://registry.yarnpkg.com/@jest/environment/-/environment-29.7.0.tgz#24d61f54ff1f786f3cd4073b4b94416383baf2a7"
   integrity sha512-aQIfHDq33ExsN4jP1NWGXhxgQ/wixs60gDiKO+XVMd8Mn0NWPWgc34ZQDTb2jKaUWQ7MuwoitXAsN2XVXNMpAw==
@@ -3871,20 +3861,19 @@
   dependencies:
     crypto-js "^4.2.0"
 
+"@upstash/redis@^1.25.2":
+  version "1.25.2"
+  resolved "https://registry.yarnpkg.com/@upstash/redis/-/redis-1.25.2.tgz#c400caced6e05a4931823c4eb57eda6b73963db3"
+  integrity sha512-iI3jgvmDIbe4Px0PskB8lrn1NXz7ZQyGpW9Ehmonk6SEFqhqssqIB04VmlNh8zZUXwzy6G9DaIa5gIUM6B7DwA==
+  dependencies:
+    crypto-js "^4.2.0"
+
 "@vercel/analytics@^1.0.2", "@vercel/analytics@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@vercel/analytics/-/analytics-1.1.1.tgz#2a712378a95014a548b4f9d2ae1ea0721433908d"
   integrity sha512-+NqgNmSabg3IFfxYhrWCfB/H+RCUOCR5ExRudNG2+pcRehq628DJB5e1u1xqwpLtn4pAYii4D98w7kofORAGQA==
   dependencies:
     server-only "^0.0.1"
-
-"@vercel/blob@^0.16.0":
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/@vercel/blob/-/blob-0.16.0.tgz#d43ce4fb95f2e541edf834795df35b1c437fa69b"
-  integrity sha512-agKXEJ1uOKyIy+VvvH+x/EqYoehGZ6jtzYaatlIvroP8N98LqABNOVyOWm1FJtaEA/8Pa7qI5JESzTBlptRRaw==
-  dependencies:
-    jest-environment-jsdom "29.7.0"
-    undici "5.28.2"
 
 "@vercel/blob@^0.9.3":
   version "0.9.3"
@@ -4230,13 +4219,6 @@ braces@^3.0.2, braces@~3.0.2:
   integrity sha512-b8um+L1RzM3WDSzvhm6gIz1yfTbBt6YTlcEKAvsmqCZZFw46z626lVj9j1yEPW33H5H+lBQpZMP1k8l+78Ha0A==
   dependencies:
     fill-range "^7.0.1"
-
-browser-image-compression@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/browser-image-compression/-/browser-image-compression-2.0.2.tgz#4d5ef8882e9e471d6d923715ceb9034499d14eaa"
-  integrity sha512-pBLlQyUf6yB8SmmngrcOw3EoS4RpQ1BcylI3T9Yqn7+4nrQTXJD4sJDe5ODnJdrvNMaio5OicFo75rDyJD2Ucw==
-  dependencies:
-    uzip "0.20201231.0"
 
 browserslist@^4.21.10:
   version "4.22.2"
@@ -5770,11 +5752,6 @@ ignore@^5.2.0:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.0.tgz#67418ae40d34d6999c95ff56016759c718c82f78"
   integrity sha512-g7dmpshy+gD7mh88OC9NwSGTKoc3kyLAZQRU1mt53Aw/vnvfXnbC+F/7F7QoYVKbV+KNvJx8wArewKy1vXMtlg==
 
-img@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/img/-/img-3.0.3.tgz#9650f00b43d52c4d330f074094a007b061acf3d4"
-  integrity sha512-+JmjCiDWBFyxwAZGKpNhgnpfM/AoFqLgl5SYRARp3q35uiQTWrP/iPQMJveiqhq0D5xhZDWOT17IE6TG5l4MWw==
-
 import-fresh@^3.0.0, import-fresh@^3.2.1, import-fresh@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/import-fresh/-/import-fresh-3.3.0.tgz#37162c25fcb9ebaa2e6e53d5b4d88ce17d9e0c2b"
@@ -6147,20 +6124,6 @@ jest-environment-jsdom@29.6.1:
     "@types/node" "*"
     jest-mock "^29.6.1"
     jest-util "^29.6.1"
-    jsdom "^20.0.0"
-
-jest-environment-jsdom@29.7.0:
-  version "29.7.0"
-  resolved "https://registry.yarnpkg.com/jest-environment-jsdom/-/jest-environment-jsdom-29.7.0.tgz#d206fa3551933c3fd519e5dfdb58a0f5139a837f"
-  integrity sha512-k9iQbsf9OyOfdzWH8HDmrRT0gSIcX+FLNW7IQq94tFX0gynPwqDTW0Ho6iMVNjGz/nb+l/vW3dWM2bbLLpkbXA==
-  dependencies:
-    "@jest/environment" "^29.7.0"
-    "@jest/fake-timers" "^29.7.0"
-    "@jest/types" "^29.6.3"
-    "@types/jsdom" "^20.0.0"
-    "@types/node" "*"
-    jest-mock "^29.7.0"
-    jest-util "^29.7.0"
     jsdom "^20.0.0"
 
 jest-message-util@^29.7.0:
@@ -7401,6 +7364,11 @@ onetime@^5.1.2:
   integrity sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==
   dependencies:
     mimic-fn "^2.1.0"
+
+openai-edge@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/openai-edge/-/openai-edge-1.2.2.tgz#0b1cd5aec2c366bbd25cdeba05399aa6eef73230"
+  integrity sha512-C3/Ao9Hkx5uBPv9YFBpX/x59XMPgPUU4dyGg/0J2sOJ7O9D98kD+lfdOc7v/60oYo5xzMGct80uFkYLH+X2qgw==
 
 optionator@^0.9.1, optionator@^0.9.3:
   version "0.9.3"
@@ -8990,13 +8958,6 @@ undici@5.22.1:
   dependencies:
     busboy "^1.6.0"
 
-undici@5.28.2:
-  version "5.28.2"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-5.28.2.tgz#fea200eac65fc7ecaff80a023d1a0543423b4c91"
-  integrity sha512-wh1pHJHnUeQV5Xa8/kyQhO7WFa8M34l026L5P/+2TYiakvGy5Rdc8jWZVyG7ieht/0WgJLEd3kcU5gKx+6GC8w==
-  dependencies:
-    "@fastify/busboy" "^2.0.0"
-
 unified@^10.0.0:
   version "10.1.2"
   resolved "https://registry.yarnpkg.com/unified/-/unified-10.1.2.tgz#b1d64e55dafe1f0b98bb6c719881103ecf6c86df"
@@ -9165,11 +9126,6 @@ uvu@^0.5.0:
     diff "^5.0.0"
     kleur "^4.0.3"
     sade "^1.7.3"
-
-uzip@0.20201231.0:
-  version "0.20201231.0"
-  resolved "https://registry.yarnpkg.com/uzip/-/uzip-0.20201231.0.tgz#9e64b065b9a8ebf26eb7583fe8e77e1d9a15ed14"
-  integrity sha512-OZeJfZP+R0z9D6TmBgLq2LHzSSptGMGDGigGiEe0pr8UBe/7fdflgHlHBNDASTXB5jnFuxHpNaJywSg8YFeGng==
 
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
