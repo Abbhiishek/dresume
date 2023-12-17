@@ -1,11 +1,23 @@
-
-import { TechStack } from "@prisma/client"
+import prisma from "@/lib/db"
 import Image from "next/image"
-function TechStackSection({
-    techstack
+
+
+
+
+async function TechStackSection({
+    siteId
 }: {
-    techstack: TechStack[]
+    siteId: string
 }) {
+
+    const techstack = await prisma.siteTechStack.findMany({
+        where: {
+            siteId: siteId
+        },
+        select: {
+            TechStack: true
+        }
+    })
 
 
 
@@ -33,9 +45,9 @@ function TechStackSection({
                                     <Image
                                         width={500}
                                         height={500}
-                                        src={tech.icon} alt={tech.name} className="w-16 h-16"
+                                        src={tech.TechStack.icon} alt={tech.TechStack.name} className="w-16 h-16"
                                     />
-                                    <p className="text-center text-sm lg:text-lg font-semibold">{tech.name}</p>
+                                    <p className="text-center text-sm lg:text-lg font-semibold">{tech.TechStack.name}</p>
                                 </div>
                             </div>
                         ))

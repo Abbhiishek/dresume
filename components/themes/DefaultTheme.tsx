@@ -1,4 +1,4 @@
-import { TechStack, UserCertificate, UserEducation, UserWorkExperience, projects } from "@prisma/client";
+import { SiteTechStack, UserCertificate, UserEducation, UserWorkExperience, projects } from "@prisma/client";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import AboutSection from "./default/AboutSection";
 import ContactSection from "./default/ContactSection";
@@ -16,11 +16,12 @@ function DefaultTheme({
 }: {
     // sitedata conatins mixed tyypes
     sitedata: {
+        id: string,
         education: UserEducation[],
         certificates: UserCertificate[],
         workexperience: UserWorkExperience[],
         projects: projects[],
-        techstack: TechStack[],
+        siteTechStack: SiteTechStack[],
         // site: Site, // Add the Site type here
         name: string,
         tagline: string,
@@ -63,7 +64,7 @@ function DefaultTheme({
                 />
 
                 <TechStackSection
-                    techstack={sitedata.techstack}
+                    siteId={sitedata.id}
                 />
 
                 <EducationSection
