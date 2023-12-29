@@ -32,13 +32,14 @@ function UserPortfolioNavbar({ name, logo, }: {
                     <Link href='#Home' passHref legacyBehavior>
                         <div className="-m-1.5 p-1.5 flex  justify-start items-center sm:gap-5 gap-2">
                             <span className="sr-only">Abhishek Kushwaha</span>
-                            <Image
+                            {logo && <Image
                                 src={logo}
                                 alt={name}
                                 width={150}
                                 height={150}
                                 className="w-12 h-12 rounded-full hidden sm:flex"
                             />
+                            }
                             <TypographyLarge className="font-title text-xl">{name}</TypographyLarge>
                         </div>
                     </Link>

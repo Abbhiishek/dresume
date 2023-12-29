@@ -173,7 +173,7 @@ model Site {
   name           String
   description    String               @db.Text
   tagline        String               @default("") @db.Text
-  logo           String?              @db.Text
+  logo           String?              @default("https://dresume.me/placeholder.png") @db.Text
   font           String               @default("font-cal")
   primaryColor   String               @default("#000000")
   secondaryColor String               @default("#ffffff")

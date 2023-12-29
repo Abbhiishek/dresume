@@ -35,7 +35,7 @@ async function handler(request: Request) {
             email_addresses,
             first_name,
             last_name,
-            image_url,
+            profile_image_url,
             ...attributes
         } = evt.data;
 
@@ -47,7 +47,7 @@ async function handler(request: Request) {
                 email: email_addresses[0].email_address as string,
                 firstname: first_name as string || "",
                 lastname: last_name as string || "",
-                avatar: image_url,
+                avatar: profile_image_url,
                 attributes: attributes
             },
             update: {
@@ -55,7 +55,7 @@ async function handler(request: Request) {
                 email: email_addresses[0].email_address as string,
                 firstname: first_name as string || "",
                 lastname: last_name as string || "",
-                attributes: attributes
+                attributes: attributes,
             },
         });
     }

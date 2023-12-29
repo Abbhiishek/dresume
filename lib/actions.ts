@@ -29,16 +29,34 @@ export const createSite = async (formData: FormData) => {
             error: "Not authenticated",
         };
     }
+
+
+
     const name = formData.get("name") as string;
     const description = formData.get("description") as string;
     const subdomain = formData.get("subdomain") as string;
-
+    const logo = "https://app.dresume.me/placeholder.png"
     try {
+
+        const userdata = await prisma.user.findUnique({
+            where: { id: session.userId },
+            select: {
+                avatar: true
+            }
+        })
+
+        if (!userdata?.avatar) {
+            return {
+                error: "kindly upload your picture in settings",
+            };
+        }
+
         const response = await prisma.site.create({
             data: {
                 name,
                 description,
                 subdomain,
+                logo: userdata?.avatar,
                 user: {
                     connect: {
                         id: session.userId,

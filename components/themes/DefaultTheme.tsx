@@ -22,7 +22,6 @@ function DefaultTheme({
         workexperience: UserWorkExperience[],
         projects: projects[],
         siteTechStack: SiteTechStack[],
-        // site: Site, // Add the Site type here
         name: string,
         tagline: string,
         logo: string | null,

@@ -33,13 +33,6 @@ export async function generateStaticParams() {
     return allPaths;
 }
 
-
-
-
-
-
-
-
 export default async function SiteHomePage({
     params,
 }: {

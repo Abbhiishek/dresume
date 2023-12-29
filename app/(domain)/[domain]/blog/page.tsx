@@ -1,3 +1,4 @@
+
 import BlurImage from "@/components/blur-image";
 import BlogCard from "@/components/domain/blog-card";
 import prisma from "@/lib/db";
