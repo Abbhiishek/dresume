@@ -19,7 +19,7 @@ function AboutSection({ skills, mdxabout }: { skills: string[], mdxabout: any })
                             {/* <p className="text-justify mb-4 lg:text-xl font-medium"
                                 dangerouslySetInnerHTML={{ __html: data }}
                             /> */}
-                            <MDX source={mdxabout} />
+                            <MDX source={mdxabout || ""} />
                         </div>
                     </div>
                 </div>
