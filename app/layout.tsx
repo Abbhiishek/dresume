@@ -1,5 +1,6 @@
 import { Toaster } from "@/components/ui/toaster";
 import { APP_DESC, APP_NAME } from '@/lib/contants';
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GeistSans } from 'geist/font/sans';
 import { Metadata } from "next";
 import '.././styles/globals.css';
@@ -36,6 +37,7 @@ export default function RootLayout({
                 {/* <NextTopLoader /> */}
                 <Providers>
                     {children}
+                    <SpeedInsights />
                     <Toaster />
                 </Providers>
             </body>
