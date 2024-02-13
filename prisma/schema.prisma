@@ -11,7 +11,7 @@ datasource db {
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model User {
-  id         String     @id
+  id         String     @id @unique
   username   String     @unique
   email      String     @unique
   firstname  String
@@ -29,7 +29,7 @@ model User {
   linkedinid String?    @default("")
   websiteurl String?    @default("")
 
-  @@index([username])
+  @@index([username, id])
   @@map("user")
 }
 
@@ -59,7 +59,7 @@ model UserEducation {
   school_end_date   DateTime?
   education_note    String?
   site              Site?     @relation(fields: [siteId], references: [id])
-  siteId            String?
+  siteId            String
 }
 
 model UserWorkExperience {
