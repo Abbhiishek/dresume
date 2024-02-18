@@ -7,6 +7,7 @@ const nextConfig = {
         },
     },
     images: {
+        dangerouslyAllowSVG: true,
         domains: [
             "ha3zldst15jisuvj.public.blob.vercel-storage.com",
             "public.blob.vercel-storage.com",
@@ -18,7 +19,9 @@ const nextConfig = {
             "abs.twimg.com",
             "dresume.vercel.app",
             "dresume.me",
-            "utfs.io"
+            "utfs.io",
+            "illustrations.popsy.co",
+            "api.producthunt.com"
         ],
     },
 };

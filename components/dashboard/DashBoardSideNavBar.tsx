@@ -9,7 +9,7 @@ import {
     SheetTitle,
     SheetTrigger
 } from "@/components/ui/sheet";
-import { ArrowLeft, BarChart3, Boxes, CircleUser, Edit3, LayoutDashboard, MenuIcon, Newspaper, PartyPopper, Rss, Settings, Settings2, UserCircle } from "lucide-react";
+import { ArrowLeft, BarChart3, Boxes, CircleUser, Edit3, LayoutDashboard, MenuIcon, Newspaper, PartyPopper, Rss, Settings, Settings2, SettingsIcon, UserCircle } from "lucide-react";
 import Link from "next/link";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -179,7 +179,15 @@ const NavBarOptions = () => {
                 urlname: "feedback",
                 isActive: segments[0] === "feedback",
                 icon: <Rss className="w-5 h-5" />,
-            }
+            },
+            {
+                name: "User Settings",
+                Link: "/dashboard/settings",
+                urlname: "settings",
+                isActive: segments[0] === "settings",
+                icon: <SettingsIcon className="w-5 h-5" />,
+            },
+
         ];
     }, [segments, slug, blogslug])
 
