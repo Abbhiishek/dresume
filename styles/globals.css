@@ -335,3 +335,14 @@ pre {
   color: rgb(156, 163, 175);
   content: attr(line);
 }
+
+
+.no-visible-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+ 
+.no-visible-scrollbar::-webkit-scrollbar {
+  display: none;
+}

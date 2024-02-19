@@ -447,10 +447,10 @@ export const editUser = async (
         let response;
 
         if (key === "avatar") {
-            if (!process.env.BLOB_READ_WRITE_TOKEN) {
+            if (!process.env.UPLOADTHING_SECRET) {
                 return {
                     error:
-                        "Missing BLOB_READ_WRITE_TOKEN token. Note: Vercel Blob is currently in beta – please fill out this form for access: https://tally.so/r/nPDMNd",
+                        "Missing UPLOADTHING_SECRET token.",
                 };
             }
             const file = formData.get(key) as File;

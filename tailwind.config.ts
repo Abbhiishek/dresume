@@ -94,7 +94,12 @@ export default withUt({
             'background-size': '200% 200%',
             'background-position': 'right center',
           },
-        }
+        },
+        scroll: {
+          to: {
+            transform: "translate(calc(-50% - 0.5rem))",
+          },
+        },
       },
       fontFamily: {
         default: ["var(--font-inter)", ...fontFamily.sans],
@@ -123,6 +128,8 @@ export default withUt({
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "color-border": "color-border 5s ease infinite",
+        scroll:
+          "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
       },
     },
   },
@@ -130,6 +137,7 @@ export default withUt({
     require("tailwindcss-animate"),
     react.nextui(),
     require("@tailwindcss/typography"),
+    addVariablesForColors,
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
         {
@@ -155,7 +163,7 @@ export default withUt({
   ],
 })
 
-
+// This plugin adds each Tailwind color as a global CSS variable, e.g. var(--gray-200).
 
 function addVariablesForColors({ addBase, theme }: any) {
   let allColors = flattenColorPalette(theme("colors"));
