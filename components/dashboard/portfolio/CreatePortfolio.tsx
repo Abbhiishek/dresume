@@ -39,8 +39,8 @@ const CreatePortfolioSchema = z.object({
         description: "subdomain is required",
         required_error: "subdomain is required",
         invalid_type_error: "subdomain is must be string",
-    }).max(10, {
-        message: "subdomain must be at most 10 characters long"
+    }).max(20, {
+        message: "subdomain must be at most 20 characters long"
     }),
 })
 

@@ -1,14 +1,11 @@
 
 import EducationCard from "@/components/dashboard/portfolio/education/EducationCard";
-import AddEducationForm from "@/components/form/add-education-form";
+import AddEducationForm from "@/components/form/education-form";
 import { Separator } from "@/components/ui/separator";
 import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 
-// eslint-disable-next-line @next/next/no-async-client-component
 async function EducationSection({ siteId }: { siteId: string }) {
-
-    // const { slug } = useParams() as { slug?: string };
 
     const user = auth();
     if (!user.userId) {
@@ -27,6 +24,9 @@ async function EducationSection({ siteId }: { siteId: string }) {
 
     return education.length > 0 ? (
         <main className="lg:container w-full space-y-2">
+            <div className="flex justify-end w-full">
+                <AddEducationForm title="Add Education" method="add" />
+            </div>
             {education.map((education) => (
                 <EducationCard
                     key={education.id}
@@ -34,14 +34,13 @@ async function EducationSection({ siteId }: { siteId: string }) {
                 />
             ))}
             <Separator />
-            <AddEducationForm />
         </main>
     ) : (
         <main className="flex flex-col space-y-4  w-full">
             <p className="text-lg text-stone-500 text-center">
                 You do not have any Education yet. Create one to get started.
             </p>
-            <AddEducationForm />
+            <AddEducationForm title="Add Education" method="add" />
         </main>
     );
 }

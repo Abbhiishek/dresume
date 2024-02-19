@@ -1,4 +1,4 @@
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 import { APP_DESC, APP_NAME } from '@/lib/contants';
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GeistSans } from 'geist/font/sans';

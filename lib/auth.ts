@@ -65,6 +65,7 @@ export function withEducationAuth(action: any) {
     return async (
         postId: number,
         key: string | null,
+        formdata: FormData | null
     ) => {
         const session = auth();
         if (!session.userId) {
@@ -82,10 +83,10 @@ export function withEducationAuth(action: any) {
         });
         if (!post || post.user_id !== session.userId) {
             return {
-                error: "Post not found",
+                error: "education not found",
             };
         }
 
-        return action(post, key);
+        return action(post, key, formdata);
     };
 }

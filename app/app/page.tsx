@@ -1,5 +1,6 @@
 import Footer from "@/components/common/Footer";
 import NavBar from "@/components/common/NavBar";
+import { BuildWithCreativity } from "@/components/home/buildwithcreativity";
 import LandingSection from "@/components/home/landingsection";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <main >
       <NavBar />
       <LandingSection />
+      <BuildWithCreativity />
       <Footer />
     </main>
   );

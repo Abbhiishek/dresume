@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { UserEducation } from "@prisma/client";
 
+import AddEducationForm from "@/components/form/education-form";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { deleteEducation } from "@/lib/actions";
@@ -44,7 +45,7 @@ function EducationCard({ data }: { data: UserEducation }) {
                         onClick={
 
                             async () => {
-                                deleteEducation(data.id!, "null").then((res) => {
+                                deleteEducation(data.id!, "null", null).then((res) => {
                                     if (res.error) {
                                         console.log(res.error)
                                     } else {
@@ -61,6 +62,7 @@ function EducationCard({ data }: { data: UserEducation }) {
                     >
                         Delete
                     </Button>
+                    <AddEducationForm title="Edit Education" method="edit" education={data} />
 
                 </div>
             </CardFooter>

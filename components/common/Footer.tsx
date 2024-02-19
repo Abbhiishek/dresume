@@ -6,7 +6,7 @@ export default function Footer() {
         <footer className="w-full border-t border-teal-600/60 p-8 
         lg:px-32 gap-8 flex justify-center">
             <div className="flex justify-center gap-2">
-                <TypographyP>Made with 💚</TypographyP>
+                <TypographyP>Made with 💚 by</TypographyP>
                 <Link
                     href={"https://github.com/Abbhiishek"}
                     target="_blank"

@@ -556,6 +556,33 @@ export const addEducation = async (formData: FormData, key: string, slug: string
 
 }
 
+
+export const updateEducation = withEducationAuth(async (education: UserEducation, key: string, formdata: FormData) => {
+    try {
+        const response = await prisma.userEducation.update({
+            where: {
+                id: education.id,
+            },
+            data: {
+                school_degree: formdata.get("school_degree") as string,
+                school_major: formdata.get("school_major") as string,
+                school_name: formdata.get("school_name") as string,
+                school_location: formdata.get("school_location") as string,
+                school_start_date: new Date(formdata.get("school_start_date") as string),
+                school_end_date: new Date(formdata.get("school_end_date") as string),
+                education_note: formdata.get("education_note") as string,
+
+            },
+        });
+        return response;
+    } catch (error: any) {
+        return {
+            error: error.message,
+        };
+    }
+});
+
+
 export const deleteEducation = withEducationAuth(async (education: UserEducation) => {
     try {
         const response = await prisma.userEducation.delete({

@@ -1,8 +1,16 @@
 export const APP_NAME = "DevResume.";
-export const APP_DESC = "Craft your standout developer profile with DevResume – the ultimate platform for creating and hosting portfolios.";
+export const APP_DESC = "Craft your developer Portfolio within Few Seconds.";
 export const APP_DASHBOARD_LINK = "/dashboard";
 export const APP_LOGIN_LINK = "/sign-in";
-
+export const APP_CORE_DEVELOPER = [
+    {
+        id: 1,
+        name: "AbhisheK Kushwaha",
+        designation: "Full Stack Developer",
+        image:
+            "https://avatars.githubusercontent.com/u/86338762?v=4",
+    },
+];
 
 
 export const APP_GITHUB_REPO_LINK = "https://github.com/Abbhiishek/dresume";

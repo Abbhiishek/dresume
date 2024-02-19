@@ -1,11 +1,11 @@
 
-import { APP_DASHBOARD_LINK, APP_DESC, APP_GITHUB_REPO_LINK, APP_NAME } from "@/lib/contants";
+import { AnimatedTooltip } from "@/components/ui/animated-tooltip";
+import { APP_CORE_DEVELOPER, APP_DASHBOARD_LINK, APP_DESC, APP_GITHUB_REPO_LINK, APP_NAME } from "@/lib/contants";
 import { Button } from "@nextui-org/react";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
 import { TypewriterEffect } from "../ui/typewriter-effect";
-
 
 function LandingSection() {
     return (
@@ -62,6 +62,10 @@ function LandingSection() {
                                     Github
                                 </Button>
                             </Link>
+                        </div>
+                        <span className="text-sm ">Proudly brought to you by </span>
+                        <div className="flex flex-row items-center justify-center mb-10 w-full">
+                            <AnimatedTooltip items={APP_CORE_DEVELOPER} />
                         </div>
 
                     </div>

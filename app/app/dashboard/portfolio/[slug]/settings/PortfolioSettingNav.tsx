@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/tabs";
 import AppearanceSection from "./AppearanceSection";
 import CertificateSection from "./CertificateSection";
-import DomainDection from "./DomainSection";
+import DomainSection from "./DomainSection";
 import EducationSection from "./EducationSection";
 import GeneralSection from "./GeneralSection";
 
@@ -21,7 +21,7 @@ export default function SiteSettingsNav({ slug }: { slug: string }) {
         {
             name: "Domain",
             value: "domain",
-            component: <DomainDection siteId={slug} />,
+            component: <DomainSection siteId={slug} />,
         },
         {
             name: "Education",

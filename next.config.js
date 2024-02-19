@@ -21,7 +21,8 @@ const nextConfig = {
             "dresume.me",
             "utfs.io",
             "illustrations.popsy.co",
-            "api.producthunt.com"
+            "api.producthunt.com",
+            "avatars.githubusercontent.com"
         ],
     },
 };
