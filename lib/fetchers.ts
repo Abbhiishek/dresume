@@ -24,8 +24,16 @@ export async function getSiteData(domain: string) {
                 where: subdomain ? { subdomain } : { customDomain: domain },
                 include: {
                     user: true,
-                    education: true,
-                    workexperience: true,
+                    education: {
+                        orderBy: {
+                            school_start_date: "desc",
+                        },
+                    },
+                    workexperience: {
+                        orderBy: {
+                            employment_start_date: "desc",
+                        },
+                    },
                     projects: true,
                     certificates: true,
                     Blog: true,

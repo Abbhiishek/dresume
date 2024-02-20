@@ -3,8 +3,7 @@ import DefaultTheme from "@/components/themes/DefaultTheme";
 import prisma from "@/lib/db";
 import { getSiteAbout, getSiteData } from "@/lib/fetchers";
 import { notFound } from "next/navigation";
-
-export const revalidate = 60; // 60 seconds
+export const dynamic = 'force-dynamic'
 
 export async function generateStaticParams() {
     const allSites = await prisma.site.findMany({
