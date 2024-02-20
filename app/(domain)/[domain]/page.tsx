@@ -4,16 +4,7 @@ import prisma from "@/lib/db";
 import { getSiteAbout, getSiteData } from "@/lib/fetchers";
 import { notFound } from "next/navigation";
 
-export const getStaticPaths = async () => {
-    const paths = await generateStaticParams();
-    return {
-        paths,
-        fallback: true,
-    };
-}
-
-
-
+export const revalidate = 60; // 60 seconds
 
 export async function generateStaticParams() {
     const allSites = await prisma.site.findMany({
