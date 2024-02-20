@@ -61,18 +61,19 @@ model UserEducation {
 }
 
 model UserWorkExperience {
-  id                 Int       @id @default(autoincrement())
-  created_at         DateTime  @default(now()) @db.Timestamptz(6)
-  user_id            String
-  company_name       String
-  company_location   String?
-  company_position   String
-  company_start_date DateTime
-  still_working      Boolean
-  company_end_date   DateTime?
-  company_note       String?
-  siteId             String?
-  site               Site?     @relation(fields: [siteId], references: [id])
+  id                    Int       @id @default(autoincrement())
+  created_at            DateTime  @default(now()) @db.Timestamptz(6)
+  user_id               String
+  company_name          String
+  company_location      String?
+  employment_position   String    @default("Software Developer")
+  employment_start_date DateTime  @default(now())
+  still_working         Boolean
+  employment_end_date   DateTime?
+  employment_type       String?
+  descriptions          String?
+  siteId                String?
+  site                  Site?     @relation(fields: [siteId], references: [id])
 }
 
 model UserCertificate {
