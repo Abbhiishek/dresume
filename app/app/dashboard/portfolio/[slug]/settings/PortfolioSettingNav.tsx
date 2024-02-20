@@ -9,6 +9,7 @@ import CertificateSection from "./CertificateSection";
 import DomainSection from "./DomainSection";
 import EducationSection from "./EducationSection";
 import GeneralSection from "./GeneralSection";
+import WorkExperienceSection from "./WorkSection";
 
 
 export default function SiteSettingsNav({ slug }: { slug: string }) {
@@ -31,7 +32,7 @@ export default function SiteSettingsNav({ slug }: { slug: string }) {
         {
             name: "Work",
             value: "work",
-            component: <CertificateSection />,
+            component: <WorkExperienceSection siteId={slug} />,
         },
         {
             name: "Project",

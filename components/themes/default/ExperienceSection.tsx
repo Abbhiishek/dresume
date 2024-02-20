@@ -1,4 +1,4 @@
-import { TypographyH4, TypographyMuted, TypographyP } from "@/components/common/Typography"
+import { TypographyH3, TypographyH4, TypographyMuted, TypographyP } from "@/components/common/Typography"
 import { toDateString } from "@/lib/utils"
 import { UserWorkExperience } from "@prisma/client"
 
@@ -21,17 +21,18 @@ function ExperienceSection({ workexperience }: { workexperience: UserWorkExperie
                     workexperience.map((work, index) => (
                         <div className="pt-10" key={index}>
                             <div className="desc ">
-                                <TypographyH4>{work.company_position} @ {work.company_name}</TypographyH4>
+                                <TypographyH4><span className="text-primary">{work.employment_position}</span></TypographyH4>
+                                <TypographyH3>{work.company_name}</TypographyH3>
                                 <TypographyP>
                                     <span className="text-primary">{work.company_location}</span>
                                 </TypographyP>
                                 <TypographyMuted>{
-                                    toDateString(work.company_start_date!)} -
+                                    toDateString(work.employment_start_date!)} -
                                     {
-                                        work.still_working ? <span className="pl-1">Present</span> : toDateString(work.company_end_date!)
+                                        work.still_working ? <span className="pl-1">Present</span> : work.employment_end_date && toDateString(work.employment_end_date)
                                     }</TypographyMuted>
-                                <TypographyP className="mt-4 pl-2">
-                                    {work.company_note}
+                                <TypographyP className="mt-4 pl-2 w-[75%] text-balance  opacity-75">
+                                    {work.descriptions}
                                 </TypographyP>
                             </div>
                         </div>

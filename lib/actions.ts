@@ -15,7 +15,7 @@ import {
 import { getBlurDataURL } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { UTApi } from "uploadthing/server";
-import { withBlogAuth, withEducationAuth, withSiteAuth } from "./auth";
+import { withBlogAuth, withEducationAuth, withSiteAuth, withWorkAuth } from "./auth";
 const utapi = new UTApi();
 
 
@@ -219,8 +219,6 @@ export const updateSite = withSiteAuth(
         }
     },
 );
-
-
 
 
 
@@ -504,6 +502,34 @@ export const editUser = async (
 };
 
 
+export const updateAboutSite = async (about: string, id: string) => {
+
+
+    const session = auth()
+    if (!session.userId) {
+        return {
+            error: "Not authenticated",
+        };
+    }
+
+    try {
+        const response = await prisma.site.update({
+            where: {
+                id: id,
+            },
+            data: {
+                about: about,
+            },
+        });
+
+        return response;
+    } catch (error: any) {
+        return {
+            error: error.message,
+        };
+    }
+}
+
 
 export const addEducation = async (formData: FormData, key: string, slug: string) => {
     const session = auth();
@@ -603,30 +629,104 @@ export const deleteEducation = withEducationAuth(async (education: UserEducation
 
 
 
-export const updateAboutSite = async (about: string, id: string) => {
 
-
-    const session = auth()
+export const addWorkExperience = async (formData: FormData, key: string, slug: string) => {
+    const session = auth();
     if (!session.userId) {
         return {
             error: "Not authenticated",
         };
     }
+    const company_name = formData.get("company_name") as string;
+    const company_location = formData.get("company_location") as string;
+    const employment_position = formData.get("employment_position") as string;
+    const employment_start_date = formData.get("employment_start_date") as string;
+    const employment_end_date = formData.get("employment_end_date") as string; // string | ""
+    const employment_type = formData.get("employment_type") as string;
+    const description = formData.get("description") as string;
 
     try {
-        const response = await prisma.site.update({
-            where: {
-                id: id,
-            },
+        let response;
+        response = await prisma.userWorkExperience.create({
             data: {
-                about: about,
+                user_id: session.userId,
+                company_name,
+                company_location,
+                employment_position,
+                employment_start_date: new Date(employment_start_date),
+                // check ig employement_end_data is null then give it null
+                employment_end_date: employment_end_date === "" ? null : new Date(employment_end_date),
+                still_working: employment_end_date === "" ? true : false,
+                descriptions: description || null,
+                employment_type,
+                site: {
+                    connect: {
+                        id: slug
+                    }
+                }
             },
         });
+        return response;
+    } catch (error: any) {
+        if (error.code === "P2002") {
+            return {
+                error: `something happend unexpected 😢`,
+            };
+        } else {
+            return {
+                error: error.message,
+            };
+        }
+    }
+};
 
+
+
+export const updateWorkExperience = withWorkAuth(async (work: any, key: string, formdata: FormData) => {
+    try {
+        const response = await prisma.userWorkExperience.update({
+            where: {
+                id: work.id,
+            },
+            data: {
+                company_name: formdata.get("company_name") as string,
+                company_location: formdata.get("company_location") as string,
+                employment_position: formdata.get("employment_position") as string,
+                employment_start_date: new Date(formdata.get("employment_start_date") as string),
+                employment_end_date:
+                    !formdata.get("employment_end_date") ? null : new Date(formdata.get("employment_end_date") as string),
+                still_working: !formdata.get("employment_end_date") ? true : false,
+                descriptions: formdata.get("description") as string,
+                employment_type: formdata.get("employment_type") as string,
+            },
+        });
         return response;
     } catch (error: any) {
         return {
             error: error.message,
         };
     }
-}
+});
+
+
+
+export const deleteWorkExperience = withWorkAuth(async (work: any) => {
+    try {
+        const response = await prisma.userWorkExperience.delete({
+            where: {
+                id: work.id,
+            },
+            select: {
+                siteId: true,
+            },
+        });
+        return response;
+    } catch (error: any) {
+        return {
+            error: error.message,
+        };
+    }
+});
+
+
+

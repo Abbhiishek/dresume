@@ -59,6 +59,25 @@ export const toDateString = (date: Date) => {
   });
 };
 
+
+export const getDuration = (start: Date, end?: Date, stillworking?: boolean): string => {
+  const startdate = new Date(start);
+  const enddate = !stillworking && end ? new Date(end) : new Date();
+  let months = enddate.getMonth() - startdate.getMonth() + 1;
+  let years = enddate.getFullYear() - startdate.getFullYear();
+  if (months < 0) {
+    months = 12 + months;
+    years -= 1;
+  }
+  if (years === 0) {
+    return `${months} months`;
+  }
+  if (months === 0) {
+    return `${years} years`;
+  }
+  return `${years} years ${months} months`;
+}
+
 export const random = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
