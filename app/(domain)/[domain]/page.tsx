@@ -14,9 +14,9 @@ export async function generateStaticParams() {
             customDomain: true,
         },
         // feel free to remove this filter if you want to generate paths for all sites
-        // where: {
-        //     subdomain: "demo",
-        // },
+        where: {
+            subdomain: "demo",
+        },
     });
 
     const allPaths = allSites

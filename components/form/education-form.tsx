@@ -11,6 +11,7 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
     Form,
     FormControl,
@@ -20,34 +21,34 @@ import {
     FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { addEducation, updateEducation } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserEducation } from "@prisma/client";
-import { Loader2 } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { Editor as NovelEditor } from "novel";
 import { useState } from "react";
-import { useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { Textarea } from "../ui/textarea";
 
 const CreateEducationSchema = z.object({
     school_name: z.string({
         description: "Name is required",
         required_error: "Name is required",
         invalid_type_error: "Name is must be string",
-    }).min(5, {
-        message: "Name must be at least 5 characters long"
     }),
     school_location: z.string({
         description: "Location is required",
         required_error: "Location is required",
         invalid_type_error: "Location is must be string",
-    }).min(10, {
-        message: "Location must be at least 10 characters long"
     }),
     school_degree: z.string(),
     school_major: z.string(),
@@ -92,8 +93,8 @@ export default function AddEducationForm({
             school_location: education.school_location || "",
             school_degree: education.school_degree || "",
             school_major: education.school_major || "",
-            school_start_date: new Date(education.school_start_date!) || new Date(),
-            school_end_date: new Date(education.school_end_date!) || new Date(),
+            school_start_date: education.school_start_date || new Date(),
+            school_end_date: education.school_end_date || new Date(),
             education_note: education.education_note || "",
         } : {
             school_start_date: new Date(),
@@ -172,49 +173,73 @@ export default function AddEducationForm({
         <>
             <AlertDialog open={open} onOpenChange={setOpen}>
                 <AlertDialogTrigger asChild>
-                    <Button className="rounded-full !bg-green-600 w-full">{
+                    <Button variant={"default"}>{
                         method === "add" ? "Add Education" : "Edit"
                     }</Button>
                 </AlertDialogTrigger>
-                <AlertDialogContent>
+                <AlertDialogContent className="max-w-md">
                     <AlertDialogHeader>
                         <AlertDialogTitle>{title}</AlertDialogTitle>
                         <AlertDialogDescription>
                             This will be visible in your Portfolio.
                         </AlertDialogDescription>
-                        <ScrollArea className="h-[350px] px-2">
+                        <ScrollArea className="h-[350px] ">
                             <Form {...form}>
-                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1">
                                     <FormField
                                         control={form.control}
                                         name="school_name"
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>Institute name</FormLabel>
-                                                <FormControl>
+                                                <FormControl >
                                                     <Input placeholder="Enter your Institute name" {...field} />
                                                 </FormControl>
-                                                <FormMessage />
+                                                <FormMessage className="text-red-600" />
                                             </FormItem>
                                         )}
                                     />
-                                    <div className="flex flex-row w-full items-center gap-4">
+                                    <div className="flex flex-row w-full justify-between items-center gap-4">
                                         <FormField
                                             control={form.control}
                                             name="school_start_date"
                                             render={({ field }) => (
                                                 <FormItem>
                                                     <FormLabel>From</FormLabel>
+                                                    <br />
                                                     <FormControl>
-                                                        <Input
-                                                            value={field.value.toISOString().split('T')[0]}
-                                                            type="date"
-                                                            onChange={(e) => {
-                                                                field.onChange(new Date(e.target.value))
-                                                            }}
-                                                        />
+                                                        <Popover>
+                                                            <PopoverTrigger asChild>
+                                                                <FormControl>
+                                                                    <Button
+                                                                        variant={"outline"}
+                                                                        className={cn(
+                                                                            "w-[200px] pl-3 text-left font-normal",
+                                                                            !field.value && "text-muted-foreground"
+                                                                        )}
+                                                                    >
+                                                                        {field.value ? (
+                                                                            <span>{field.value.toISOString().split('T')[0]}</span>
+                                                                        ) : (
+                                                                            <span>Pick a date</span>
+                                                                        )}
+                                                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                                                    </Button>
+                                                                </FormControl>
+                                                            </PopoverTrigger>
+                                                            <PopoverContent className="w-auto p-0" align="start">
+                                                                <Calendar
+                                                                    mode="single"
+                                                                    selected={field.value}
+                                                                    onSelect={(date: any) => {
+                                                                        field.onChange(new Date(date))
+                                                                    }}
+                                                                    className="rounded-md border"
+                                                                />
+                                                            </PopoverContent>
+                                                        </Popover>
                                                     </FormControl>
-                                                    <FormMessage />
+                                                    <FormMessage className="text-red-600" />
                                                 </FormItem>
                                             )}
                                         />
@@ -224,14 +249,40 @@ export default function AddEducationForm({
                                             render={({ field }) => (
                                                 <FormItem>
                                                     <FormLabel>To</FormLabel>
+                                                    <br />
                                                     <FormControl>
-                                                        <Input value={field.value.toISOString().split('T')[0]}
-                                                            type="date"
-                                                            onChange={(e) => {
-                                                                field.onChange(new Date(e.target.value))
-                                                            }} />
+                                                        <Popover>
+                                                            <PopoverTrigger asChild>
+                                                                <FormControl>
+                                                                    <Button
+                                                                        variant={"outline"}
+                                                                        className={cn(
+                                                                            "w-[200px] pl-3 text-left font-normal",
+                                                                            !field.value && "text-muted-foreground"
+                                                                        )}
+                                                                    >
+                                                                        {field.value ? (
+                                                                            <span>{field.value.toISOString().split('T')[0]}</span>
+                                                                        ) : (
+                                                                            <span>Pick a date</span>
+                                                                        )}
+                                                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                                                    </Button>
+                                                                </FormControl>
+                                                            </PopoverTrigger>
+                                                            <PopoverContent className="w-auto p-0" align="start">
+                                                                <Calendar
+                                                                    mode="single"
+                                                                    selected={field.value}
+                                                                    onSelect={(date: any) => {
+                                                                        field.onChange(new Date(date))
+                                                                    }}
+                                                                    className="rounded-md border"
+                                                                />
+                                                            </PopoverContent>
+                                                        </Popover>
                                                     </FormControl>
-                                                    <FormMessage />
+                                                    <FormMessage className="text-red-600" />
                                                 </FormItem>
                                             )}
                                         />
@@ -247,7 +298,7 @@ export default function AddEducationForm({
                                                         placeholder="Your Degree"
                                                         {...field} />
                                                 </FormControl>
-                                                <FormMessage />
+                                                <FormMessage className="text-red-600" />
                                             </FormItem>
                                         )}
                                     />
@@ -262,7 +313,7 @@ export default function AddEducationForm({
                                                         placeholder="ex. Computer Science"
                                                         {...field} />
                                                 </FormControl>
-                                                <FormMessage />
+                                                <FormMessage className="text-red-600" />
                                             </FormItem>
                                         )}
                                     />
@@ -277,7 +328,7 @@ export default function AddEducationForm({
                                                         placeholder="Patna, Bihar, India"
                                                         {...field} />
                                                 </FormControl>
-                                                <FormMessage />
+                                                <FormMessage className="text-red-600" />
                                             </FormItem>
                                         )}
                                     />
@@ -288,17 +339,12 @@ export default function AddEducationForm({
                                             <FormItem>
                                                 <FormLabel>Note</FormLabel>
                                                 <FormControl>
-                                                    <NovelEditor
-                                                        className="w-full  !px-0 border-2 border-green-700 dark:border-green-200 rounded-md "
-                                                        disableLocalStorage={true}
-                                                        defaultValue={field.value || "Activities you performed ...."}
-
-                                                        onUpdate={(editor) => {
-                                                            field.onChange(editor?.storage.markdown.getMarkdown())
-                                                        }}
+                                                    <Textarea
+                                                        {...field}
+                                                        placeholder="Write something about your education"
                                                     />
                                                 </FormControl>
-                                                <FormMessage />
+                                                <FormMessage className="text-red-600" />
                                             </FormItem>
                                         )}
                                     />
@@ -309,11 +355,12 @@ export default function AddEducationForm({
                     <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
-                            onClick={async (e) => {
+                            onClick={(e) => {
                                 e.preventDefault();
-                                onSubmit(form.getValues())
-                            }} >
-                            <Button type="submit" variant={"secondary"} className="w-full">Submit</Button>
+                                form.handleSubmit(onSubmit)();
+                            }
+                            }>
+                            {method === "add" ? "Add" : "Update"}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
@@ -325,20 +372,4 @@ export default function AddEducationForm({
     );
 }
 
-function FormButton() {
-    const { pending } = useFormStatus();
-    return (
-        <Button
-            variant={"secondary"}
-            className={cn(
-                "flex h-8 w-full items-center justify-center space-x-2 rounded-md border text-sm transition-all focus:outline-none sm:h-10",
-                pending
-                    ? "cursor-not-allowed "
-                    : "",
-            )}
-            disabled={pending}
-        >
-            {pending ? <Loader2 className="animate-spin w-4 h-4" /> : <p>Save Changes</p>}
-        </Button>
-    );
-}
+

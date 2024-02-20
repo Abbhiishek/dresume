@@ -2,46 +2,44 @@
 
 import {
     Card,
-    CardContent,
     CardDescription,
     CardFooter,
     CardHeader,
-    CardTitle,
+    CardTitle
 } from "@/components/ui/card";
 import { UserEducation } from "@prisma/client";
 
 import AddEducationForm from "@/components/form/education-form";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
 import { deleteEducation } from "@/lib/actions";
 import { toDateString } from "@/lib/utils";
 import va from "@vercel/analytics";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 function EducationCard({ data }: { data: UserEducation }) {
 
     const router = useRouter();
 
     return (
-        <Card>
+        <Card className="">
             <CardHeader>
                 <CardTitle>{data.school_degree}</CardTitle>
                 <CardDescription>
                     {data.school_major} - {data.school_name}
                     <br />
                     {data.school_location}
+                    <br />
+                    {toDateString(data.school_start_date!)} - {toDateString(data.school_end_date!)}
+                    <br />
+                    <br />
+                    {data.education_note}
                 </CardDescription>
             </CardHeader>
-            <CardContent>
-                {data.education_note}
-            </CardContent>
             <CardFooter className="flex flex-col items-start gap-2">
-                {toDateString(data.school_start_date!)} - {toDateString(data.school_end_date!)}
-
                 <div className="flex flex-warp gap-3">
                     <Button
                         variant="destructive"
-                        className=""
                         onClick={
 
                             async () => {
@@ -51,10 +49,7 @@ function EducationCard({ data }: { data: UserEducation }) {
                                     } else {
                                         va.track("Deleted educations");
                                         router.refresh();
-                                        toast({
-                                            title: "Success",
-                                            description: "Successfully deleted education!",
-                                        });
+                                        toast("Education deleted successfully");
                                     }
                                 })
                             }
@@ -63,7 +58,6 @@ function EducationCard({ data }: { data: UserEducation }) {
                         Delete
                     </Button>
                     <AddEducationForm title="Edit Education" method="edit" education={data} />
-
                 </div>
             </CardFooter>
         </Card>

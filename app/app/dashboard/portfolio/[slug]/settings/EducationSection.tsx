@@ -24,7 +24,8 @@ async function EducationSection({ siteId }: { siteId: string }) {
 
     return education.length > 0 ? (
         <main className="lg:container w-full space-y-2">
-            <div className="flex justify-end w-full">
+            <div className="flex justify-between w-full py-4">
+                <span>Add Education</span>
                 <AddEducationForm title="Add Education" method="add" />
             </div>
             {education.map((education) => (
