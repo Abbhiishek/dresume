@@ -33,6 +33,9 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" suppressHydrationWarning>
+            <head>
+                <script defer src="https://analytics.us.umami.is/script.js" data-website-id="629a831c-6680-4cf7-9962-90c8b14b28dc"></script>
+            </head>
             <body className={GeistSans.className} >
                 {/* <NextTopLoader /> */}
                 <Providers>
