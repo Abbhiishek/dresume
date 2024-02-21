@@ -52,6 +52,16 @@ async function BlogPreviewSection() {
                 <div className="w-full overflow-hidden  flex md:flex-row  flex-col justify-center items-center lg:gap-4 gap-1 bg-gradient-to-b from-[#0B0B0F] to-slate-900  mt-2">
                     {
                         blogs.map((blog, index) => {
+
+                            // if custom domain is present use it else use subdomain , in custom domain .dresume.me wont be used 
+
+                            let domain;
+
+                            if (blog.site?.customDomain) {
+                                domain = blog.site.customDomain;
+                            } else {
+                                domain = `${blog.site?.subdomain || ""}.dresume.me`;
+                            }
                             return (
                                 <BlogPreviewCard
                                     key={index}
@@ -59,9 +69,7 @@ async function BlogPreviewSection() {
                                     image={blog.image || ""}
                                     slug={blog.slug || ""}
                                     descripton={blog.description || ""}
-                                    domain={
-                                        blog.site?.customDomain || blog.site?.subdomain || blog.site?.name || ""
-                                    }
+                                    domain={domain || ""}
                                 />
                             )
                         })
@@ -82,7 +90,7 @@ function BlogPreviewCard({ title, image, slug, descripton, domain }: {
     domain: string
 }) {
     return (
-        <Link href={`https://${domain}.dresume.me/blog/${slug}`} target="_blank" >
+        <Link href={`https://${domain}/blog/${slug}`} target="_blank" >
             <CardContainer className="inter-var">
                 <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-auto sm:w-[30rem] h-auto rounded-xl p-6 border  ">
 
