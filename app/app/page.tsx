@@ -1,6 +1,9 @@
 import Footer from "@/components/common/Footer";
 import NavBar from "@/components/common/NavBar";
-import { BuildWithCreativity } from "@/components/home/buildwithcreativity";
+import BlogPreviewSection from "@/components/explore/BlogPreview";
+import CallToActionPreview from "@/components/explore/Cta";
+import ProductShowcase from "@/components/explore/FeatureShowcase";
+import TestimonialsSection from "@/components/explore/Testimonials";
 import LandingSection from "@/components/home/landingsection";
 
 export default function Home() {
@@ -8,7 +11,11 @@ export default function Home() {
     <main >
       <NavBar />
       <LandingSection />
-      <BuildWithCreativity />
+      <TestimonialsSection />
+      <ProductShowcase />
+      <BlogPreviewSection />
+      <CallToActionPreview />
+      {/* <BuildWithCreativity /> */}
       <Footer />
     </main>
   );
