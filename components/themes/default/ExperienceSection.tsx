@@ -1,11 +1,17 @@
-import { TypographyH3, TypographyH4, TypographyMuted, TypographyP } from "@/components/common/Typography"
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect"
-import { toDateString } from "@/lib/utils"
-import { UserWorkExperience } from "@prisma/client"
+import { TypographyH3, TypographyH4, TypographyMuted, TypographyP } from "@/components/common/Typography";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { toDateString } from "@/lib/utils";
+import { UserWorkExperience } from "@prisma/client";
 
 
 
 function ExperienceSection({ workexperience }: { workexperience: UserWorkExperience[] }) {
+
+
+
+    if (workexperience.length === 0) return null;
+
+
     return (
         <section className="  my-4 pt-5" id="Experience">
             <h4 className="text-6xl font-light mt-5">Experience</h4>

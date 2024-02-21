@@ -6,6 +6,8 @@ import Link from "next/link"
 
 
 function ProjectSection({ projects }: { projects: Projects[] }) {
+
+    if (projects.length === 0) return null;
     return (
         <>
             <section className="my-4 pt-5" id="Projects">

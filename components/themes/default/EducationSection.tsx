@@ -1,8 +1,12 @@
-import { TypographyH4, TypographyMuted, TypographyP } from "@/components/common/Typography"
-import { toDateString } from "@/lib/utils"
-import { UserEducation } from "@prisma/client"
+import { TypographyH4, TypographyMuted, TypographyP } from "@/components/common/Typography";
+import { toDateString } from "@/lib/utils";
+import { UserEducation } from "@prisma/client";
 
 function EducationSection({ education }: { education: UserEducation[] }) {
+
+
+    if (education.length === 0) return null;
+
     return (
         <section className="  my-4 pt-5" id="Education">
             <h4 className="text-6xl font-light mt-5">Education</h4>

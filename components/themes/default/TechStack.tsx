@@ -1,5 +1,5 @@
-import prisma from "@/lib/db"
-import Image from "next/image"
+import prisma from "@/lib/db";
+import Image from "next/image";
 
 
 
@@ -19,8 +19,7 @@ async function TechStackSection({
         }
     })
 
-
-
+    if (techstack.length === 0) return null;
 
     return (
         <div id="Skills" className="  my-4 pt-5">
