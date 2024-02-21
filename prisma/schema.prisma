@@ -86,23 +86,31 @@ model UserCertificate {
   certificate_url         String
   certificate_verify_link String?
   certificate_note        String?
-  siteId                  String?
-  site                    Site?    @relation(fields: [siteId], references: [id])
+  description             String?
+  imageurl                String
+  siteId                  String
+  site                    Site     @relation(fields: [siteId], references: [id])
 }
 
-model projects {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String?
-  url         String?
-  repourl     String?
-  oneliner    String   @default("")
-  skills      String[]
-  created_at  DateTime @default(now()) @db.Timestamptz(6)
-  updated_at  DateTime @default(now()) @db.Timestamptz(6)
-  user_id     String
-  siteId      String?
-  site        Site?    @relation(fields: [siteId], references: [id])
+model Projects {
+  id            Int                @id @default(autoincrement())
+  name          String
+  description   String             @default("")
+  url           String?
+  repourl       String?
+  oneliner      String             @default("")
+  skills        String[]
+  techstack     ProjectTechStack[]
+  imageUrl      String?            @default("https://dresume.me/placeholder.png")
+  videoUrl      String?
+  started_on    DateTime           @default(now())
+  ended_on      DateTime?
+  still_working Boolean            @default(false)
+  created_at    DateTime           @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime           @default(now()) @db.Timestamptz(6)
+  user_id       String
+  siteId        String?
+  site          Site?              @relation(fields: [siteId], references: [id])
 
   @@map("projects")
 }
@@ -146,15 +154,26 @@ model Blog {
 }
 
 model TechStack {
-  id            Int             @id @default(autoincrement())
-  name          String
-  description   String?
-  icon          String
-  tag           String[]
-  category      String[]
-  siteTechStack SiteTechStack[]
+  id               Int                @id @default(autoincrement())
+  name             String
+  description      String?
+  icon             String
+  tag              String[]
+  category         String[]
+  siteTechStack    SiteTechStack[]
+  ProjectTechStack ProjectTechStack[]
 
   @@map("techstack")
+}
+
+model ProjectTechStack {
+  projectId   Int
+  techStackId Int
+  Project     Projects  @relation(fields: [projectId], references: [id])
+  TechStack   TechStack @relation(fields: [techStackId], references: [id])
+
+  @@id([projectId, techStackId])
+  @@map("project_techstack")
 }
 
 model SiteTechStack {
@@ -198,7 +217,7 @@ model Site {
   education      UserEducation[]
   workexperience UserWorkExperience[]
   Blog           Blog[]
-  projects       projects[]
+  projects       Projects[]
   resume         Resume[]
   siteTechStack  SiteTechStack[]
 

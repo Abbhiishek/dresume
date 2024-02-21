@@ -4,7 +4,7 @@ import { UserEducation } from "@prisma/client"
 
 function EducationSection({ education }: { education: UserEducation[] }) {
     return (
-        <section className="min-h-[500px]  my-4 pt-5" id="Education">
+        <section className="  my-4 pt-5" id="Education">
             <h4 className="text-6xl font-light mt-5">Education</h4>
             <div className="text-left relative">
                 <h1

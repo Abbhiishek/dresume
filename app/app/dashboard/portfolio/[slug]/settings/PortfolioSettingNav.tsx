@@ -9,6 +9,7 @@ import CertificateSection from "./CertificateSection";
 import DomainSection from "./DomainSection";
 import EducationSection from "./EducationSection";
 import GeneralSection from "./GeneralSection";
+import SkillsToolsSection from "./SkillsToolsSection";
 import WorkExperienceSection from "./WorkSection";
 
 
@@ -28,6 +29,11 @@ export default function SiteSettingsNav({ slug }: { slug: string }) {
             name: "Education",
             value: "education",
             component: <EducationSection siteId={slug} />,
+        },
+        {
+            name: "Skills & Tools",
+            value: "tools",
+            component: <SkillsToolsSection siteId={slug} />,
         },
         {
             name: "Work",
@@ -54,7 +60,7 @@ export default function SiteSettingsNav({ slug }: { slug: string }) {
     return (
         <div className="flex space-x-4 border-b  pb-4 pt-2">
             <Tabs defaultValue="general" className="w-full h-full" >
-                <TabsList className="grid w-full lg:grid-cols-7 h-full grid-cols-1  rounded-3xl content-center bg-stone-200 dark:bg-stone-800 ">
+                <TabsList className="grid w-full lg:grid-cols-8 h-full grid-cols-1  rounded-3xl content-center bg-stone-200 dark:bg-stone-800 ">
                     {
                         navItems.map((nav, index) => (
                             <TabsTrigger key={index} value={nav.value}

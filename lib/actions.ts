@@ -85,6 +85,13 @@ export const updateSite = withSiteAuth(
     async (formData: FormData, site: Site, key: string) => {
         // const value = formData.get(key) as string;
 
+        const session = auth();
+        if (!session.userId) {
+            return {
+                error: "Not authenticated",
+            };
+        }
+
         try {
             let response;
 
@@ -181,6 +188,17 @@ export const updateSite = withSiteAuth(
                         instagramid,
                         youtubeurl,
                         websiteurl
+                    },
+                });
+            } else if (key === "skills") {
+                const skills = formData.getAll(key) as string[];
+                console.log(skills)
+                response = await prisma.site.update({
+                    where: {
+                        id: site.id,
+                    },
+                    data: {
+                        skills,
                     },
                 });
             } else {
@@ -730,3 +748,66 @@ export const deleteWorkExperience = withWorkAuth(async (work: any) => {
 
 
 
+
+export const updateSiteTechStack = withSiteAuth(async (formData: FormData, slug: Site, Key: string) => {
+    const session = auth();
+    if (!session.userId) {
+        return {
+            error: "Not authenticated",
+        };
+    }
+
+    const techstacks = formData.getAll("techstack") as string[];
+
+    try {
+        let response;
+        if (techstacks.length === 0) {
+            console.log("deleting all techstacks for site", slug.id)
+            return prisma.siteTechStack.deleteMany({
+                where: {
+                    siteId: slug.id
+                }
+            })
+        }
+
+
+        const alltechstack = await prisma.techStack.findMany()
+        const alltechstackids = alltechstack.map((tech) => tech.id.toString())
+        const toDelete = alltechstackids.filter((tech) => !techstacks.includes(tech))
+        const toAdd = techstacks.filter((tech) => alltechstackids.includes(tech))
+        response = await Promise.all([
+            prisma.siteTechStack.deleteMany({
+                where: {
+                    siteId: slug.id,
+                    techStackId: {
+                        in: toDelete.map((id) => Number(id))
+                    }
+                }
+            }),
+
+            toAdd.map(async (tech) => {
+                return prisma.siteTechStack.upsert({
+                    where: {
+                        siteId_techStackId: {
+                            siteId: slug.id,
+                            techStackId: Number(tech),
+                        },
+                    },
+                    create: {
+                        siteId: slug.id,
+                        techStackId: Number(tech),
+                    },
+                    update: {
+                        siteId: slug.id,
+                        techStackId: Number(tech),
+                    },
+                })
+            }),
+        ])
+        return response;
+    } catch (error: any) {
+        return {
+            error: error.message,
+        };
+    }
+})

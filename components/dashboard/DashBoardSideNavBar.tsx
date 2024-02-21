@@ -58,8 +58,6 @@ const NavBarOptions = () => {
     const segments = useSelectedLayoutSegments();
     const { blogslug, slug } = useParams() as { blogslug?: string, slug?: string };
     const [siteId, setSiteId] = useState<string | null>();
-
-    console.log(blogslug)
     useEffect(() => {
         if (segments[2] === "blog" && blogslug) {
             getSiteFromPostId(blogslug).then((slug) => {
@@ -67,9 +65,6 @@ const NavBarOptions = () => {
             });
         }
     }, [segments, blogslug]);
-
-
-
     console.log(segments)
 
 

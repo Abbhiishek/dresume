@@ -1,4 +1,4 @@
-import { SiteTechStack, UserCertificate, UserEducation, UserWorkExperience, projects } from "@prisma/client";
+import { Projects, SiteTechStack, UserCertificate, UserEducation, UserWorkExperience } from "@prisma/client";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import AboutSection from "./default/AboutSection";
 import ContactSection from "./default/ContactSection";
@@ -20,7 +20,7 @@ function DefaultTheme({
         education: UserEducation[],
         certificates: UserCertificate[],
         workexperience: UserWorkExperience[],
-        projects: projects[],
+        projects: Projects[],
         siteTechStack: SiteTechStack[],
         name: string,
         tagline: string,

@@ -23,7 +23,7 @@ async function TechStackSection({
 
 
     return (
-        <div id="Skills" className="min-h-[500px]  my-4 pt-5">
+        <div id="Skills" className="  my-4 pt-5">
             <h4 className="text-6xl font-light mt-5">Tech I&apos;m Familiar With</h4>
             <div className="flex flex-col gap-5">
                 <div className="text-left">
@@ -35,17 +35,18 @@ async function TechStackSection({
                         </h1>
                     </div>
                 </div>
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-4">
                     {
                         techstack.map((tech, index) => (
-                            <div className="lg:basis-2/12 pt-4 md:pb-0 " key={index}>
+                            <div className="pt-4 md:pb-0 saturate-200 " key={index}>
                                 <div
                                     className="flex flex-row items-center justify-start duration-200 
-                                    gap-4 transition-all hover:bg-stone-800 rounded-2xl px-3 ">
+                                    gap-4 transition-all border rounded-2xl px-3 py-2 ">
                                     <Image
                                         width={500}
                                         height={500}
-                                        src={tech.TechStack.icon} alt={tech.TechStack.name} className="w-16 h-16"
+                                        src={tech.TechStack.icon} alt={tech.TechStack.name}
+                                        className="w-12 h-12 svg-dark"
                                     />
                                     <p className="text-center text-sm lg:text-lg font-semibold">{tech.TechStack.name}</p>
                                 </div>

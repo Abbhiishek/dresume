@@ -22,7 +22,8 @@ const nextConfig = {
             "utfs.io",
             "illustrations.popsy.co",
             "api.producthunt.com",
-            "avatars.githubusercontent.com"
+            "avatars.githubusercontent.com",
+            "cdn.jsdelivr.net"
         ],
     },
 };

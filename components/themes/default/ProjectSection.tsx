@@ -1,14 +1,14 @@
 import { TypographyH2, TypographyP } from "@/components/common/Typography"
-import { projects } from "@prisma/client"
+import { Projects } from "@prisma/client"
 import { GlobeIcon } from "@radix-ui/react-icons"
 import { GithubIcon } from "lucide-react"
 import Link from "next/link"
 
 
-function ProjectSection({ projects }: { projects: projects[] }) {
+function ProjectSection({ projects }: { projects: Projects[] }) {
     return (
         <>
-            <section className="min-h-[500px]  my-4 pt-5" id="Projects">
+            <section className="my-4 pt-5" id="Projects">
                 <h4 className="text-6xl font-light mt-5">Projects</h4>
                 <div className="text-left relative">
                     <h1
