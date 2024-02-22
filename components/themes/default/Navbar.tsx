@@ -31,7 +31,7 @@ function UserPortfolioNavbar({ name, logo, }: {
                 <div className="flex flex-row lg:flex-1 ">
                     <Link href='#Home' passHref legacyBehavior>
                         <div className="-m-1.5 p-1.5 flex  justify-start items-center sm:gap-5 gap-2">
-                            <span className="sr-only">Abhishek Kushwaha</span>
+                            <span className="sr-only"> {name} | Dev Resume</span>
                             {logo && <Image
                                 src={logo}
                                 alt={name}

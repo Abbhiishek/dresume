@@ -1,21 +1,18 @@
 import BlurImage from "@/components/blur-image";
 import BlogCard from "@/components/domain/blog-card";
 import MDX from "@/components/mdx";
+import { TracingBeam } from "@/components/ui/tracing-beam";
 import { TrackAnalytics } from "@/lib/analytics";
 import prisma from "@/lib/db";
 import { getBlogData, getSiteData } from "@/lib/fetchers";
 import { placeholderBlurhash, toDateString } from "@/lib/utils";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-const readingTime = require('reading-time');
+import readingTime from 'reading-time';
 export const dynamic = 'force-dynamic'
 
 
-export async function generateMetadata({
-    params,
-}: {
-    params: { domain: string; slug: string };
-}) {
+export async function generateMetadata({ params }: { params: { domain: string; slug: string } }) {
     const domain = decodeURIComponent(params.domain);
     const slug = decodeURIComponent(params.slug);
 
@@ -39,15 +36,8 @@ export async function generateMetadata({
             card: "summary_large_image",
             title,
             description,
-            creator: "@vercel",
+            creator: "@" + siteData?.twitterid || "abhishektwts",
         },
-        // Optional: Set canonical URL to custom domain if it exists
-        // ...(params.domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) &&
-        //   siteData.customDomain && {
-        //     alternates: {
-        //       canonical: `https://${siteData.customDomain}/${params.slug}`,
-        //     },
-        //   }),
     };
 }
 
@@ -62,12 +52,9 @@ export async function generateStaticParams() {
                 },
             },
         },
-        // feel free to remove this filter if you want to generate paths for all posts
         where: {
-            site: {
-                subdomain: "demo",
-            },
-        },
+            slug: "none"
+        }
     });
 
     const allPaths = allPosts
@@ -86,21 +73,17 @@ export async function generateStaticParams() {
     return allPaths;
 }
 
-export default async function SitePostPage({
-    params,
-}: {
-    params: { domain: string; slug: string };
-}) {
+export default async function SitePostPage({ params }: { params: { domain: string; slug: string } }) {
     const domain = decodeURIComponent(params.domain);
     const slug = decodeURIComponent(params.slug);
     const data = await getBlogData(domain, slug);
     const sitedata = await getSiteData(domain)
 
-    if (!data) {
+    if (!data || !sitedata) {
         notFound();
     }
 
-    const readingstats = readingTime(data.content);
+    const readingstats = readingTime(data.content || "");
 
 
     try {
@@ -161,9 +144,10 @@ export default async function SitePostPage({
                     </div>
                 </Link>
             </div>
-
-            <div className="flex justify-center items-center  px-2">
-                <MDX source={data.mdxSource} />
+            <div className="flex justify-center items-center  px-2 ">
+                <TracingBeam className="h-fit">
+                    <MDX source={data.mdxSource} />
+                </TracingBeam>
             </div>
             {data.adjacentPosts.length > 0 && (
                 <div className="relative mb-20 mt-10 sm:mt-20">
@@ -181,7 +165,7 @@ export default async function SitePostPage({
                 </div>
             )}
             {data.adjacentPosts && (
-                <div className="mx-5 mb-20 grid max-w-screen-xl grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 xl:mx-auto xl:grid-cols-3">
+                <div className="mx-5 pb-20 grid max-w-screen-xl grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 xl:mx-auto xl:grid-cols-3">
                     {data.adjacentPosts.map((data: any, index: number) => (
                         <BlogCard key={index} data={data} />
                     ))}

@@ -102,7 +102,7 @@ function HomeSection({ name, image, tagline, twitterid, githubid, linkedinid, we
             </div>
             <a className="fixed bottom-14 right-8 z-[99] bg-primary cursor-pointer w-[100px] text-center h-12 rounded-full text-lg pt-3" href="#Contact" rel="noopener" aria-label="Contact" id="contactbtn">
                 <strong>
-                    Le&apos;s
+                    Let&apos;s
                     Talk!
                 </strong>
             </a>

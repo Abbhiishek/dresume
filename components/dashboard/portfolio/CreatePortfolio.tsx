@@ -13,13 +13,13 @@ import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/components/ui/use-toast";
 import { createSite } from "@/lib/actions";
 import va from "@vercel/analytics";
 import confetti from "canvas-confetti";
 import { Loader2, PlusCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 import { z } from "zod";
 
 
@@ -68,7 +68,6 @@ export default function CreatePortfolio() {
         }));
     }, [data.name]);
 
-
     const handlesubmit = async (e: any) => {
         e.preventDefault()
         setLoading(true)
@@ -92,11 +91,7 @@ export default function CreatePortfolio() {
             formData.append('subdomain', data.subdomain);
             await createSite(formData).then((res: any) => {
                 if (res.error) {
-                    toast({
-                        title: "Error",
-                        description: res.error,
-                        variant: "destructive"
-                    })
+                    toast.error("error Occured")
                     setLoading(false)
                 } else {
                     confetti({
@@ -111,8 +106,11 @@ export default function CreatePortfolio() {
                     });
                     va.track("Created Site");
                     router.refresh();
-                    toast({
-                        title: "Successfully created site!",
+                    toast.success("Portfolio Craeted Successfully", {
+                        duration: 1000,
+                        onAutoClose: () => {
+                            router.push(`/dashboard/portfolio/${res.id}`);
+                        }
                     })
                     setLoading(false)
                     setOpen(false);
