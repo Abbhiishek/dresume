@@ -9,11 +9,11 @@ import {
     FormItem,
     FormMessage
 } from "@/components/ui/form";
-import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "@nextui-org/react";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
 
@@ -25,7 +25,6 @@ const formSchema = z.object({
 
 export default function FeedbackForm() {
 
-    const { toast } = useToast()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -43,20 +42,14 @@ export default function FeedbackForm() {
                 // Handle success
                 if (response.status === 200) {
                     form.reset()
-                    toast({
-                        title: "Feedback Noted",
-                        description: "Thanks for the Feedback 🙂",
-                    })
+                    toast.success("Feedback Submitted Successfully")
                 }
 
             })
             .catch(error => {
                 console.log(error);
                 // Handle error
-                toast({
-                    title: "Something Went Wrong",
-                    description: "Try Again Later :(",
-                })
+                toast.error("Something went wrong")
             });
         console.log(values)
     }

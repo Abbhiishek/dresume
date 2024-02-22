@@ -7,13 +7,12 @@ import va from "@vercel/analytics";
 import { Loader2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useFormStatus } from "react-dom";
-import { useToast } from "../ui/use-toast";
+import { toast } from "sonner";
 
 
 export default function DeleteSiteForm({ siteName }: { siteName: string }) {
     const { slug } = useParams() as { slug: string };
     const router = useRouter();
-    const { toast } = useToast()
     return (
         <form
             action={async (data: FormData) =>
@@ -21,27 +20,16 @@ export default function DeleteSiteForm({ siteName }: { siteName: string }) {
                 deleteSite(data, slug, "delete")
                     .then(async (res) => {
                         if (res.error) {
-                            toast({
-                                title: "An error occurred.",
-                                description: res.error,
-                                variant: "destructive",
-                            });
+                            toast.error("An error occurred. Please try again later.");
                         } else {
                             va.track("Deleted Site");
                             router.refresh();
                             router.push("/dashboard/portfolio");
-                            toast({
-                                title: "🌱",
-                                description: `Successfully deleted Portfolio!`,
-                            });
+                            toast.success("Site deleted successfully.");
                         }
                     })
                     .catch((err: Error) => {
-                        toast({
-                            title: "An error occurred.",
-                            description: err.message,
-                            variant: "destructive",
-                        });
+                        toast.error("An error occurred. Please try again later.");
                     })}
             className="rounded-lg border border-red-600 bg-white dark:bg-black"
         >

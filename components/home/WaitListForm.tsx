@@ -20,9 +20,9 @@ import { Loader2, MailIcon } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 import { TypographyH1 } from "../common/Typography";
-import { toast } from "../ui/use-toast";
 
 
 const formSchema = z.object({
@@ -57,16 +57,12 @@ export default function WaitlistForm() {
             return handleSubmit;
         } catch (error: any) {
             if (error.code === "P2002") {
-                toast({
-                    title: "Email is Already in Waiting List",
-                })
+                toast("Email is Already in Waiting List")
                 return {
                     error: `Email is Already in Waiting List`,
                 };
             } else {
-                toast({
-                    title: error.message,
-                })
+                toast.error(error.title)
                 return {
                     error: error.message,
                 };
@@ -79,9 +75,7 @@ export default function WaitlistForm() {
 
         let id = setTimeout(() => {
             setSending(false);
-            toast({
-                title: "You have been added to the waitlist!",
-            })
+            toast.success("You are in the waiting list now 🎉");
             confetti({
                 angle: 60,
                 spread: 55,

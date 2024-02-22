@@ -20,20 +20,11 @@ export default function DeletePostForm({ postName }: { postName: string }) {
                 window.confirm("Are you sure you want to delete your post?") &&
                 deletePost(data, blogslug, "delete").then((res) => {
                     if (res.error) {
-                        // toast({
-                        //     title: "An error occurred.",
-                        //     description: res.error,
-                        //     variant: "destructive",
-                        // })
                         toast.error("An error occurred.")
                     } else {
                         va.track("Deleted Post");
                         router.refresh();
                         router.push(`/dashboard/portfolio/${slug}/blog`);
-                        // toast({
-                        //     title: "Post deleted.",
-                        //     description: "Your post has been deleted.",
-                        // })
                         toast.success("Blog Deleted !")
                     }
                 })

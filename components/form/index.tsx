@@ -1,6 +1,5 @@
 "use client";
 
-import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { fontList } from "@/styles/fonts";
 import { Input, Textarea } from "@nextui-org/react";
@@ -8,6 +7,7 @@ import va from "@vercel/analytics";
 import { Loader2 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useFormStatus } from "react-dom";
+import { toast } from "sonner";
 import DomainConfiguration from "./domain-configuration";
 import DomainStatus from "./domain-status";
 import Uploader from "./uploader";
@@ -34,7 +34,6 @@ export default function Form({
 }) {
     const { slug, blogslug } = useParams() as { slug?: string, blogslug?: string };
     const router = useRouter();
-    const { toast } = useToast()
     return (
         <form
             action={async (data: FormData) => {
@@ -59,11 +58,7 @@ export default function Form({
                     if (res.error) {
                         // toast.error(res.error);
                         console.log(res.error)
-                        toast({
-                            title: "An error occurred.",
-                            description: res.error,
-                            variant: "destructive",
-                        });
+                        toast.error("An error occurred. Please try again later.");
                     } else {
                         va.track(`Updated ${inputAttrs.name}`, slug ? { slug } : {});
                         if (slug) {
@@ -71,10 +66,7 @@ export default function Form({
                         } else {
                             router.refresh();
                         }
-                        toast({
-                            title: "🌱",
-                            description: `Successfully updated ${inputAttrs.name}!`,
-                        });
+                        toast.success(`Successfully updated ${inputAttrs.name}!`);
                     }
                 });
             }}

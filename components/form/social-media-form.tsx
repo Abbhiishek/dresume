@@ -7,8 +7,8 @@ import { GitHubLogoIcon, GlobeIcon, InstagramLogoIcon, LinkedInLogoIcon, Twitter
 import { Loader2, YoutubeIcon } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useFormStatus } from "react-dom";
+import { toast } from "sonner";
 import { TypographyP } from "../common/Typography";
-import { useToast } from "../ui/use-toast";
 
 export default function SocialMediaForm({ socials }: {
     socials: {
@@ -20,79 +20,23 @@ export default function SocialMediaForm({ socials }: {
         youtubeurl: string
 
     }
-    // [
-    //     {
-    //         Textname: "Twitter",
-    //         name: "twitterid",
-    //         value: string,
-
-    //     },
-    //     {
-    //         Textname: "Linkedin",
-    //         name: "linkedinid",
-    //         value: string,
-
-    //     },
-    //     {
-    //         Textname: "Github",
-    //         name: "githubid",
-    //         value: string,
-
-    //     },
-    //     {
-    //         Textname: "Website",
-    //         name: "websiteurl",
-    //         value: string,
-
-    //     },
-    //     {
-    //         Textname: "Instagram",
-    //         name: "instagramid",
-    //         value: string,
-
-    //     },
-    //     {
-    //         Textname: "Youtube",
-    //         name: "youtubeurl",
-    //         value: string,
-
-    //     },
-    // ]
-    // twitterid: string,
-    // linkedinid: string,
-    // githubid: string,
-    // websiteurl: string
-    // instagramid: string,
-    // youtubeurl: string
 
 }) {
     const { slug } = useParams() as { slug: string };
-    const { toast } = useToast()
     return (
         <form
             action={async (data: FormData) =>
                 updateSite(data, slug, "socials")
                     .then(async (res) => {
                         if (res.error) {
-                            toast({
-                                title: "An error occurred.",
-                                description: res.error,
-                                variant: "destructive",
-                            });
+                            toast.error("An error occurred. Please try again later.");
                         } else {
 
-                            toast({
-                                title: "🌱",
-                                description: `Successfully updated Portfolio's socials`,
-                            });
+                            toast.success("Social Media Links Updated Successfully.");
                         }
                     })
                     .catch((err: Error) => {
-                        toast({
-                            title: "An error occurred.",
-                            description: err.message,
-                            variant: "destructive",
-                        });
+                        toast.error("An error occurred. Please try again later.");
                     })}
             className="rounded-lg border border-stone-200 bg-white dark:border-stone-700 dark:bg-black"
         >
