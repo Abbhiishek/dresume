@@ -95,8 +95,8 @@ function HomeSection({ name, image, tagline, twitterid, githubid, linkedinid, we
                 <Image
                     src={image}
                     alt={name}
-                    width={150}
-                    height={150}
+                    width={550}
+                    height={550}
                     className="w-96 h-96 rounded-full"
                 />
             </div>

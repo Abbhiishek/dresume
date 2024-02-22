@@ -43,6 +43,9 @@ export default async function SiteHomePage({
         getSiteAbout(domain)
     ]);
 
+    if (!data) {
+        notFound();
+    }
 
     try {
         TrackAnalytics("sites", {
@@ -53,12 +56,6 @@ export default async function SiteHomePage({
         console.log(error);
     }
 
-
-    // console.log(data)
-
-    if (!data) {
-        notFound();
-    }
     return (
         <>
             {/* {data.theme} */}

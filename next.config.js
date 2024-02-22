@@ -20,6 +20,7 @@ const nextConfig = {
             "dresume.vercel.app",
             "dresume.me",
             "utfs.io",
+            "images.clerk.dev",
             "illustrations.popsy.co",
             "api.producthunt.com",
             "avatars.githubusercontent.com",
