@@ -21,9 +21,6 @@ export default async function WorkExperienceSection({ siteId }: { siteId: string
     })
 
 
-    console.log(work)
-
-
 
     return work.length > 0 ? (
         <main className="lg:container w-full space-y-2">

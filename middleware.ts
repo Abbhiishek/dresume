@@ -1,8 +1,5 @@
 import { authMiddleware, redirectToSignIn } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
-// This example protects all routes including api/trpc routes
-// Please edit this to allow other routes to be public as needed.
-// See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 export default authMiddleware({
     async afterAuth(auth, req, evt) {
 
@@ -13,11 +10,6 @@ export default authMiddleware({
         let hostname = req.headers
             .get("host")!
             .replace(".localhost:3000", `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`);
-
-
-        // console.log("host name", hostname)
-
-
         if (
             hostname.includes("---") &&
             hostname.endsWith(`.${process.env.NEXT_PUBLIC_VERCEL_DEPLOYMENT_SUFFIX}`)
@@ -70,6 +62,7 @@ export default authMiddleware({
 
     publicRoutes: ["/", "/api/webhook/user"]
 });
+
 
 
 export const config = {

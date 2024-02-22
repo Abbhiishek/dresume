@@ -1,5 +1,6 @@
 
 import DefaultTheme from "@/components/themes/DefaultTheme";
+import { TrackAnalytics } from "@/lib/analytics";
 import prisma from "@/lib/db";
 import { getSiteAbout, getSiteData } from "@/lib/fetchers";
 import { notFound } from "next/navigation";
@@ -41,6 +42,16 @@ export default async function SiteHomePage({
         getSiteData(domain),
         getSiteAbout(domain)
     ]);
+
+
+    try {
+        TrackAnalytics("sites", {
+            path: `${domain}`,
+            siteId: data?.id || "",
+        });
+    } catch (error) {
+        console.log(error);
+    }
 
 
     // console.log(data)

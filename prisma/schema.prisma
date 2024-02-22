@@ -133,19 +133,21 @@ model Resume {
 }
 
 model Blog {
-  id            String   @id @default(cuid())
+  id            String      @id @default(cuid())
   title         String?
   description   String?
   content       String?
-  slug          String   @default(cuid())
-  image         String?  @default("https://dresume.me/placeholder.png")
-  imageBlurhash String?  @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  published     Boolean  @default(false)
+  slug          String      @default(cuid())
+  image         String?     @default("https://dresume.me/placeholder.png")
+  imageBlurhash String?     @default("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAhCAYAAACbffiEAAAACXBIWXMAABYlAAAWJQFJUiTwAAABfUlEQVR4nN3XyZLDIAwE0Pz/v3q3r55JDlSBplsIEI49h76k4opexCK/juP4eXjOT149f2Tf9ySPgcjCc7kdpBTgDPKByKK2bTPFEdMO0RDrusJ0wLRBGCIuelmWJAjkgPGDSIQEMBDCfA2CEPM80+Qwl0JkNxBimiaYGOTUlXYI60YoehzHJDEm7kxjV3whOQTD3AaCuhGKHoYhyb+CBMwjIAFz647kTqyapdV4enGINuDJMSScPmijSwjCaHeLcT77C7EC0C1ugaCTi2HYfAZANgj6Z9A8xY5eiYghDMNQBJNCWhASot0jGsSCUiHWZcSGQjaWWCDaGMOWnsCcn2QhVkRuxqqNxMSdUSElCDbp1hbNOsa6Ugxh7xXauF4DyM1m5BLtCylBXgaxvPXVwEoOBjeIFVODtW74oj1yBQah3E8tyz3SkpolKS9Geo9YMD1QJR1Go4oJkgO1pgbNZq0AOUPChyjvh7vlXaQa+X1UXwKxgHokB2XPxbX+AnijwIU4ahazAAAAAElFTkSuQmCC")
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  published     Boolean     @default(false)
   siteId        String?
   userId        String?
-  site          Site?    @relation(fields: [siteId], references: [id])
+  site          Site?       @relation(fields: [siteId], references: [id])
+  Analytics     Analytics[]
+  totalviews    Int         @default(0)
 
   @@unique([slug, siteId])
   @@index([siteId])
@@ -220,14 +222,10 @@ model Site {
   projects       Projects[]
   resume         Resume[]
   siteTechStack  SiteTechStack[]
+  Analytics      Analytics[]
+  totalviews     Int                  @default(0)
 
   @@index([userId])
-}
-
-model SiteViews {
-  id         Int      @id @default(autoincrement())
-  created_at DateTime @default(now()) @db.Timestamptz(6)
-  siteId     String
 }
 
 model Example {
@@ -246,4 +244,19 @@ model Newsletter {
   email      String   @unique
 
   @@map("newsletter")
+}
+
+model Analytics {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  type       String
+  siteId     String?
+  path       String
+  os         String?
+  browser    String?
+  device     String?
+  location   String?
+  site       Site?    @relation(fields: [siteId], references: [id])
+  blogId     String?
+  blog       Blog?    @relation(fields: [blogId], references: [id])
 }

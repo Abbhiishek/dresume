@@ -1,4 +1,6 @@
-import { TypographyH1 } from "@/components/common/Typography";
+import { TypographyH1, TypographyH2 } from "@/components/common/Typography";
+import BlogAnalytics from "@/components/dashboard/portfolio/BlogAnalytics";
+import PortfolioAnaytlics from "@/components/dashboard/portfolio/PortfolioAnaytlics";
 import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { Button } from "@nextui-org/react";
@@ -25,8 +27,10 @@ async function SinglePortfolioPage({
     }
     const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
+
+
     return (
-        <div>
+        <div className="pb-10">
             <Link
                 href={
                     process.env.NEXT_PUBLIC_VERCEL_ENV
@@ -42,7 +46,10 @@ async function SinglePortfolioPage({
                     <h1>🔗{"  "}{url}{" "} 🎉</h1>
                 </Button>
             </Link>
-            <TypographyH1>Here will come all the cool stuff about your portfolio 😎🌱</TypographyH1>
+            <TypographyH1 className="my-4 opacity-70">Portfolio Insights 🔍</TypographyH1>
+            <PortfolioAnaytlics siteid={data.id} />
+            <TypographyH2 className="my-4 opacity-70">Blogs Insights 🔍</TypographyH2>
+            <BlogAnalytics siteid={data.id} />
         </div>
     )
 }

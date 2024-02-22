@@ -216,7 +216,7 @@ export default function WorkExperienceForm({
                                                                     )}
                                                                 >
                                                                     {field.value ? (
-                                                                        <span>{field.value.toISOString().split('T')[0]}</span>
+                                                                        <span>{field.value?.toLocaleDateString()}</span>
                                                                     ) : (
                                                                         <span>Pick a date</span>
                                                                     )}

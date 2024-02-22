@@ -1,6 +1,7 @@
 import BlurImage from "@/components/blur-image";
 import BlogCard from "@/components/domain/blog-card";
 import MDX from "@/components/mdx";
+import { TrackAnalytics } from "@/lib/analytics";
 import prisma from "@/lib/db";
 import { getBlogData, getSiteData } from "@/lib/fetchers";
 import { placeholderBlurhash, toDateString } from "@/lib/utils";
@@ -100,6 +101,16 @@ export default async function SitePostPage({
     }
 
     const readingstats = readingTime(data.content);
+
+
+    try {
+        TrackAnalytics("blog", {
+            path: `➡️${data.title}`,
+            blogId: data?.id || "",
+        });
+    } catch (error) {
+        console.log(error);
+    }
 
     return (
         <>
