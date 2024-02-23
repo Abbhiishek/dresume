@@ -90,22 +90,26 @@ export const getSitesAnalytics = async (siteid: string, nDays: number): Promise<
                 },
             },
             orderBy: {
-                created_at: "desc"
+                created_at: "asc"
             }
         })
+
         let data: { date: string, views: number }[] = []
-        // the below ios working but only sending the data of the dates that are in backend i want it some dates are not there then just return with 0 hits
 
 
-        for (let i = nDays; i > 1; i--) {
+
+
+
+
+
+
+        for (let i = nDays - 1; i > 1; i--) {
             let date = new Date(new Date().setDate(new Date().getDate() - i)).toLocaleDateString()
             let index = data.findIndex(d => d.date === date)
             if (index === -1) {
                 data.push({ date, views: 0 })
             }
         }
-
-
         response.reduce((acc: { date: string, views: number }[], curr) => {
             let date = new Date(curr.created_at).toLocaleDateString()
 
