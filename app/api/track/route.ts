@@ -61,8 +61,8 @@ async function handler(request: NextRequest) {
                     device,
                     location: `${ipinfo.city}, ${ipinfo.region}, ${ipinfo.country}`,
                     path: event.path,
-                    siteId: event.siteId || null,
-                    blogId: event.blogId || null,
+                    siteId: event.siteId,
+                    blogId: event.blogId,
                 }
             })
 
