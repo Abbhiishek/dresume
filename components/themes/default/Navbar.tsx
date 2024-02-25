@@ -8,12 +8,47 @@ import {
 import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function UserPortfolioNavbar({ name, logo, }: {
+function UserPortfolioNavbar({ name, logo, siteid }: {
     name: string,
-    logo: string
+    logo: string,
+    siteid: string
 }) {
+
+    useEffect(() => {
+
+        const track = async () => {
+            try {
+                const res = await fetch('/api/track', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        namespace: "sites",
+                        event: {
+                            path: window.location.pathname,
+                            event: {
+                                siteId: siteid,
+                                width: window.innerWidth,
+                                height: window.innerHeight
+                            }
+                        }
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                const data = await res.json()
+                console.log(data)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        track()
+    }, [siteid])
+
+
+
+
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const navigation = [
         { name: 'About', href: '#About' },

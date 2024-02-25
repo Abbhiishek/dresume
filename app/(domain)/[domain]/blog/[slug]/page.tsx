@@ -52,9 +52,9 @@ export async function generateStaticParams() {
                 },
             },
         },
-        where: {
-            slug: "none"
-        }
+        // where: {
+        //     slug: "none"
+        // }
     });
 
     const allPaths = allPosts

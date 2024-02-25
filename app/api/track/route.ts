@@ -38,13 +38,27 @@ async function handler(request: NextRequest) {
         const { namespace, event } = payload
 
 
+        const pcThreshold = 1024;
+        const tabletThreshold = 768;
+
+        let device;
+
+        if (event.event.width < tabletThreshold) {
+            device = "mobile";
+        } else if (event.event.width < pcThreshold) {
+            device = "tablet";
+        } else {
+            device = "pc";
+        }
+
+
         try {
             const response = await prisma.analytics.create({
                 data: {
                     type: namespace,
                     os: os,
                     browser: browser,
-                    device: "web",
+                    device,
                     location: `${ipinfo.city}, ${ipinfo.region}, ${ipinfo.country}`,
                     path: event.path,
                     siteId: event.siteId || null,

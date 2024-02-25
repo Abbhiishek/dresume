@@ -44,6 +44,7 @@ function DefaultTheme({
             <UserPortfolioNavbar
                 name={sitedata.name!}
                 logo={sitedata.logo!}
+                siteid={sitedata.id!}
             />
             <div className="container px-2 mx-auto">
                 <HomeSection
