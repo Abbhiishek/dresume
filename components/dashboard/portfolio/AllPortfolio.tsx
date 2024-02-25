@@ -1,34 +1,26 @@
-"use client"
+import prisma from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import { Site } from "@prisma/client";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { useEffect, useState } from "react";
 import PortfolioCard from "./PortfolioCard";
 
 
-export default function AllPortfolioLayout({ userid }: { userid: string }) {
-    const [sites, setSites] = useState<Site[]>([]);
+export default async function AllPortfolioLayout({ limit }: { limit?: number }) {
     const session = auth();
     if (!session.userId) {
         redirect("/")
     }
-    useEffect(() => {
-        const fetchSites = async () => {
-            const response = await fetch("/api/portfolio", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    userId: userid as string
-                })
-            });
-            const data = await response.json();
-            setSites(data.sites);
-        };
-        fetchSites();
-    }, [userid])
+    const sites = await prisma.site.findMany({
+        where: {
+            user: {
+                id: session.userId as string,
+            },
+        },
+        orderBy: {
+            createdAt: "asc",
+        },
+        ...(limit ? { take: limit } : {}),
+    });
 
     return sites.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
