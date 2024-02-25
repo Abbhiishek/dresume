@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import PortfolioCard from "./PortfolioCard";
 
 
-export default function AllPortfolioLayout() {
+export default function AllPortfolioLayout({ userid }: { userid: string }) {
     const [sites, setSites] = useState<Site[]>([]);
     const session = auth();
     if (!session.userId) {
@@ -21,14 +21,14 @@ export default function AllPortfolioLayout() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    userId: session.userId as string
+                    userId: userid as string
                 })
             });
             const data = await response.json();
             setSites(data.sites);
         };
         fetchSites();
-    }, [session.userId])
+    }, [userid])
 
     return sites.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
