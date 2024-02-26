@@ -336,7 +336,7 @@ export const getSiteUserAgentAnalytics = async (siteid: string) => {
 
         response.reduce((acc: { name: string, value: number, }[], curr) => {
             if (curr.os === null) return acc;
-            let tempname;
+            let tempname: string;
             if (curr.os?.toLowerCase().includes("windows")) {
                 tempname = "🪟 Windows"
             } else if (curr.os?.toLowerCase().includes("android")) {
@@ -363,7 +363,7 @@ export const getSiteUserAgentAnalytics = async (siteid: string) => {
 
         response.reduce((acc: { name: string, value: number, }[], curr) => {
             if (curr.browser === null) return acc;
-            let tempname;
+            let tempname: string;
             if (curr.browser?.toLowerCase().includes("chrome")) {
                 tempname = "🌎 Chrome"
             } else if (curr.browser?.toLowerCase().includes("edge")) {
@@ -389,7 +389,7 @@ export const getSiteUserAgentAnalytics = async (siteid: string) => {
 
         response.reduce((acc: { name: string, value: number, }[], curr) => {
             if (curr.device === null) return acc;
-            let tempname;
+            let tempname: string;
             if (curr.device?.toLowerCase().includes("mobile")) {
                 tempname = "📱 Mobile"
             } else if (curr.device?.toLowerCase().includes("tablet")) {
