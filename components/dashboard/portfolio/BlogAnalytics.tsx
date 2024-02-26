@@ -1,5 +1,5 @@
 import { getSiteBlogAnalytics } from '@/lib/analytics';
-import { BlogBarList } from './BlogBarList';
+import { BlogBarList } from './BarList';
 
 
 async function BlogAnalytics({ siteid }: { siteid: string }) {

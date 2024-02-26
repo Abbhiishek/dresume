@@ -96,13 +96,6 @@ export const getSitesAnalytics = async (siteid: string, nDays: number): Promise<
 
         let data: { date: string, views: number }[] = []
 
-
-
-
-
-
-
-
         for (let i = nDays - 1; i > 1; i--) {
             let date = new Date(new Date().setDate(new Date().getDate() - i)).toLocaleDateString()
             let index = data.findIndex(d => d.date === date)
@@ -310,77 +303,123 @@ export const getAnalytics = async (namespace: "sites" | "blog" | "other", event:
     }
 }
 
-// type AnalyticsArgs = {
-//     retention?: number
-// }
 
-// type TrackOptions = {
-//     persist?: boolean
-// }
 
-// export class Analytics {
-//     private retention: number = 60 * 60 * 24 * 365 // 1 yearx
+export const getSiteUserAgentAnalytics = async (siteid: string) => {
+    try {
+        const response = await prisma.analytics.findMany({
+            where: {
+                type: "sites",
+                siteId: siteid,
+                created_at: {
+                    gte: new Date(new Date().setDate(new Date().getDate() - 30))
+                },
+            }
+        })
 
-//     constructor(opts?: AnalyticsArgs) {
-//         if (opts?.retention) this.retention = opts.retention
-//     }
+        let osdata: {
+            name: string,
+            value: number
+        }[] = []
 
-//     async track(namespace: string, event: object = {}, opts?: TrackOptions) {
-//         let key = `analytics::${namespace}`
 
-//         if (!opts?.persist) {
-//             key += `::${getDate()}`
-//         }
+        let browserdata: {
+            name: string,
+            value: number
+        }[] = []
 
-//         // db call to persist this event
-//         prisma.analytics.create({
-//             data: {
-//                 namespace,
-//                 event: JSON.stringify(event),
-//             },
-//         })
-//         await redis.hincrby(key, JSON.stringify(event), 1)
-//         if (!opts?.persist) await redis.expire(key, this.retention)
-//     }
 
-//     async retrieveDays(namespace: string, nDays: number) {
-//         type AnalyticsPromise = ReturnType<typeof analytics.retrieve>
-//         const promises: AnalyticsPromise[] = []
+        let devicedata: {
+            name: string,
+            value: number
+        }[] = []
 
-//         for (let i = 0; i < nDays; i++) {
-//             const formattedDate = getDate(i)
-//             const promise = analytics.retrieve(namespace, formattedDate)
-//             promises.push(promise)
-//         }
+        response.reduce((acc: { name: string, value: number, }[], curr) => {
+            if (curr.os === null) return acc;
+            let tempname;
+            if (curr.os?.toLowerCase().includes("windows")) {
+                tempname = "🪟 Windows"
+            } else if (curr.os?.toLowerCase().includes("android")) {
+                tempname = "🔋 Android"
+            } else if (curr.os?.toLowerCase().includes("linux")) {
+                tempname = "🐧 Linux"
+            } else if (curr.os?.toLowerCase().includes("mac")) {
+                tempname = "💻 Mac Os"
+            } else {
+                tempname = "🐘 Other"
+            }
+            let index = acc.findIndex(d => d.name === (tempname))
+            if (index !== -1) {
+                acc[index].value += 1
+            } else {
+                acc.push({
+                    name: tempname,
+                    value: 1
+                })
+            }
+            return acc
+        }, osdata)
 
-//         const fetched = await Promise.all(promises)
 
-//         const data = fetched.sort((a, b) => {
-//             if (
-//                 parse(a.date, 'dd/MM/yyyy', new Date()) >
-//                 parse(b.date, 'dd/MM/yyyy', new Date())
-//             ) {
-//                 return 1
-//             } else {
-//                 return -1
-//             }
-//         })
+        response.reduce((acc: { name: string, value: number, }[], curr) => {
+            if (curr.browser === null) return acc;
+            let tempname;
+            if (curr.browser?.toLowerCase().includes("chrome")) {
+                tempname = "🌎 Chrome"
+            } else if (curr.browser?.toLowerCase().includes("edge")) {
+                tempname = "📐 Edge"
+            } else if (curr.browser?.toLowerCase().includes("firefox")) {
+                tempname = "🦊 Firefox"
+            } else {
+                tempname = "🐘 Other"
+            }
 
-//         return data
-//     }
+            let index = acc.findIndex(d => d.name === (tempname))
+            if (index !== -1) {
+                acc[index].value += 1
+            } else {
+                acc.push({
+                    name: tempname,
+                    value: 1
+                })
+            }
+            return acc
+        }, browserdata)
 
-//     async retrieve(namespace: string, date: string) {
-//         const res = await redis.hgetall<Record<string, string>>(
-//             `analytics::${namespace}::${date}`
-//         )
 
-//         return {
-//             date,
-//             events: Object.entries(res ?? []).map(([key, value]) => ({
-//                 [key]: Number(value),
-//             })),
-//         }
-//     }
-// }
+        response.reduce((acc: { name: string, value: number, }[], curr) => {
+            if (curr.device === null) return acc;
+            let tempname;
+            if (curr.device?.toLowerCase().includes("mobile")) {
+                tempname = "📱 Mobile"
+            } else if (curr.device?.toLowerCase().includes("tablet")) {
+                tempname = "📲 Tablet"
+            } else {
+                tempname = "🖥️ Laptop/Pc"
+            }
+            let index = acc.findIndex(d => d.name === (tempname))
+            if (index !== -1) {
+                acc[index].value += 1
+            } else {
+                acc.push({
+                    name: tempname,
+                    value: 1
+                })
+            }
+            return acc
+        }, devicedata)
 
-// export const analytics = new Analytics()
+        return {
+            os: osdata,
+            browser: browserdata,
+            device: devicedata
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            os: [],
+            browser: [],
+            device: []
+        }
+    }
+}

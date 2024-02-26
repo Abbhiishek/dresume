@@ -14,8 +14,6 @@ export const APP_CORE_DEVELOPER = [
 
 
 export const APP_GITHUB_REPO_LINK = "https://github.com/Abbhiishek/dresume";
-
-
 export const WORKING_GIRL_UNDER_TREE = "https://illustrations.popsy.co/emerald/digital-nomad.svg"
 export const COUPLE_BUILDING_STUFF = "https://illustrations.popsy.co/emerald/creative-work.svg"
 export const ROCKET_INTO_SPACE = "https://illustrations.popsy.co/emerald/man-riding-a-rocket.svg"
