@@ -66,7 +66,7 @@ async function handler(request: NextRequest) {
                 }
             })
 
-            if (event.siteId) {
+            if (event.event.siteId) {
                 await prisma.site.update({
                     where: {
                         id: event.siteId
@@ -79,7 +79,7 @@ async function handler(request: NextRequest) {
                 })
             }
 
-            if (event.blogId) {
+            if (event.event.blogId) {
                 await prisma.blog.update({
                     where: {
                         id: event.blogId
@@ -92,7 +92,7 @@ async function handler(request: NextRequest) {
                 })
             }
 
-            return Response.json({ status: "tracked !", response: response });
+            return Response.json({ status: "tracked " });
         } catch (error) {
             console.error({ error: error })
             return Response.json({ error: error });
