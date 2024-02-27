@@ -69,7 +69,7 @@ async function handler(request: NextRequest) {
             if (event.event.siteId) {
                 await prisma.site.update({
                     where: {
-                        id: event.siteId
+                        id: event.event.siteId
                     },
                     data: {
                         totalviews: {
@@ -82,7 +82,7 @@ async function handler(request: NextRequest) {
             if (event.event.blogId) {
                 await prisma.blog.update({
                     where: {
-                        id: event.blogId
+                        id: event.event.blogId
                     },
                     data: {
                         totalviews: {
